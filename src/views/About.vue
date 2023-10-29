@@ -10,6 +10,7 @@
     <br>
     <v-btn @click="moduleStore.setModule(5)">SET MODULE</v-btn>
     <!-- <br><br>    <input v-model="moduleStore.dialog" /> -->
+    <p>Hello World</p>
     </div>
 
 <br>
