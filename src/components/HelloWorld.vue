@@ -93,7 +93,7 @@
         <!-- <code class="text-subtitle-1">.{{ model }}</code> -->
         <!-- </div> -->
 
-        <v-main style="background-color: #ccc;">
+        <v-main style="background-color: #fff;">
           <!-- <v-container style="background-color: white;"> -->
           <v-container class="mx-auto mb-0 py-0" elevation="12" fluid style="width: 97%">
 
