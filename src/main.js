@@ -6,6 +6,8 @@
 
 // Components
 import App from './App.vue'
+import Particles from '@tsparticles/vue3'
+import { loadSlim } from '@tsparticles/slim'
 
 // Composables
 import { createApp } from 'vue'
@@ -13,7 +15,16 @@ import { createApp } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 
-const app = createApp(App)
+import './interceptors/axios'
+
+// const app = createApp(App).use(Particles)
+
+const app = createApp(App).use(Particles, {
+    init: async engine => {
+        // await loadFull(engine); // you can load the full tsParticles library from "tsparticles" if you need it
+        await loadSlim(engine); // or you can load the slim version from "@tsparticles/slim" if don't need Shapes or Animations
+    },
+});
 
 registerPlugins(app)
 
@@ -26,4 +37,10 @@ registerPlugins(app)
 // }
 // app.use(cors(corsOptions));
 
+
+// var cors = require('cors')
+// app.use(cors())
+
 app.mount('#app')
+
+

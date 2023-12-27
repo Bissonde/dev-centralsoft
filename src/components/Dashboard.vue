@@ -36,13 +36,23 @@
             <v-menu>
               <template #activator="{ props }">
                 <v-avatar v-bind="props">
-                  <v-img cover
-                    src="https://images.pexels.com/photos/6217815/pexels-photo-6217815.jpeg?auto=compress&cs=tinysrgb&w=600"></v-img>
+                     
+            <v-tooltip location="top">
+              <template v-slot:activator="{ props: tooltip }">
+                
+                    <v-img cover v-bind="mergeProps(menu, tooltip)"
+                      src="https://images.pexels.com/photos/6217815/pexels-photo-6217815.jpeg?auto=compress&cs=tinysrgb&w=600"></v-img>
+               
+              </template>
+              <span>{{ MyUserName }}</span>
+            </v-tooltip>
+         
                 </v-avatar>
               </template>
 
               <v-card min-width="200px">
                 <v-list :lines="false" density="compact" nav="">
+               
                   <v-list-item to="/profile" prepend-icon="mdi-account-outline">Perfil</v-list-item>
                 </v-list>
                 <v-list :lines="false" density="compact" nav="">
@@ -2423,6 +2433,7 @@ Save
 // import { ref } from 'vue';
 import { ref, onMounted } from "vue";
 import { useField, useForm } from 'vee-validate'
+import { mergeProps } from 'vue'
 
 import ChartComponent from '@/components/ChartComponent.vue'
 import ChartComponent1 from '@/components/ChartComponent1.vue'
@@ -2460,6 +2471,7 @@ const mdGroups = ref(false)
 const vmdGroups = ref(false)
 const isDialogOpenMsg = ref(false)
 const isDialogOpenPhn = ref(false)
+
 const emailRules = [
   value => {
     if (value) {
@@ -2482,17 +2494,20 @@ setTimeout(() => {
   // "Hello"
 }, 300);
 
-
+var MyUserName = '';
+var JwtToken = '';
 onMounted(() => {
   // this.$router.go(0)
-   if(window.localStorage.getItem('token') != null)
+   if(window.localStorage.getItem('JwtToken') != null)
    {
+    JwtToken = localStorage.getItem('JwtToken')
+    MyUserName = localStorage.getItem('username')
     // var tok = JSON.parse(localStorage.getItem('token'))
-    // alert(tok[1])
+    // alert(MyUserName)
    }
    else{
-    // window.location = '/login'
-    this.$router.push({ path: `/login` })
+    window.location = '/login'
+    // this.$router.push({ path: `/login` })
    }
 });
 </script>
@@ -2717,6 +2732,7 @@ export default {
     //   this.lastName = ''
   },
   methods: {
+    mergeProps,
     beforeOpen(event) {
       alert('Opening...')
     },
@@ -2772,6 +2788,9 @@ export default {
 
     logOff : function() {
       localStorage.removeItem("token");
+      localStorage.removeItem("JwtToken");
+      localStorage.removeItem("module");
+      localStorage.removeItem("username");
       const off = 'off';
       // window.location = '/login'
       this.$router.push({ path: `/login` })
