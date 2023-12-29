@@ -390,7 +390,7 @@ const callback = (response) => {
     window.localStorage.setItem('username', response.email)
     window.localStorage.setItem('picture', response.picture)
     window.localStorage.setItem('JwtToken', response.credential)
-    window.location = '/dashboard'
+    // window.location = '/dashboard'
 }
 
 function decodeJwtResponse(token) {
