@@ -146,10 +146,11 @@
                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
                 <v-card-text class="text-center pt-5">
-<GoogleLogin :callback="callback" id="g_id_onload" data-type="icon" class="text-center pt-0" data-shape="rectangular" />
-    </v-card-text>
-              
-                <v-card class="mb-4" color="surface-variant" variant="tonal">
+                    <GoogleLogin :callback="callback" id="g_id_onload" data-type="icon" class="text-center pt-0"
+                        data-shape="rectangular" style="font-size: 18pt;" />
+                </v-card-text>
+
+                <v-card class="mb-4 rounded-0" color="surface-variant" variant="tonal">
                     <v-card-text class="text-medium-emphasis text-caption">
                         <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
                         Aviso: Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
@@ -362,7 +363,6 @@
         </div>
 
     </v-form>
-    
 </template>
 
 
@@ -383,6 +383,9 @@ import { useRouter } from 'vue-router';
 
 const callback = (response) => {
     console.log("Handle the response", response)
+    alert(response.credential)
+    TokenStore.setToken(response.credential, true);
+     window.location = '/dashboard'
 }
 
 // const particlesLoaded = async container => {
@@ -455,6 +458,7 @@ export default {
 
     },
     methods: {
+
         onSuccess(googleUser) {
             console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
         },
