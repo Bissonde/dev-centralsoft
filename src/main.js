@@ -8,6 +8,7 @@
 import App from './App.vue'
 import Particles from '@tsparticles/vue3'
 import { loadSlim } from '@tsparticles/slim'
+import vue3GoogleLogin from 'vue3-google-login'
 
 // Composables
 import { createApp } from 'vue'
@@ -25,6 +26,10 @@ const app = createApp(App).use(Particles, {
         await loadSlim(engine); // or you can load the slim version from "@tsparticles/slim" if don't need Shapes or Animations
     },
 });
+
+app.use(vue3GoogleLogin, {
+    clientId: '939069661433-5em5l5aq1ubvrhr26u9ba20sn36rvpfs.apps.googleusercontent.com'
+})
 
 registerPlugins(app)
 

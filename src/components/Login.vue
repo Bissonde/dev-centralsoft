@@ -106,7 +106,8 @@
                 <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
                     Palavra-passe
 
-                    <v-btn class="text-caption text-decoration-none text-blue" variant="text" @click="alert = 'pwd'; loginError=false;">
+                    <v-btn class="text-caption text-decoration-none text-blue" variant="text"
+                        @click="alert = 'pwd'; loginError = false;">
                         Esqueceu a palavra-passe?</v-btn>
                 </div>
 
@@ -122,19 +123,8 @@
                     </v-card-text>
                 </v-card>
 
-                <v-card class="mb-4" color="surface-variant" variant="tonal">
-                    <v-card-text class="text-medium-emphasis text-caption">
-                        <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                        Aviso: Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
-                        bloqueada
-                        por três horas. Se precisar fazer login agora, você também pode clicar em "Esqueceu a senha de
-                        login?"
-                        abaixo para redefinir a senha de login.
-                    </v-card-text>
-                </v-card>
-
-
-                <v-card-text class="text-center">
+                <!-- LOGIN BUTTONS -->
+                <v-card-text class="text-center pt-0">
 
                     <v-row>
                         <v-col cols="md-6">
@@ -152,6 +142,25 @@
                         </v-col>
                     </v-row>
                 </v-card-text>
+
+                <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
+
+                <v-card-text class="text-center pt-5">
+<GoogleLogin :callback="callback" id="g_id_onload" data-type="icon" class="text-center pt-0" data-shape="rectangular" />
+    </v-card-text>
+              
+                <v-card class="mb-4" color="surface-variant" variant="tonal">
+                    <v-card-text class="text-medium-emphasis text-caption">
+                        <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
+                        Aviso: Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
+                        bloqueada
+                        por três horas. Se precisar fazer login agora, você também pode clicar em "Esqueceu a senha de
+                        login?"
+                        abaixo para redefinir a senha de login.
+                    </v-card-text>
+                </v-card>
+
+
             </v-card>
         </div>
 
@@ -183,11 +192,11 @@
                 <v-text-field density="compact" v-model="username" placeholder="Email address"
                     prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
 
-               
-                    <div class="text-subtitle-1 text-medium-emphasis">Telefone</div>
 
-                    <v-text-field density="compact" placeholder="Telemóvel" prepend-inner-icon="mdi-phone-outline"
-                        variant="outlined"></v-text-field>
+                <div class="text-subtitle-1 text-medium-emphasis">Telefone</div>
+
+                <v-text-field density="compact" placeholder="Telemóvel" prepend-inner-icon="mdi-phone-outline"
+                    variant="outlined"></v-text-field>
 
                 <v-card class="mb-4" color="red-accent-4" v-if="loginError" variant="tonal">
                     <v-card-text class="text-medium-emphasis text-caption">
@@ -210,7 +219,7 @@
                         <v-col cols="md-6">
                             <v-btn type="submit" rounded="0" block class="mb-0" color="blue-darken-4" size="large"
                                 variant="flat">
-                                Entrar
+                                Recuperar
                             </v-btn>
                         </v-col>
 
@@ -353,6 +362,7 @@
         </div>
 
     </v-form>
+    
 </template>
 
 
@@ -370,6 +380,10 @@ import { useTokenStore } from '@/store/TokenStore';
 import axios from 'axios'
 import router from '@/router';
 import { useRouter } from 'vue-router';
+
+const callback = (response) => {
+    console.log("Handle the response", response)
+}
 
 // const particlesLoaded = async container => {
 //     console.log("Particles container loaded", container);
@@ -399,6 +413,7 @@ onMounted(() => {
 <script>
 const TokenStore = useTokenStore();
 const newToken = ['ljahsdfq697e69qwerq', 'Vasco Gungui', 'Administrator']
+
 
 export default {
     data: () => ({
@@ -440,6 +455,23 @@ export default {
 
     },
     methods: {
+        onSuccess(googleUser) {
+            console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+        },
+        onFailure(error) {
+            console.log(error);
+        },
+        renderButton() {
+            gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 240,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+            });
+        },
         checkInput: function () {
             window.localStorage.setItem('JwtToken', JSON.stringify(newToken));
             this.$router.push({ path: `/dashboard` })
@@ -642,5 +674,15 @@ export default {
 .v-text-field:deep() {
     font-size: 12px;
     height: 25%;
+}
+
+.or {
+    text-align: center;
+    font-size: 20px;
+    background:
+        linear-gradient(#000 0 0) left,
+        linear-gradient(#000 0 0) right;
+    background-size: 40% 1px;
+    background-repeat: no-repeat;
 }
 </style>
