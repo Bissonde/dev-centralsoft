@@ -384,8 +384,10 @@ import { useRouter } from 'vue-router';
 const callback = (response) => {
     console.log("Handle the response", response)
     const PayLoad = decodeJwtResponse(response.credential)
+    console.log("Handle the response", PayLoad)
     alert(PayLoad)
     TokenStore.setToken(response.credential, true);
+    window.localStorage.setItem('username', response.emailMatch)
     window.localStorage.setItem('JwtToken', response.credential)
     window.location = '/dashboard'
 }
