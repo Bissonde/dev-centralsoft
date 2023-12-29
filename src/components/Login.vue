@@ -146,7 +146,7 @@
                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
                 <v-card-text class="text-center pt-5">
-                    <GoogleLogin :callback="callback" id="g_id_onload" data-type="icon" class="text-center pt-0"
+                    <GoogleLogin :callback="callback"  data-width="300" id="g_id_onload" data-type="icon" class="text-center pt-0"
                         data-shape="rectangular" style="font-size: 18pt;" />
                 </v-card-text>
 
@@ -385,7 +385,8 @@ const callback = (response) => {
     console.log("Handle the response", response)
     alert(response.credential)
     TokenStore.setToken(response.credential, true);
-     window.location = '/dashboard'
+    window.localStorage.setItem('JwtToken', response.credential)
+    window.location = '/dashboard'
 }
 
 // const particlesLoaded = async container => {
