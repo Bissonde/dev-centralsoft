@@ -383,7 +383,7 @@ import { useRouter } from 'vue-router';
 
 const callback = (response) => {
     console.log("Handle the response", response)
-    alert(response.credential)
+    // alert(response.credential)
     TokenStore.setToken(response.credential, true);
     window.localStorage.setItem('JwtToken', response.credential)
     window.location = '/dashboard'
