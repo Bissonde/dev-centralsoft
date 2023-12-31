@@ -40,8 +40,8 @@
             <v-tooltip location="top">
               <template v-slot:activator="{ props: tooltip }">
                 
-                    <v-img cover v-bind="mergeProps(menu, tooltip)"
-                      src=this.myPicture></v-img>
+                    <v-img id="myImg" cover v-bind="mergeProps(menu, tooltip)"
+                      src="https://images.pexels.com/photos/6217815/pexels-photo-6217815.jpeg?auto=compress&cs=tinysrgb&w=600"></v-img>
                
               </template>
               <span>{{ MyUserName }}</span>
@@ -2506,8 +2506,10 @@ onMounted(() => {
     MyUserName = localStorage.getItem('username')
     myPicture = localStorage.getItem('myPicture')
     myEmail = localStorage.getItem('myEmail')
+    document.getElementById("myImg").src = myPicture;
+    document["myImg"].src = myPicture;
     // var tok = JSON.parse(localStorage.getItem('token'))
-    // alert(MyUserName)
+    alert(myPicture)
    }
    else{
     window.location = '/login'
