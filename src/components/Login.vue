@@ -119,7 +119,12 @@
                 <v-card class="mb-4" color="red-accent-4" v-if="loginError" variant="tonal">
                     <v-card-text class="text-medium-emphasis text-caption">
                         <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                        <v-icon>mdi-alert</v-icon>&nbsp;E-mail/Palavra-passe errados!
+                        <v-icon>mdi-alert</v-icon>&nbsp;<b>E-mail/Palavra-passe errados!</b>
+                         <br><b>Aviso:</b> Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
+                            bloqueada
+                            por três horas. Se precisar fazer login agora, você também pode clicar em "Esqueceu a senha de
+                            login?"
+                            abaixo para redefinir a senha de login.
                     </v-card-text>
                 </v-card>
 
@@ -150,16 +155,12 @@
                         data-shape="rectangular" style="font-size: 18pt;" />
                 </v-card-text>
 
-                <v-card class="mb-4 rounded-0" color="surface-variant" variant="tonal">
+                <!-- <v-card class="mb-4 rounded-0" color="surface-variant" variant="tonal">
                     <v-card-text class="text-medium-emphasis text-caption">
-                        <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                        Aviso: Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
-                        bloqueada
-                        por três horas. Se precisar fazer login agora, você também pode clicar em "Esqueceu a senha de
-                        login?"
-                        abaixo para redefinir a senha de login.
+                        Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password.
+                       ---
                     </v-card-text>
-                </v-card>
+                </v-card> -->
 
 
             </v-card>
@@ -385,7 +386,7 @@ const callback = (response) => {
     console.log("Handle the response", response)
     const PayLoad = decodeJwtResponse(response.credential)
     console.log("Handle the response", PayLoad)
-    alert(PayLoad)
+    alert(PayLoad.email)
     TokenStore.setToken(response.credential, true);
     window.localStorage.setItem('username', response.email)
     window.localStorage.setItem('picture', response.picture)
