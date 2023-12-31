@@ -383,14 +383,15 @@ import router from '@/router';
 import { useRouter } from 'vue-router';
 
 const callback = (response) => {
-    console.log("Handle the response", response)
+    // console.log("Handle the response", response)
     const PayLoad = decodeJwtResponse(response.credential)
     console.log("Handle the response", PayLoad)
-    alert(PayLoad.email)
+    // alert(PayLoad.email)
     TokenStore.setToken(response.credential, true);
-    window.localStorage.setItem('username', response.email)
-    window.localStorage.setItem('picture', response.picture)
-    window.localStorage.setItem('JwtToken', response.credential)
+    window.localStorage.setItem('username', PayLoad.name)
+    window.localStorage.setItem('email', PayLoad.email)
+    window.localStorage.setItem('picture', PayLoad.picture)
+    window.localStorage.setItem('JwtToken', PayLoad.credential)
     // window.location = '/dashboard'
 }
 
