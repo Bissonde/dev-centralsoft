@@ -393,7 +393,7 @@ const callback = (response) => {
     window.localStorage.setItem('given_name', PayLoad.given_name)
     window.localStorage.setItem('email', PayLoad.email)
     window.localStorage.setItem('picture', PayLoad.picture)
-    window.localStorage.setItem('JwtToken', PayLoad.credential)
+    window.localStorage.setItem('JwtToken', response.credential)
     window.location = '/dashboard'
 }
 

@@ -41,7 +41,7 @@
               <template v-slot:activator="{ props: tooltip }">
                 
                     <v-img cover v-bind="mergeProps(menu, tooltip)"
-                      src="https://images.pexels.com/photos/6217815/pexels-photo-6217815.jpeg?auto=compress&cs=tinysrgb&w=600"></v-img>
+                      src=this.myPicture></v-img>
                
               </template>
               <span>{{ MyUserName }}</span>
@@ -2496,12 +2496,16 @@ setTimeout(() => {
 
 var MyUserName = '';
 var JwtToken = '';
+var myPicture = '';
+var myEmail = '';
 onMounted(() => {
   // this.$router.go(0)
    if(window.localStorage.getItem('JwtToken') != null)
    {
     JwtToken = localStorage.getItem('JwtToken')
     MyUserName = localStorage.getItem('username')
+    myPicture = localStorage.getItem('myPicture')
+    myEmail = localStorage.getItem('myEmail')
     // var tok = JSON.parse(localStorage.getItem('token'))
     // alert(MyUserName)
    }
