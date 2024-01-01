@@ -2508,7 +2508,7 @@ onMounted(() => {
     document.getElementById("myImg").src = myPicture;
     // document["myImg"].src = myPicture;
     // var tok = JSON.parse(localStorage.getItem('token'))
-    alert(myPicture)
+    // alert(myPicture)
    }
    else{
     window.location = '/login'
