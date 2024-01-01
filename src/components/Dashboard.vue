@@ -40,7 +40,7 @@
             <v-tooltip location="top">
               <template v-slot:activator="{ props: tooltip }">
                 
-                    <v-img id="myImg" cover v-bind:style="{ backgroundImage: 'url(' + myPicture + ')'}" v-bind="mergeProps(menu, tooltip)"></v-img>
+                    <v-img id="myImg" class="circular"  cover v-bind:style="{ backgroundImage: 'url(' + myPicture + ')', backgroundPosition: 'center center', backgroundSize: 'cover' }" v-bind="mergeProps(menu, tooltip)"></v-img>
                
               </template>
               <span>{{ MyUserName }}</span>
