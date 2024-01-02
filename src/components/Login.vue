@@ -116,7 +116,6 @@
                     prepend-inner-icon="mdi-lock-outline" variant="outlined"
                     @click:append-inner="visible = !visible"></v-text-field>
 
-               <br>
                         <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
                         <v-alert v-if="loginError" closable text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
                             bloqueada por três horas." type="error" variant="tonal">
@@ -124,8 +123,6 @@
                                     <!-- login? abaixo para redefinir a senha de login. -->
                             </v-alert>
                    
-                            <br>
-                            <br>
                 <!-- <v-card class="mb-4" width="200" color="surface-variant" variant="text">
                         <v-card-text style="color: white;" class="text-medium-emphasis text-caption surface-variant" color="surface-variant">
                             Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
