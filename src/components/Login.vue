@@ -108,7 +108,7 @@
 
                     <v-btn class="text-caption text-decoration-none text-blue" variant="text"
                         @click="alert = 'pwd'; loginError = false;">
-                         <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Esqueceu a palavra-passe?</v-btn>
+                        <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Esqueceu a palavra-passe?</v-btn>
                 </div>
 
                 <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'"
@@ -116,20 +116,20 @@
                     prepend-inner-icon="mdi-lock-outline" variant="outlined"
                     @click:append-inner="visible = !visible"></v-text-field>
 
-                    <v-card-text class="text-center pt-0">
-                        <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                        <v-alert v-if="loginError" rounded="0" class="text-caption" closable text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
+                <v-card-text class="text-center pt-0">
+                    <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
+                    <v-alert v-if="loginError" rounded="0" class="text-caption font-weight-regular" closable text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
                             bloqueada por três horas." type="error" variant="tonal">
-                             <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
-                                    <!-- login? abaixo para redefinir a senha de login. -->
-                            </v-alert>
-                   </v-card-text>
+                        <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
+                        <!-- login? abaixo para redefinir a senha de login. -->
+                    </v-alert>
+                </v-card-text>
                 <!-- <v-card class="mb-4" width="200" color="surface-variant" variant="text">
                         <v-card-text style="color: white;" class="text-medium-emphasis text-caption surface-variant" color="surface-variant">
                             Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                            <!-- Aviso: Preencha todos os campos para prosseguir com o início de sessão. -->
-                        <!-- </v-card-text> -->
-                    <!-- </v-card> -->
+                <!-- Aviso: Preencha todos os campos para prosseguir com o início de sessão. -->
+                <!-- </v-card-text> -->
+                <!-- </v-card> -->
 
                 <!-- LOGIN BUTTONS -->
                 <v-card-text class="text-center pt-0">
@@ -143,9 +143,13 @@
                         </v-col>
 
                         <v-col cols="md-6">
+                            <div class="text-caption text-decoration-none text-blue">
+                                Palavra-passe
+                            </div>
                             <v-btn variant="tonal" size="large" block rounded="0" class="text-blue text-decoration-none"
                                 rel="noopener noreferrer" target="/register" @click="alert = 'reg'; loginError = false;">
-                                <v-icon icon="mdi-account-plus"></v-icon>&nbsp;Inscreva-se<v-icon icon="mdi-chevron-right"></v-icon>
+                                <v-icon icon="mdi-account-plus"></v-icon>&nbsp;Inscreva-se<v-icon
+                                    icon="mdi-chevron-right"></v-icon>
                             </v-btn>
                         </v-col>
                     </v-row>
@@ -154,8 +158,8 @@
                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
                 <v-card-text class="text-center pt-5">
-                    <GoogleLogin :callback="callback" block  data-width="300" id="g_id_onload" data-type="icon" class="text-center pt-0"
-                        data-shape="rectangular" style="font-size: 18pt;" />
+                    <GoogleLogin :callback="callback" block data-width="300" id="g_id_onload" data-type="icon"
+                        class="text-center pt-0" data-shape="rectangular" style="font-size: 18pt;" />
                 </v-card-text>
 
                 <!-- <v-card class="mb-4 rounded-0" color="surface-variant" variant="tonal">
@@ -211,10 +215,10 @@
                 </v-card>
 
                 <!-- <v-card class="mb-4" color="surface-variant" variant="tonal"> -->
-                    <!-- <v-card-text class="text-medium-emphasis text-caption"> -->
-                        <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                        <!-- Aviso: Irá receber um link por e-mail / sms para proceder a alteração da sua palavra-passe. -->
-                    <!-- </v-card-text> -->
+                <!-- <v-card-text class="text-medium-emphasis text-caption"> -->
+                <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
+                <!-- Aviso: Irá receber um link por e-mail / sms para proceder a alteração da sua palavra-passe. -->
+                <!-- </v-card-text> -->
                 <!-- </v-card> -->
 
 
@@ -224,14 +228,15 @@
                         <v-col cols="md-6">
                             <v-btn type="submit" rounded="0" block class="mb-0" color="blue-darken-4" size="large"
                                 variant="flat">
-                                 <v-icon icon="mdi-lock-reset"></v-icon>&nbsp;Recuperar
+                                <v-icon icon="mdi-lock-reset"></v-icon>&nbsp;Recuperar
                             </v-btn>
                         </v-col>
 
                         <v-col cols="md-6">
                             <v-btn variant="tonal" size="large" block rounded="0" class="text-blue text-decoration-none"
                                 rel="noopener noreferrer" target="/register" @click="alert = 'reg'; loginError = false;">
-                                 <v-icon icon="mdi-account-plus"></v-icon>&nbsp;Inscreva-se<v-icon icon="mdi-chevron-right"></v-icon>
+                                <v-icon icon="mdi-account-plus"></v-icon>&nbsp;Inscreva-se<v-icon
+                                    icon="mdi-chevron-right"></v-icon>
                             </v-btn>
                         </v-col>
                     </v-row>
@@ -297,15 +302,15 @@
                     </v-card-text>
                 </v-card>
 
-                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
+                <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
-                    <v-card-text class="text-center pt-5">
-                        <GoogleLogin :callback="callback"  data-width="300" id="g_id_onload" data-type="icon" class="text-center pt-0"
-                            data-shape="rectangular" style="font-size: 18pt;" />
-                    </v-card-text>
+                <v-card-text class="text-center pt-5">
+                    <GoogleLogin :callback="callback" data-width="300" id="g_id_onload" data-type="icon"
+                        class="text-center pt-0" data-shape="rectangular" style="font-size: 18pt;" />
+                </v-card-text>
 
                 <v-btn block class="mb-0 rounded-0" color="blue-darken-4" size="large" variant="flat">
-                     <v-icon icon="mdi-login"></v-icon>&nbsp;Terminar
+                    <v-icon icon="mdi-login"></v-icon>&nbsp;Terminar
                 </v-btn>
 
                 <!-- <v-card-text class="text-center">
