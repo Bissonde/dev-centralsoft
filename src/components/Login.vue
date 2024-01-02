@@ -119,11 +119,8 @@
                
                         <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
                         <v-alert v-if="loginError" closable text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
-                            bloqueada por três horas. Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de
+                            bloqueada por três horas. <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de
                                 login? abaixo para redefinir a senha de login." type="error" variant="tonal">
-                        
-                        <v-icon>mdi-alert</v-icon>&nbsp;<b>E-mail/Palavra-passe errados!</b>
-                         <br><b>Aviso:</b> 
                             </v-alert>
                    
                 <!-- <v-card class="mb-4" width="200" color="surface-variant" variant="text">
