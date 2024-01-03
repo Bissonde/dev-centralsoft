@@ -443,6 +443,11 @@ const callbackReg = (response) => {
     // window.location = '/dashboard'
 }
 
+function Register() {
+    this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
+    this.regEmail = window.localStorage.getItem('email')
+}
+
 function decodeJwtResponse(token) {
     var base64Url = token.split(".")[1];
     var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -765,10 +770,6 @@ export default {
             // axios.get(url, { AxiosHeaders })
             // .then(response => this.userDetails = console.log(response.data))
             // .then((data) => loadTableData(data))
-        },
-        Register: function () {
-            this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
-            this.regEmail = window.localStorage.getItem('email')
         }
     },
     computed: {
