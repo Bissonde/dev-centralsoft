@@ -572,16 +572,16 @@ export default {
                         window.localStorage.setItem('username', this.username)
                         // window.localStorage.setItem('JwtToken', response.data.token)
 
-                        alert(response.data.token)
-                        alert(response.token)
+                        // alert(response.data.token)
+                        // alert(response.token)
 
-                        if (response.data.token != undefined) {
+                        // if (response.data.token != undefined) {
                             window.localStorage.setItem('JwtToken', response.data.token)
-                        }
-                        else
-                        {
-                            window.localStorage.setItem('JwtToken', response.token)
-                        }
+                        // }
+                        // else
+                        // {
+                        //     window.localStorage.setItem('JwtToken', response.token)
+                        // }
                         window.location = '/dashboard'
                     }
                 )
