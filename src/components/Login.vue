@@ -571,18 +571,25 @@ export default {
 
                         window.localStorage.setItem('username', this.username)
                         // window.localStorage.setItem('JwtToken', response.data.token)
-                       
+
                         // window.localStorage.setItem('username', response.data.name)
                         // window.localStorage.setItem('family_name', response.data.family_name)
                         // window.localStorage.setItem('given_name', response.data.given_name)
                         // window.localStorage.setItem('email', response.data.email)
-                        window.localStorage.setItem('myPicture',  "https://media.istockphoto.com/id/587805156/pt/vetorial/profile-picture-vector-illustration.jpg?s=2048x2048&w=is&k=20&c=Jn2cU9I5jHf_DVZpSMlqT7Ci-gmUdMw0pqLIfqk6PMk=")
+                        if (response.data.picture == null) {
+                            if(response.data.sex == '0'){
+                                window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w=")
+                            }
+                            else{
+                                window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/512044369/pt/vetorial/homem-com-cabe%C3%A7a-de-silhueta-isolado.jpg?s=612x612&w=0&k=20&c=TG1sJNJBrNox7bCG4-jlrCgzG2uR4ZV-tOtwWBPzZaI=")
+                            }
+                            }
                         window.localStorage.setItem('JwtToken', response.credential)
                         // alert(response.data.token)
                         // alert(response.token)
 
                         // if (response.data.token != undefined) {
-                            window.localStorage.setItem('JwtToken', response.data.token)
+                        window.localStorage.setItem('JwtToken', response.data.token)
                         // }
                         // else
                         // {
