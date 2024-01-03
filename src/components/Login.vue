@@ -316,7 +316,7 @@
                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
                 <v-card-text class="text-center pt-5">
-                    <GoogleLogin :callback="callbackReg; Register()" @click="" onsuccess="Register()" data-width="300" id="g_id_onload"
+                    <GoogleLogin :callback="callbackReg Register" @click="" onsuccess="Register()" data-width="300" id="g_id_onload"
                         data-type="icon" class="text-center pt-0" data-shape="rectangular" style="font-size: 18pt;" />
                 </v-card-text>
 
