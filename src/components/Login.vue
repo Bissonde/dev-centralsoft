@@ -123,6 +123,11 @@
                     <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
                     <!-- login? abaixo para redefinir a senha de login. -->
                 </v-alert>
+                
+                   <v-alert v-if="emptyFields" rounded="0" class="text-caption font-weight-regular" closable text="Deve preencher os campos nome de utilizador/palavra-passe" type="error" variant="tonal">
+                        <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
+                        <!-- login? abaixo para redefinir a senha de login. -->
+                    </v-alert>
                 <!-- </v-card-text> -->
                 <!-- <v-card class="mb-4" width="200" color="surface-variant" variant="text">
                         <v-card-text style="color: white;" class="text-medium-emphasis text-caption surface-variant" color="surface-variant">
@@ -147,10 +152,10 @@
 
                         <v-col cols="md-6">
                             <div class="text-caption text-decoration-none text-blue">
-                                Não tens uma conta ainda?
+                                És novo aqui?
                             </div>
                             <v-btn variant="tonal" size="large" block rounded="0" class="text-blue text-decoration-none"
-                                rel="noopener noreferrer" target="/register" @click="alert = 'reg'; loginError = false;">
+                                rel="noopener noreferrer" target="/register" @click="alert = 'reg'; loginError = false; emptyFields = false;">
                                 <v-icon icon="mdi-account-plus"></v-icon>&nbsp;Inscreva-se<v-icon
                                     icon="mdi-chevron-right"></v-icon>
                             </v-btn>
@@ -229,18 +234,18 @@
 
                     <v-row>
                         <v-col cols="md-6">
-                            <v-btn type="submit" rounded="0" block class="mb-0" color="blue-darken-4" size="large"
-                                variant="flat">
-                                <v-icon icon="mdi-lock-reset"></v-icon>&nbsp;Recuperar
-                            </v-btn>
+                            <v-btn variant="outlined" color="red-accent-4" size="large" block rounded="0" class="text-red text-decoration-none"
+                                    rel="noopener noreferrer" target="/register" @click="alert = 'log'; loginError = false;">
+                                    <v-icon icon="mdi-arrow-left-circle"></v-icon>&nbsp;Voltar
+                                </v-btn>
+                           
                         </v-col>
 
                         <v-col cols="md-6">
-                            <v-btn variant="tonal" size="large" block rounded="0" class="text-blue text-decoration-none"
-                                rel="noopener noreferrer" target="/register" @click="alert = 'reg'; loginError = false;">
-                                <v-icon icon="mdi-account-plus"></v-icon>&nbsp;Inscreva-se<v-icon
-                                    icon="mdi-chevron-right"></v-icon>
-                            </v-btn>
+                             <v-btn type="submit" rounded="0" block class="mb-0" color="blue-darken-4" size="large"
+                                    variant="flat">
+                                    <v-icon icon="mdi-lock-reset"></v-icon>&nbsp;Recuperar
+                                </v-btn>
                         </v-col>
                     </v-row>
                 </v-card-text>
@@ -274,12 +279,12 @@
 
                 <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 
-                <v-text-field density="compact" placeholder="Email address" prepend-inner-icon="mdi-email-outline"
+                <v-text-field density="compact" v-model="regEmail" placeholder="Email address" prepend-inner-icon="mdi-email-outline"
                     variant="outlined"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Nome completo</div>
 
-                <v-text-field density="compact" placeholder="Email address" prepend-inner-icon="mdi-account-outline"
+                <v-text-field density="compact" v-model="regFullName" placeholder="Nome Completo" prepend-inner-icon="mdi-account-outline"
                     variant="outlined"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Telefone</div>
@@ -308,7 +313,7 @@
                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
                 <v-card-text class="text-center pt-5">
-                    <GoogleLogin :callback="callback" data-width="300" id="g_id_onload" data-type="icon"
+                    <GoogleLogin :callback="callbackReg" data-width="300" id="g_id_onload" data-type="icon"
                         class="text-center pt-0" data-shape="rectangular" style="font-size: 18pt;" />
                 </v-card-text>
 
@@ -415,6 +420,22 @@ const callback = (response) => {
     window.location = '/dashboard'
 }
 
+
+const callbackReg = (response) => {
+    // console.log("Handle the response", response)
+    const PayLoad = decodeJwtResponse(response.credential)
+    console.log("Handle the response", PayLoad)
+    // alert(PayLoad.email)
+    // TokenStore.setToken(response.credential, true);
+    regEmail = PayLoad.email
+    regFullName = PayLoad.name
+    // window.localStorage.setItem('given_name', PayLoad.given_name)
+    // window.localStorage.setItem('email', PayLoad.email)
+    // window.localStorage.setItem('myPicture', PayLoad.picture)
+    // window.localStorage.setItem('JwtToken', response.credential)
+    // window.location = '/dashboard'
+}
+
 function decodeJwtResponse(token) {
     var base64Url = token.split(".")[1];
     var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -466,11 +487,15 @@ export default {
         password: '',
         show1: false,
         show2: true,
-        password: '',
         alert: 'log',
         resetPwd: false,
         visible: false,
         loginError: false,
+        emptyFields: false,
+        
+        regEmail: '',
+        regFullName: '',
+
         rules: {
             required: value => !!value || 'Campo obrigatório.',
             min: v => v.length >= 8 || 'Min 8 carácteres',
@@ -601,7 +626,15 @@ export default {
                 )
                 .catch((err) => {
                     // console.log(err.response)
-                    this.loginError = true
+                    if(this.username === '' | this.password === '')
+                    {
+                        this.loginError = false;
+                        this.emptyFields = true;
+                    }
+                    else{
+                        this.emptyFields = false;
+                        this.loginError = true;
+                    }
                 });
 
 
