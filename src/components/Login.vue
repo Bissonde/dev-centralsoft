@@ -479,6 +479,8 @@ onMounted(() => {
         // window.location = '/dashboard'
     }
     else {
+        regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
+        regEmail = window.localStorage.setItem('email')        
     }
 });
 </script>
