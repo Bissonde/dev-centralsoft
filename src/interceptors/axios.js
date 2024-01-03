@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://bissonde.ao/api/'
+axios.defaults.baseURL = 'http://rest.bissonde.ao/api/'
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
