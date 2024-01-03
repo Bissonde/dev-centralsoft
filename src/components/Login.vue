@@ -565,7 +565,7 @@ export default {
 
                 .then(
                     (response) => {
-                        console.log(response.data),
+                        // console.log(response.data),
                             //SET USER DATA
                             TokenStore.setToken(response.data, true);
 
