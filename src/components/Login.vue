@@ -425,7 +425,7 @@ const callbackReg = (response) => {
     // console.log("Handle the response", response)
     const PayLoad = decodeJwtResponse(response.credential)
     console.log("Handle the response", PayLoad)
-    alert(PayLoad.email)
+    alert(callbackReg.PayLoad.email)
     // TokenStore.setToken(response.credential, true);
     // regEmail = PayLoad.email
     // regFullName = PayLoad.name
