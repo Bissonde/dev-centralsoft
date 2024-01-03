@@ -427,8 +427,8 @@ const callbackReg = (response) => {
     console.log("Handle the response", PayLoad)
     // alert(PayLoad.email)
     // TokenStore.setToken(response.credential, true);
-    regEmail = PayLoad.email
-    regFullName = PayLoad.name
+    this.regEmail = PayLoad.email
+    this.regFullName = PayLoad.name
     // window.localStorage.setItem('given_name', PayLoad.given_name)
     // window.localStorage.setItem('email', PayLoad.email)
     // window.localStorage.setItem('myPicture', PayLoad.picture)
