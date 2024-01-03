@@ -572,6 +572,9 @@ export default {
                         window.localStorage.setItem('username', this.username)
                         // window.localStorage.setItem('JwtToken', response.data.token)
 
+                        alert(response.data.token)
+                        alert(response.token)
+
                         if (response.data.token != undefined) {
                             window.localStorage.setItem('JwtToken', response.data.token)
                         }
