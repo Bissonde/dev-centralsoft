@@ -316,7 +316,7 @@
                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
                 <v-card-text class="text-center pt-5">
-                    <GoogleLogin :callback="callbackReg" @click="" data-width="300" id="g_id_onload" data-type="icon"
+                    <GoogleLogin :callback="callbackReg" @click="Register()" data-width="300" id="g_id_onload" data-type="icon"
                         class="text-center pt-0" data-shape="rectangular" style="font-size: 18pt;" />
                 </v-card-text>
 
@@ -458,6 +458,12 @@ function decodeJwtResponse(token) {
 
     return JSON.parse(jsonPayload);
 }
+
+function Register(){
+    
+    this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
+    this.regEmail = window.localStorage.getItem('email')
+}
 // const particlesLoaded = async container => {
 //     console.log("Particles container loaded", container);
 // };
@@ -478,9 +484,7 @@ onMounted(() => {
     if (window.localStorage.getItem('JwtToken') != null) {
         // window.location = '/dashboard'
     }
-    else {
-        regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
-        regEmail = window.localStorage.setItem('email')        
+    else {    
     }
 });
 </script>
