@@ -316,8 +316,9 @@
                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
                 <v-card-text class="text-center pt-5">
-                    <GoogleLogin :callback="callbackReg" @click="Register()" onsuccess="Register()" data-width="300" id="g_id_onload"
-                        data-type="icon" class="text-center pt-0" data-shape="rectangular" style="font-size: 18pt;" />
+                    <GoogleLogin :callback="callbackReg" data-onsuccess="Register" data-width="300"
+                        id="g_id_register" data-type="icon" class="text-center pt-0" data-shape="rectangular"
+                        style="font-size: 18pt;" />
                 </v-card-text>
 
                 <v-btn block class="mb-0 rounded-0" color="blue-darken-4" size="large" variant="flat">
@@ -445,12 +446,6 @@ const callbackReg = (response) => {
     // window.location = '/dashboard'
 }
 
-function Register() {
-    regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
-    regEmail = window.localStorage.getItem('email')
-    alert(this.regEmail)
-}
-
 function decodeJwtResponse(token) {
     var base64Url = token.split(".")[1];
     var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -485,6 +480,10 @@ onMounted(() => {
     regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
     regEmail = window.localStorage.getItem('email')
     alert(this.regEmail)
+
+    gapi.signin2.render('g_id_register', {
+        onsuccess: this.Register
+    })
 
     if (window.localStorage.getItem('JwtToken') != null) {
         // window.location = '/dashboard'
@@ -777,6 +776,13 @@ export default {
             // axios.get(url, { AxiosHeaders })
             // .then(response => this.userDetails = console.log(response.data))
             // .then((data) => loadTableData(data))
+        },
+
+
+        Register: function () {
+            this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
+            this.regEmail = window.localStorage.getItem('email')
+            alert(this.regEmail)
         }
     },
     computed: {
