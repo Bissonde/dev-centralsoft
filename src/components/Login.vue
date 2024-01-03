@@ -444,8 +444,9 @@ const callbackReg = (response) => {
 }
 
 function Register() {
-    this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
-    this.regEmail = window.localStorage.getItem('email')
+    regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
+    regEmail = window.localStorage.getItem('email')
+    alert(regEmail)
 }
 
 function decodeJwtResponse(token) {
