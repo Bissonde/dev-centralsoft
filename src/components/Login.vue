@@ -316,7 +316,7 @@
                 <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
 
                 <v-card-text class="text-center pt-5">
-                    <GoogleLogin :callback="callbackReg" data-width="300" id="g_id_onload" data-type="icon"
+                    <GoogleLogin :callback="callbackReg" @click="" data-width="300" id="g_id_onload" data-type="icon"
                         class="text-center pt-0" data-shape="rectangular" style="font-size: 18pt;" />
                 </v-card-text>
 
@@ -437,8 +437,8 @@ const callbackReg = (response) => {
     window.localStorage.setItem('email', PayLoad.email)
     window.localStorage.setItem('myPicture', PayLoad.picture)
 
-    regEmail = PayLoad.email
-    regFullName = PayLoad.name
+    this.regEmail = PayLoad.email
+    this.regFullName = PayLoad.name
 
     // window.localStorage.setItem('JwtToken', response.credential)
     // window.location = '/dashboard'
