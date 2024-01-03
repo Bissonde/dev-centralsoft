@@ -576,14 +576,15 @@ export default {
                         // window.localStorage.setItem('family_name', response.data.family_name)
                         // window.localStorage.setItem('given_name', response.data.given_name)
                         // window.localStorage.setItem('email', response.data.email)
-                        if (response.data.picture == null) {
-                            if(response.data.sex == '0'){
+
+                        // if (response.data.picture == null) {
+                            // if(response.data.sex == '0'){
                                 window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w=")
-                            }
-                            else{
-                                window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/512044369/pt/vetorial/homem-com-cabe%C3%A7a-de-silhueta-isolado.jpg?s=612x612&w=0&k=20&c=TG1sJNJBrNox7bCG4-jlrCgzG2uR4ZV-tOtwWBPzZaI=")
-                            }
-                            }
+                            // }
+                            // else{
+                                // window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/512044369/pt/vetorial/homem-com-cabe%C3%A7a-de-silhueta-isolado.jpg?s=612x612&w=0&k=20&c=TG1sJNJBrNox7bCG4-jlrCgzG2uR4ZV-tOtwWBPzZaI=")
+                            // }
+                            // }
                         window.localStorage.setItem('JwtToken', response.credential)
                         // alert(response.data.token)
                         // alert(response.token)
