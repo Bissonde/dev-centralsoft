@@ -437,6 +437,8 @@ const callbackReg = (response) => {
     window.localStorage.setItem('email', PayLoad.email)
     window.localStorage.setItem('myPicture', PayLoad.picture)
 
+    this.regFullName = PayLoad.family_name
+
     Register();
 
     // window.localStorage.setItem('JwtToken', response.credential)
@@ -480,6 +482,10 @@ init: async engine => {
 
 onMounted(() => {
     // alert(TokenStore.tokenID) 
+    this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
+    this.regEmail = window.localStorage.getItem('email')
+    alert(this.regEmail)
+    
     if (window.localStorage.getItem('JwtToken') != null) {
         // window.location = '/dashboard'
     }
