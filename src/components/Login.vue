@@ -437,9 +437,6 @@ const callbackReg = (response) => {
     window.localStorage.setItem('email', PayLoad.email)
     window.localStorage.setItem('myPicture', PayLoad.picture)
 
-    this.regEmail = PayLoad.email
-    this.regFullName = PayLoad.name
-
     // window.localStorage.setItem('JwtToken', response.credential)
     // window.location = '/dashboard'
 }
