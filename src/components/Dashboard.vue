@@ -2796,6 +2796,7 @@ export default {
       localStorage.removeItem("JwtToken");
       localStorage.removeItem("module");
       localStorage.removeItem("username");
+      localStorage.removeItem("myPicture");
       const off = 'off';
       // window.location = '/login'
       this.$router.push({ path: `/login` })
