@@ -117,12 +117,12 @@
                     @click:append-inner="visible = !visible"></v-text-field>
 
                 <!-- <v-card-text class="text-center pt-0"> -->
-                    <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                    <v-alert v-if="loginError" rounded="0" class="text-caption font-weight-regular" closable text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
+                <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
+                <v-alert v-if="loginError" rounded="0" class="text-caption font-weight-regular" closable text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
                             bloqueada por três horas." type="error" variant="tonal">
-                        <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
-                        <!-- login? abaixo para redefinir a senha de login. -->
-                    </v-alert>
+                    <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
+                    <!-- login? abaixo para redefinir a senha de login. -->
+                </v-alert>
                 <!-- </v-card-text> -->
                 <!-- <v-card class="mb-4" width="200" color="surface-variant" variant="text">
                         <v-card-text style="color: white;" class="text-medium-emphasis text-caption surface-variant" color="surface-variant">
@@ -137,8 +137,8 @@
                     <v-row>
                         <v-col cols="md-6">
                             <div class="text-caption text-decoration-none text-blue">
-                                    Já tem um conta?
-                                </div>
+                                Já tem um conta?
+                            </div>
                             <v-btn type="submit" rounded="0" block class="mb-0" color="blue-darken-4" size="large"
                                 variant="flat">
                                 <v-icon icon="mdi-login"></v-icon>&nbsp;Entrar
@@ -566,12 +566,19 @@ export default {
                 .then(
                     (response) => {
                         // console.log(response.data), 
-                            //SET USER DATA
-                            TokenStore.setToken(response.data, true);
+                        //SET USER DATA
+                        TokenStore.setToken(response.data, true);
 
                         window.localStorage.setItem('username', this.username)
                         // window.localStorage.setItem('JwtToken', response.data.token)
-                        window.localStorage.setItem('JwtToken', response.data.token)
+
+                        if (response.data.token != undefined) {
+                            window.localStorage.setItem('JwtToken', response.data.token)
+                        }
+                        else
+                        {
+                            window.localStorage.setItem('JwtToken', response.token)
+                        }
                         window.location = '/dashboard'
                     }
                 )
