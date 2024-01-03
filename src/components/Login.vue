@@ -137,7 +137,7 @@
                     <v-row>
                         <v-col cols="md-6">
                             <div class="text-caption text-decoration-none text-blue">
-                                    ...
+                                    Já tem um conta?
                                 </div>
                             <v-btn type="submit" rounded="0" block class="mb-0" color="blue-darken-4" size="large"
                                 variant="flat">
