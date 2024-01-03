@@ -482,10 +482,10 @@ init: async engine => {
 
 onMounted(() => {
     // alert(TokenStore.tokenID) 
-    this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
-    this.regEmail = window.localStorage.getItem('email')
+    regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
+    regEmail = window.localStorage.getItem('email')
     alert(this.regEmail)
-    
+
     if (window.localStorage.getItem('JwtToken') != null) {
         // window.location = '/dashboard'
     }
