@@ -437,6 +437,8 @@ const callbackReg = (response) => {
     window.localStorage.setItem('email', PayLoad.email)
     window.localStorage.setItem('myPicture', PayLoad.picture)
 
+    Register();
+
     // window.localStorage.setItem('JwtToken', response.credential)
     // window.location = '/dashboard'
 }
