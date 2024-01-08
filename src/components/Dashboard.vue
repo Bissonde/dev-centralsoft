@@ -19,7 +19,12 @@
             <b>Central Soft</b></v-app-bar-title>
 
           <v-spacer></v-spacer>
-          <v-text-field hide-details label="Procurar..." single-line></v-text-field>
+          <v-divider vertical class="mx-1"></v-divider>
+          <v-toolbar-items>
+            <v-btn>Dashboard</v-btn>
+              <v-btn>Settings</v-btn>
+          </v-toolbar-items>
+          <!-- <v-text-field hide-details label="Procurar..." single-line></v-text-field> -->
 
 
           <template v-slot:append>
@@ -36,30 +41,32 @@
             <v-menu>
               <template #activator="{ props }">
                 <v-avatar v-bind="props">
-                     
-            <v-tooltip location="top">
-              <template v-slot:activator="{ props: tooltip }">
-                
-                    <v-img id="myImg" class="circular"  cover v-bind:style="{ backgroundImage: 'url(' + myPicture + ')', backgroundPosition: 'center center', backgroundSize: 'cover' }" v-bind="mergeProps(menu, tooltip)"></v-img>
-               
-              </template>
-              <span>{{ MyUserName }}</span>
-            </v-tooltip>
-         
+
+                  <v-tooltip location="top">
+                    <template v-slot:activator="{ props: tooltip }">
+
+                      <v-img id="myImg" class="circular" cover
+                        v-bind:style="{ backgroundImage: 'url(' + myPicture + ')', backgroundPosition: 'center center', backgroundSize: 'cover' }"
+                        v-bind="mergeProps(menu, tooltip)"></v-img>
+
+                    </template>
+                    <span>{{ MyUserName }}</span>
+                  </v-tooltip>
+
                 </v-avatar>
               </template>
 
               <v-card min-width="200px">
                 <v-list :lines="false" density="compact" nav="">
-               
+
                   <v-list-item to="/profile" prepend-icon="mdi-account-outline">Perfil</v-list-item>
                 </v-list>
                 <v-list :lines="false" density="compact" nav="">
                   <v-list-item to="/favorites" prepend-icon="mdi-heart-outline">Favoritos</v-list-item>
                 </v-list>
-                  <v-list :lines="true" density="compact" nav="">
-                    <v-list-item v-on:click="logOff()" prepend-icon="mdi-power">Terminar Sessão</v-list-item>
-                  </v-list>
+                <v-list :lines="true" density="compact" nav="">
+                  <v-list-item v-on:click="logOff()" prepend-icon="mdi-power">Terminar Sessão</v-list-item>
+                </v-list>
               </v-card>
             </v-menu>
 
@@ -78,7 +85,7 @@
 
             <v-list-group value="Users" class="text-subtitle-1">
               <template #activator="{ props }">
-                <v-list-item v-bind="props" prepend-icon="mdi-account" title="Clients" ></v-list-item>
+                <v-list-item v-bind="props" prepend-icon="mdi-account" title="Clients"></v-list-item>
               </template>
               <v-list-item prepend-icon="mdi-chart-bar" class="text-subtitle-1" to="/reports">Report</v-list-item>
               <v-list-item prepend-icon="mdi-currency-usd" class="text-subtitle-1" to="/cashflow">Cashflow</v-list-item>
@@ -151,19 +158,22 @@
               <v-row>
                 <v-col cols="8">
                   <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
-                  <v-btn variant="text"  v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name" @click="openDialog(n); viewModal = !viewModal">
+                  <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
+                    @click="openDialog(n); viewModal = !viewModal">
                     <v-icon color="primary">
                       mdi-chart-box-outline
                     </v-icon>
                     &nbsp;Ver Relatórios
                   </v-btn>
-                  <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[1]);" v-model="useModule.name" @click="openDialog(n); viewModal = !viewModal">
+                  <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[1]);" v-model="useModule.name"
+                    @click="openDialog(n); viewModal = !viewModal">
                     <v-icon color="primary">
                       mdi-account-switch
                     </v-icon>
                     &nbsp;Sessões
                   </v-btn>
-                  <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[2]);" v-model="useModule.name" @click="openDialog(n); viewModal = !viewModal">
+                  <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[2]);" v-model="useModule.name"
+                    @click="openDialog(n); viewModal = !viewModal">
                     <v-icon color="primary">
                       mdi-cog
                     </v-icon>
@@ -307,7 +317,8 @@
                           </h6>
                         </v-col>
                         <v-col cols="4">
-                          <v-btn variant="text" class="float-sm-right text-caption" @click="openDialog(n); viewModal = !viewModal">
+                          <v-btn variant="text" class="float-sm-right text-caption"
+                            @click="openDialog(n); viewModal = !viewModal">
                             <v-icon color="primary">
                               mdi-open-in-new
                             </v-icon>
@@ -403,8 +414,8 @@
                       </v-hover>
                     </v-sheet>
                   </v-sheet>
-                  
-                                      <br>
+
+                  <br>
 
                   <v-sheet class="d-flex flex-wrap">
                     <v-sheet class="flex-1-1 ma-1 pa-1">
@@ -510,7 +521,8 @@
 
                           <v-overlay :model-value="isHovering" contained scrim="#036358"
                             class="align-center justify-center">
-                            <v-btn variant="flat" color="bg-secondary" v-on:click="moduleStore.setModule(n);" v-model="useModule.name"
+                            <v-btn variant="flat" color="bg-secondary" v-on:click="moduleStore.setModule(n);"
+                              v-model="useModule.name"
                               @click="openDialog(n); viewModal = !viewModal"><v-icon>mdi-information-outline</v-icon>&nbsp;Detalhes</v-btn>
                           </v-overlay>
                         </v-card>
@@ -1414,7 +1426,7 @@ Save
                         <v-tab prepend-icon="mdi-information-outline">Detalhes</v-tab>
                         <v-tab prepend-icon="mdi-account-cog">Serviço</v-tab>
                         <v-tab prepend-icon="mdi-water">Codificação</v-tab>
-                          <!-- <v-tab prepend-icon="mdi-water"></v-tab> -->
+                        <!-- <v-tab prepend-icon="mdi-water"></v-tab> -->
                       </v-tabs>
 
                       <v-window v-model="tabs">
@@ -1458,12 +1470,12 @@ Save
                               </v-col>
                               <v-col cols="12" sm="6" md="6" class="pa-0">
                                 <v-autocomplete :disabled="!isEditing" :items="['Domicilio',
-                                'Unidade hospitalar',
-                                'Via pública']" label="Proveniência*"
+                                  'Unidade hospitalar',
+                                  'Via pública']" label="Proveniência*"
                                   prepend-inner-icon="mdi-set-center"></v-autocomplete>
                               </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Bengo',
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Bengo',
                                   'Benguela',
                                   'Bié',
                                   'Cabinda',
@@ -1480,17 +1492,16 @@ Save
                                   'Moxico',
                                   'Namibe',
                                   'Uíge',
-                                  'Zaire']" label="Província *"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Homem', 'Mulher']" label="Município *"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['São João', 'B. Acádemico']" label="Distrito/Bairro *"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
+                                  'Zaire']" label="Província *" prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Homem', 'Mulher']" label="Município *"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['São João', 'B. Acádemico']"
+                                  label="Distrito/Bairro *" prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
                               <v-col cols="12" sm="4" md="6" class="pa-0">
                                 <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
                                   :rules="lastNameRules" label="Endereço" persistent-hint required></v-text-field>
@@ -1552,49 +1563,48 @@ Save
                               </v-col>
                               <v-col cols="12" sm="6" md="6" class="pa-0">
                                 <v-autocomplete :disabled="!isEditing" :items="['BCG',
-                                'Pentavalente',
-                                'Pneumo 13',
-                                'Poliomielite',
-                                'Rotavirus',
-                                'Febre - amarela',
-                                'Vitamina A']" label="Vacinas"
-                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                                  'Pentavalente',
+                                  'Pneumo 13',
+                                  'Poliomielite',
+                                  'Rotavirus',
+                                  'Febre - amarela',
+                                  'Vitamina A']" label="Vacinas" prepend-inner-icon="mdi-needle"></v-autocomplete>
                               </v-col>
                               <v-col cols="12" sm="6" md="6" class="pa-0">
                                 <v-autocomplete :disabled="!isEditing" :items="['Traumatismo',
-                                'Queda',
-                                'Acidentes de viação',
-                                'Agressão física',
-                                'Atropelamento',
-                                'Ferimento por arma branca',
-                                'Ferimento por arma de fogo']" label="Causas de ocorrências aos Bancos de Urgências"
+                                  'Queda',
+                                  'Acidentes de viação',
+                                  'Agressão física',
+                                  'Atropelamento',
+                                  'Ferimento por arma branca',
+                                  'Ferimento por arma de fogo']" label="Causas de ocorrências aos Bancos de Urgências"
                                   prepend-inner-icon="mdi-needle"></v-autocomplete>
                               </v-col>
                               <v-col cols="12" sm="6" md="6" class="pa-0">
                                 <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
-                                'Suturas',
-                                'Incisão e drenagem',
-                                'Curativos']" label="Procedimentos cirúrgicos"
+                                  'Suturas',
+                                  'Incisão e drenagem',
+                                  'Curativos']" label="Procedimentos cirúrgicos"
                                   prepend-inner-icon="mdi-needle"></v-autocomplete>
                               </v-col>
                               <v-col cols="12" sm="6" md="6" class="pa-0">
                                 <v-autocomplete :disabled="!isEditing" :items="['Cirurgias Urgentes',
-                                'Cirurgias Electivas',
-                                'Tipo de cirurgia',
-                                'Diagnóstico']" label="Bloco Operatório"
+                                  'Cirurgias Electivas',
+                                  'Tipo de cirurgia',
+                                  'Diagnóstico']" label="Bloco Operatório"
                                   prepend-inner-icon="mdi-needle"></v-autocomplete>
                               </v-col>
                               <v-col cols="12" sm="6" md="6" class="pa-0">
                                 <v-autocomplete :disabled="!isEditing" :items="[
-                                'Vivo',
-                                'Morto']" label="Desfecho da cirurgia"
+                                  'Vivo',
+                                  'Morto']" label="Desfecho da cirurgia"
                                   prepend-inner-icon="mdi-needle"></v-autocomplete>
                               </v-col>
                               <v-col cols="12" sm="6" md="6" class="pa-0">
                                 <v-autocomplete :disabled="!isEditing" :items="[
-                                'Internamento',
-                                'Cuidados Intensivos',
-                                'Morgue']" label="Desfecho da cirurgia"
+                                  'Internamento',
+                                  'Cuidados Intensivos',
+                                  'Morgue']" label="Desfecho da cirurgia"
                                   prepend-inner-icon="mdi-needle"></v-autocomplete>
                               </v-col>
                             </v-row>
@@ -1604,29 +1614,405 @@ Save
 
                           <!-- </v-card> -->
                         </v-window-item>
-                          <v-window-item v-model="hemotransfusão">
-                            <v-card-text>
-                              <v-row>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['1','2','3','4','5','6','7','8','9','10']" label="Número de Hemotransfusões"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="[
+                        <v-window-item v-model="hemotransfusão">
+                          <v-card-text>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']"
+                                  label="Número de Hemotransfusões" prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
                                   'Papas de globulos',
                                   'Sangue total',
                                   'Soro hemático']" label="Tipo de hemotransfusão"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="[
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
                                   'Pesquisa de plasmódio',
                                   'Hemograma',
                                   'Urina sumária / total']" label="Análises clínicas"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="[
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Rx',
+                                  'TAC',
+                                  'Ecografia',
+                                  'Electrocardiografia',
+                                  'Electrocardiograma',
+                                  'Ecocardiograma',
+                                  'Holter']" label="Imagiologia" prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <br>
+                            <h3>Serviços de urgências</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row> <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Pediatria',
+                                  'Medicina',
+                                  'Cirurgia',
+                                  'Ortopedia',
+                                  'Ginecologia e Obstetrícia',
+                                  'ORL',
+                                  'Estomatologia']" label="Bancos de Urgência"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+
+                            <br>
+                            <h3>Serviços de internamentos</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row> <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Medicina',
+                                  'Pediatria',
+                                  'Cirurgia Geral',
+                                  'Ortopedia Geral',
+                                  'Ginecologia e Obstetrícia',
+                                  'ORL',
+                                  'Estomatologia',
+                                  'Medicina',
+                                  'Cirurgia Pediátrica',
+                                  'Ortopedia Pediátrica',
+                                  'Hemodiálise',
+                                  'Cardiologia',
+                                  'Dermatologia',
+                                  'Nutrição',
+                                  'Neonatologia',
+                                  'Cuidados Intensivos']" label="Bancos de Urgência"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+
+                            <br>
+                            <h3>PAV</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['BCG',
+                                  'Pentavalente',
+                                  'Pneumo 13',
+                                  'Poliomielite',
+                                  'Rotavirus',
+                                  'Febre - amarela',
+                                  'Vitamina A']" label="Vacinas" prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <br>
+                            <h3>Consulta Externa</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Ginecologia',
+                                  'Obstetrícia',
+                                  'Fisiatria',
+                                  'Ortopedia',
+                                  'Medicina',
+                                  'Pediatria',
+                                  'Pré-natal',
+                                  'Planeamento familiar',
+                                  'Estomatologia',
+                                  'Oftalmologia',
+                                  'Optometria',
+                                  'Defectologia',
+                                  'Dermatologia',
+                                  'Cardiologia',
+                                  'Neurologia',
+                                  'Infecciologia',
+                                  'Psicologia',
+                                  'Cirurgia Geral',
+                                  'Cirurgia Pediátrica',
+                                  'ORL',
+                                  'Urologia',
+                                  'Gastroenterologia',
+                                  'Neurocirurguia',
+                                  'Nefrologia',
+                                  'Psiquiatria',
+                                  'Pneumologia',
+                                  'Programa do HIV']" label="Especialidades"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <br>
+                            <h3>Procedimentos cirúrgicos</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row>
+
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
+                                  'Suturas',
+                                  'Incisão e drenagem',
+                                  'Curativos']" label="Procedimentos cirúrgicos"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+
+                            </v-row>
+                            <v-row>
+
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <h3>Bloco Operatório</h3>
+                                <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
+                                  'Suturas',
+                                  'Incisão e drenagem',
+                                  'Curativos']" label="Procedimentos cirúrgicos"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <v-row>
+
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <h3>Cuidados intensivos</h3>
+                                <v-autocomplete :disabled="!isEditing" :items="['Banco de Urgência',
+                                  'Enfermaria',
+                                  'Bloco Operatório']" label="Proveniencia do doente"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <!-- </v-container> -->
+                            <small>*indicates required field</small>
+                          </v-card-text>
+
+                          <!-- </v-card> -->
+                        </v-window-item>
+                      </v-window>
+                    </v-card-text>
+
+                    <v-card-text v-if="useModule.dialog == 'Consulta Externa'">
+
+                      <v-tabs v-model="tabs" align-tabs="centered">
+                        <v-tab prepend-icon="mdi-information-outline">Detalhes</v-tab>
+                        <v-tab prepend-icon="mdi-account-cog">Serviço</v-tab>
+                        <v-tab prepend-icon="mdi-water">Codificação</v-tab>
+                        <!-- <v-tab prepend-icon="mdi-water"></v-tab> -->
+                      </v-tabs>
+
+                      <v-window v-model="tabs">
+                        <v-window-item v-model="details">
+                          <v-card-text>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="4" class="pa-0">
+                                <v-form fast-fail @submit.prevent>
+                                  <v-text-field label="Primeiro nome*" name="fname" v-validate="required"
+                                    :disabled="!isEditing" v-model="firstName" :counter="10" :rules="firstNameRules"
+                                    prepend-inner-icon="mdi-account" required></v-text-field>
+                                </v-form></v-col>
+                              <v-col cols="12" sm="6" md="4" class="pa-0">
+                                <v-text-field :disabled="!isEditing" label="Nome do meio"
+                                  hint="example of helper text only on focus"></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="4" class="pa-0">
+                                <v-text-field :disabled="!isEditing" v-model="lastName" :counter="10"
+                                  :rules="lastNameRules" label="Último nome*" hint="example of persistent helper text"
+                                  persistent-hint required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" label="Telefone*" type="telephone"
+                                  prepend-inner-icon="mdi-phone" required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" label="E-mail"
+                                  prepend-inner-icon="mdi-email-fast-outline" required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-select :disabled="!isEditing" :items="['0-17', '18-29', '30-54', '54+']" label="Idade*"
+                                  prepend-inner-icon="mdi-numeric-7" required></v-select>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" label="Data de nascimento*" type="date"
+                                  prepend-inner-icon="mdi-calendar" required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Homem', 'Mulher']" label="Sexo"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Domicílio',
+                                  'Unidade hospitalar',
+                                  'Via pública']" label="Proveniência*"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Bengo',
+                                  'Benguela',
+                                  'Bié',
+                                  'Cabinda',
+                                  'Cuando Cubango',
+                                  'Cuanza Norte',
+                                  'Cuanza Sul',
+                                  'Cunene',
+                                  'Huambo',
+                                  'Huíla',
+                                  'Luanda',
+                                  'Lunda Norte',
+                                  'Lunda Sul',
+                                  'Malanje',
+                                  'Moxico',
+                                  'Namibe',
+                                  'Uíge',
+                                  'Zaire']" label="Província *"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Homem', 'Mulher']" label="Município *"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['São João', 'B. Acádemico']"
+                                  label="Distrito/Bairro *" prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="4" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
+                                  :rules="lastNameRules" label="Endereço" persistent-hint required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Emanuel Catumbela', 'Nelito Catumbela']"
+                                  label="Médico *" prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" label="Data*" type="date"
+                                  prepend-inner-icon="mdi-calendar" required></v-text-field>
+                              </v-col>
+                            </v-row>
+                            <!-- </v-container> -->
+                            <small>*indicates required field</small>
+                          </v-card-text>
+
+                          <!-- </v-card> -->
+                        </v-window-item>
+                        <v-window-item v-model="service">
+                          <v-card-text>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['BU',
+                                  'Medicina',
+                                  'Cirurgia',
+                                  'Pediatria',
+                                  'PAV',
+                                  'Consulta Externa',
+                                  'Fisioterapia',
+                                  'Bloco Operatório']" label="Serviço"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
+                                  :rules="lastNameRules" label="Diagnóstico de entrada" persistent-hint
+                                  required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" label="Data de entrada*" type="date"
+                                  prepend-inner-icon="mdi-calendar" required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" label="Data de saída*" type="date"
+                                  prepend-inner-icon="mdi-calendar" required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
+                                  :rules="lastNameRules" label="Diagnóstico de saída" persistent-hint
+                                  required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Clínicos',
+                                  'Imagem',
+                                  'Hemotransfusão']" multiple label="Exames complementares"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Melhorado',
+                                  'Óbito',
+                                  'Transferência']" label="Tipo de alta"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
+                                  :rules="lastNameRules" label="Número de Cama" persistent-hint required></v-text-field>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['BCG',
+                                  'Pentavalente',
+                                  'Pneumo 13',
+                                  'Poliomielite',
+                                  'Rotavirus',
+                                  'Febre - amarela',
+                                  'Vitamina A']" label="Vacinas" prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Traumatismo',
+                                  'Queda',
+                                  'Acidentes de viação',
+                                  'Agressão física',
+                                  'Atropelamento',
+                                  'Ferimento por arma branca',
+                                  'Ferimento por arma de fogo']"
+                                  label="Causas de ocorrências aos Bancos de Urgências"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
+                                  'Suturas',
+                                  'Incisão e drenagem',
+                                  'Curativos']" label="Procedimentos cirúrgicos"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Cirurgias Urgentes',
+                                  'Cirurgias Electivas',
+                                  'Tipo de cirurgia',
+                                  'Diagnóstico']" label="Bloco Operatório"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Vivo',
+                                  'Morto']" label="Desfecho da cirurgia"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Internamento',
+                                  'Cuidados Intensivos',
+                                  'Morgue']" label="Desfecho da cirurgia"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <!-- </v-container> -->
+                            <small>*indicates required field</small>
+                          </v-card-text>
+
+                          <!-- </v-card> -->
+                        </v-window-item>
+                        <v-window-item v-model="hemotransfusão">
+                          <v-card-text>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing"
+                                  :items="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']"
+                                  label="Número de Hemotransfusões" prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Papas de globulos',
+                                  'Sangue total',
+                                  'Soro hemático']" label="Tipo de hemotransfusão"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Pesquisa de plasmódio',
+                                  'Hemograma',
+                                  'Urina sumária / total']" label="Análises clínicas"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
                                   'Rx',
                                   'TAC',
                                   'Ecografia',
@@ -1634,522 +2020,144 @@ Save
                                   'Electrocardiograma',
                                   'Ecocardiograma',
                                   'Holter']" label="Imagiologia"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                              </v-row>
-                              <br>
-                              <h3>Serviços de urgências</h3>
-                                <!-- <v-divider></v-divider> -->
-                                <br>
-                              <v-row>  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="[
-                                      'Pediatria',
-                                    'Medicina',
-                                    'Cirurgia',
-                                    'Ortopedia',
-                                    'Ginecologia e Obstetrícia',
-                                    'ORL',
-                                    'Estomatologia']" label="Bancos de Urgência"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                </v-row>
-                                
-                                <br>
-                                <h3>Serviços de internamentos</h3>
-                                  <!-- <v-divider></v-divider> -->
-                                  <br>
-                                <v-row>  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                      <v-autocomplete :disabled="!isEditing" :items="[
-                                        'Medicina',
-                                      'Pediatria',
-                                      'Cirurgia Geral',
-                                      'Ortopedia Geral',
-                                      'Ginecologia e Obstetrícia',
-                                      'ORL',
-                                      'Estomatologia',
-                                      'Medicina',
-                                      'Cirurgia Pediátrica',
-                                      'Ortopedia Pediátrica',
-                                      'Hemodiálise',
-                                      'Cardiologia',
-                                      'Dermatologia',
-                                      'Nutrição',
-                                      'Neonatologia',
-                                      'Cuidados Intensivos']" label="Bancos de Urgência"
-                                        prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                    </v-col>
-                                  </v-row>
-                                  
-                                  <br>
-                                  <h3>PAV</h3>
-                                    <!-- <v-divider></v-divider> -->
-                                    <br>
-                                  <v-row>    
-                                    <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['BCG',
-                                    'Pentavalente',
-                                    'Pneumo 13',
-                                    'Poliomielite',
-                                    'Rotavirus',
-                                    'Febre - amarela',
-                                    'Vitamina A']" label="Vacinas"
-                                    prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                </v-col>
-                                    </v-row>
-                                    <br>
-                                    <h3>Consulta Externa</h3>
-                                      <!-- <v-divider></v-divider> -->
-                                      <br>
-                                    <v-row>    
-                                      <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="['Ginecologia', 
-                                    'Obstetrícia',
-                                    'Fisiatria',
-                                    'Ortopedia',
-                                    'Medicina',
-                                    'Pediatria',
-                                    'Pré-natal',
-                                    'Planeamento familiar',
-                                    'Estomatologia',
-                                    'Oftalmologia',
-                                    'Optometria',
-                                    'Defectologia',
-                                    'Dermatologia',
-                                    'Cardiologia',
-                                    'Neurologia',
-                                    'Infecciologia',
-                                    'Psicologia',
-                                    'Cirurgia Geral',
-                                    'Cirurgia Pediátrica',
-                                    'ORL',
-                                    'Urologia',
-                                    'Gastroenterologia',
-                                    'Neurocirurguia',
-                                    'Nefrologia',
-                                    'Psiquiatria',
-                                    'Pneumologia',
-                                    'Programa do HIV']" label="Especialidades"
-                                      prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                  </v-col>
-                                      </v-row>
-                                    <br>
-                                    <h3>Procedimentos cirúrgicos</h3>
-                                      <!-- <v-divider></v-divider> -->
-                                      <br>
-                                    <v-row>    
-                                     
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
-                                    'Suturas',
-                                    'Incisão e drenagem',
-                                    'Curativos']" label="Procedimentos cirúrgicos"
-                                    prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                </v-col>
-                                
-                                      </v-row>
-                                      <v-row>
-                                        
-                                    <v-col cols="12" sm="6" md="6" class="pa-0">
-                                      <h3>Bloco Operatório</h3>
-                                      <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
-                                        'Suturas',
-                                        'Incisão e drenagem',
-                                        'Curativos']" label="Procedimentos cirúrgicos"
-                                        prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                    </v-col>
-                                      </v-row>
-                                        <v-row>
-                                        
-                                      <v-col cols="12" sm="6" md="6" class="pa-0">
-                                        <h3>Cuidados intensivos</h3>
-                                        <v-autocomplete :disabled="!isEditing" :items="['Banco de Urgência',
-                                          'Enfermaria',
-                                          'Bloco Operatório']" label="Proveniencia do doente"
-                                          prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                      </v-col>
-                                        </v-row>
-                              <!-- </v-container> -->
-                              <small>*indicates required field</small>
-                            </v-card-text>
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <br>
+                            <h3>Serviços de urgências</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row> <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Pediatria',
+                                  'Medicina',
+                                  'Cirurgia',
+                                  'Ortopedia',
+                                  'Ginecologia e Obstetrícia',
+                                  'ORL',
+                                  'Estomatologia']" label="Bancos de Urgência"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Internamento',
+                                  'Cuidados Intensivos',
+                                  'Morgue']" label="Destino"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                            </v-row>
 
-                            <!-- </v-card> -->
-                          </v-window-item>
+                            <br>
+                            <h3>Serviços de internamentos</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row> <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="[
+                                  'Medicina',
+                                  'Pediatria',
+                                  'Cirurgia Geral',
+                                  'Ortopedia Geral',
+                                  'Ginecologia e Obstetrícia',
+                                  'ORL',
+                                  'Estomatologia',
+                                  'Medicina',
+                                  'Cirurgia Pediátrica',
+                                  'Ortopedia Pediátrica',
+                                  'Hemodiálise',
+                                  'Cardiologia',
+                                  'Dermatologia',
+                                  'Nutrição',
+                                  'Neonatologia',
+                                  'Cuidados Intensivos']" label="Bancos de Urgência"
+                                  prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+
+                            <br>
+                            <h3>PAV</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['BCG',
+                                  'Pentavalente',
+                                  'Pneumo 13',
+                                  'Poliomielite',
+                                  'Rotavirus',
+                                  'Febre - amarela',
+                                  'Vitamina A']" label="Vacinas" prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <br>
+                            <h3>Consulta Externa</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row>
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Ginecologia',
+                                  'Obstetrícia',
+                                  'Fisiatria',
+                                  'Ortopedia',
+                                  'Medicina',
+                                  'Pediatria',
+                                  'Pré-natal',
+                                  'Planeamento familiar',
+                                  'Estomatologia',
+                                  'Oftalmologia',
+                                  'Optometria',
+                                  'Defectologia',
+                                  'Dermatologia',
+                                  'Cardiologia',
+                                  'Neurologia',
+                                  'Infecciologia',
+                                  'Psicologia',
+                                  'Cirurgia Geral',
+                                  'Cirurgia Pediátrica',
+                                  'ORL',
+                                  'Urologia',
+                                  'Gastroenterologia',
+                                  'Neurocirurguia',
+                                  'Nefrologia',
+                                  'Psiquiatria',
+                                  'Pneumologia',
+                                  'Programa do HIV']" label="Especialidades"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <br>
+                            <h3>Procedimentos cirúrgicos</h3>
+                            <!-- <v-divider></v-divider> -->
+                            <br>
+                            <v-row>
+
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
+                                  'Suturas',
+                                  'Incisão e drenagem',
+                                  'Curativos']" label="Procedimentos cirúrgicos"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+
+                            </v-row>
+                            <v-row>
+
+                              <v-col cols="12" sm="6" md="6" class="pa-0">
+                                <h3>Bloco Operatório</h3>
+                                <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
+                                  'Suturas',
+                                  'Incisão e drenagem',
+                                  'Curativos']" label="Procedimentos cirúrgicos"
+                                  prepend-inner-icon="mdi-needle"></v-autocomplete>
+                              </v-col>
+                            </v-row>
+                            <!-- </v-container> -->
+                            <small>*indicates required field</small>
+                          </v-card-text>
+
+                          <!-- </v-card> -->
+                        </v-window-item>
                       </v-window>
                     </v-card-text>
-
-                      <v-card-text v-if="useModule.dialog == 'Consulta Externa'">
-
-                        <v-tabs v-model="tabs" align-tabs="centered">
-                          <v-tab prepend-icon="mdi-information-outline">Detalhes</v-tab>
-                          <v-tab prepend-icon="mdi-account-cog">Serviço</v-tab>
-                          <v-tab prepend-icon="mdi-water">Codificação</v-tab>
-                            <!-- <v-tab prepend-icon="mdi-water"></v-tab> -->
-                        </v-tabs>
-
-                        <v-window v-model="tabs">
-                          <v-window-item v-model="details">
-                            <v-card-text>
-                              <v-row>
-                                <v-col cols="12" sm="6" md="4" class="pa-0">
-                                  <v-form fast-fail @submit.prevent>
-                                    <v-text-field label="Primeiro nome*" name="fname" v-validate="required"
-                                      :disabled="!isEditing" v-model="firstName" :counter="10" :rules="firstNameRules"
-                                      prepend-inner-icon="mdi-account" required></v-text-field>
-                                  </v-form></v-col>
-                                <v-col cols="12" sm="6" md="4" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" label="Nome do meio"
-                                    hint="example of helper text only on focus"></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" v-model="lastName" :counter="10"
-                                    :rules="lastNameRules" label="Último nome*" hint="example of persistent helper text"
-                                    persistent-hint required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" label="Telefone*" type="telephone"
-                                    prepend-inner-icon="mdi-phone" required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" label="E-mail"
-                                    prepend-inner-icon="mdi-email-fast-outline" required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-select :disabled="!isEditing" :items="['0-17', '18-29', '30-54', '54+']" label="Idade*"
-                                    prepend-inner-icon="mdi-numeric-7" required></v-select>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" label="Data de nascimento*" type="date"
-                                    prepend-inner-icon="mdi-calendar" required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Homem', 'Mulher']" label="Sexo"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Domicílio',
-                                    'Unidade hospitalar',
-                                    'Via pública']" label="Proveniência*"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="['Bengo',
-                                      'Benguela',
-                                      'Bié',
-                                      'Cabinda',
-                                      'Cuando Cubango',
-                                      'Cuanza Norte',
-                                      'Cuanza Sul',
-                                      'Cunene',
-                                      'Huambo',
-                                      'Huíla',
-                                      'Luanda',
-                                      'Lunda Norte',
-                                      'Lunda Sul',
-                                      'Malanje',
-                                      'Moxico',
-                                      'Namibe',
-                                      'Uíge',
-                                      'Zaire']" label="Província *"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="['Homem', 'Mulher']" label="Município *"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="['São João', 'B. Acádemico']" label="Distrito/Bairro *"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                  <v-col cols="12" sm="4" md="6" class="pa-0">
-                                    <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
-                                      :rules="lastNameRules" label="Endereço" persistent-hint required></v-text-field>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="['Emanuel Catumbela', 'Nelito Catumbela']" label="Médico *"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-text-field :disabled="!isEditing" label="Data*" type="date"
-                                      prepend-inner-icon="mdi-calendar" required></v-text-field>
-                                  </v-col>
-                              </v-row>
-                              <!-- </v-container> -->
-                              <small>*indicates required field</small>
-                            </v-card-text>
-
-                            <!-- </v-card> -->
-                          </v-window-item>
-                          <v-window-item v-model="service">
-                            <v-card-text>
-                              <v-row>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['BU',
-                                    'Medicina',
-                                    'Cirurgia',
-                                    'Pediatria',
-                                    'PAV',
-                                    'Consulta Externa',
-                                    'Fisioterapia',
-                                    'Bloco Operatório']" label="Serviço"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
-                                    :rules="lastNameRules" label="Diagnóstico de entrada" persistent-hint
-                                    required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" label="Data de entrada*" type="date"
-                                    prepend-inner-icon="mdi-calendar" required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" label="Data de saída*" type="date"
-                                    prepend-inner-icon="mdi-calendar" required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
-                                    :rules="lastNameRules" label="Diagnóstico de saída" persistent-hint
-                                    required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Clínicos',
-                                    'Imagem',
-                                    'Hemotransfusão']" multiple label="Exames complementares"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Melhorado',
-                                    'Óbito',
-                                    'Transferência']" label="Tipo de alta"
-                                    prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-text-field :disabled="!isEditing" v-model="lastName" :counter="20"
-                                    :rules="lastNameRules" label="Número de Cama" persistent-hint required></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['BCG',
-                                    'Pentavalente',
-                                    'Pneumo 13',
-                                    'Poliomielite',
-                                    'Rotavirus',
-                                    'Febre - amarela',
-                                    'Vitamina A']" label="Vacinas"
-                                    prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Traumatismo',
-                                    'Queda',
-                                    'Acidentes de viação',
-                                    'Agressão física',
-                                    'Atropelamento',
-                                    'Ferimento por arma branca',
-                                    'Ferimento por arma de fogo']" label="Causas de ocorrências aos Bancos de Urgências"
-                                    prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
-                                    'Suturas',
-                                    'Incisão e drenagem',
-                                    'Curativos']" label="Procedimentos cirúrgicos"
-                                    prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="['Cirurgias Urgentes',
-                                    'Cirurgias Electivas',
-                                    'Tipo de cirurgia',
-                                    'Diagnóstico']" label="Bloco Operatório"
-                                    prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="[
-                                    'Vivo',
-                                    'Morto']" label="Desfecho da cirurgia"
-                                    prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="6" class="pa-0">
-                                  <v-autocomplete :disabled="!isEditing" :items="[
-                                    'Internamento',
-                                    'Cuidados Intensivos',
-                                    'Morgue']" label="Desfecho da cirurgia"
-                                    prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                </v-col>
-                              </v-row>
-                              <!-- </v-container> -->
-                              <small>*indicates required field</small>
-                            </v-card-text>
-
-                            <!-- </v-card> -->
-                          </v-window-item>
-                            <v-window-item v-model="hemotransfusão">
-                              <v-card-text>
-                                <v-row>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']" label="Número de Hemotransfusões"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="[
-                                      'Papas de globulos',
-                                      'Sangue total',
-                                      'Soro hemático']" label="Tipo de hemotransfusão"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="[
-                                      'Pesquisa de plasmódio',
-                                      'Hemograma',
-                                      'Urina sumária / total']" label="Análises clínicas"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="[
-                                      'Rx',
-                                      'TAC',
-                                      'Ecografia',
-                                      'Electrocardiografia',
-                                      'Electrocardiograma',
-                                      'Ecocardiograma',
-                                      'Holter']" label="Imagiologia"
-                                      prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                  </v-col>
-                                </v-row>
-                                <br>
-                                <h3>Serviços de urgências</h3>
-                                  <!-- <v-divider></v-divider> -->
-                                  <br>
-                                <v-row>  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                      <v-autocomplete :disabled="!isEditing" :items="[
-                                        'Pediatria',
-                                        'Medicina',
-                                        'Cirurgia',
-                                        'Ortopedia',
-                                        'Ginecologia e Obstetrícia',
-                                        'ORL',
-                                        'Estomatologia']" label="Bancos de Urgência"
-                                        prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                    </v-col>
-                                     <v-col cols="12" sm="6" md="6" class="pa-0">
-                                        <v-autocomplete :disabled="!isEditing" :items="[
-                                          'Internamento',
-                                          'Cuidados Intensivos',
-                                          'Morgue']" label="Destino"
-                                          prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                      </v-col>
-                                  </v-row>
-                                
-                                  <br>
-                                  <h3>Serviços de internamentos</h3>
-                                    <!-- <v-divider></v-divider> -->
-                                    <br>
-                                  <v-row>  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                        <v-autocomplete :disabled="!isEditing" :items="[
-                                          'Medicina',
-                                          'Pediatria',
-                                          'Cirurgia Geral',
-                                          'Ortopedia Geral',
-                                          'Ginecologia e Obstetrícia',
-                                          'ORL',
-                                          'Estomatologia',
-                                          'Medicina',
-                                          'Cirurgia Pediátrica',
-                                          'Ortopedia Pediátrica',
-                                          'Hemodiálise',
-                                          'Cardiologia',
-                                          'Dermatologia',
-                                          'Nutrição',
-                                          'Neonatologia',
-                                          'Cuidados Intensivos']" label="Bancos de Urgência"
-                                          prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                                      </v-col>
-                                    </v-row>
-                                  
-                                    <br>
-                                    <h3>PAV</h3>
-                                      <!-- <v-divider></v-divider> -->
-                                      <br>
-                                    <v-row>    
-                                      <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="['BCG',
-                                      'Pentavalente',
-                                      'Pneumo 13',
-                                      'Poliomielite',
-                                      'Rotavirus',
-                                      'Febre - amarela',
-                                      'Vitamina A']" label="Vacinas"
-                                      prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                  </v-col>
-                                      </v-row>
-                                      <br>
-                                      <h3>Consulta Externa</h3>
-                                        <!-- <v-divider></v-divider> -->
-                                        <br>
-                                      <v-row>    
-                                        <v-col cols="12" sm="6" md="6" class="pa-0">
-                                      <v-autocomplete :disabled="!isEditing" :items="['Ginecologia',
-                                        'Obstetrícia',
-                                        'Fisiatria',
-                                        'Ortopedia',
-                                        'Medicina',
-                                        'Pediatria',
-                                        'Pré-natal',
-                                        'Planeamento familiar',
-                                        'Estomatologia',
-                                        'Oftalmologia',
-                                        'Optometria',
-                                        'Defectologia',
-                                        'Dermatologia',
-                                        'Cardiologia',
-                                        'Neurologia',
-                                        'Infecciologia',
-                                        'Psicologia',
-                                        'Cirurgia Geral',
-                                        'Cirurgia Pediátrica',
-                                        'ORL',
-                                        'Urologia',
-                                        'Gastroenterologia',
-                                        'Neurocirurguia',
-                                        'Nefrologia',
-                                        'Psiquiatria',
-                                        'Pneumologia',
-                                        'Programa do HIV']" label="Especialidades"
-                                        prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                    </v-col>
-                                        </v-row>
-                                      <br>
-                                      <h3>Procedimentos cirúrgicos</h3>
-                                        <!-- <v-divider></v-divider> -->
-                                        <br>
-                                      <v-row>    
-                                     
-                                  <v-col cols="12" sm="6" md="6" class="pa-0">
-                                    <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
-                                      'Suturas',
-                                      'Incisão e drenagem',
-                                      'Curativos']" label="Procedimentos cirúrgicos"
-                                      prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                  </v-col>
-                                
-                                        </v-row>
-                                        <v-row>
-                                        
-                                      <v-col cols="12" sm="6" md="6" class="pa-0">
-                                        <h3>Bloco Operatório</h3>
-                                        <v-autocomplete :disabled="!isEditing" :items="['Imobilização gessada',
-                                          'Suturas',
-                                          'Incisão e drenagem',
-                                          'Curativos']" label="Procedimentos cirúrgicos"
-                                          prepend-inner-icon="mdi-needle"></v-autocomplete>
-                                      </v-col>
-                                        </v-row>
-                                <!-- </v-container> -->
-                                <small>*indicates required field</small>
-                              </v-card-text>
-
-                              <!-- </v-card> -->
-                            </v-window-item>
-                        </v-window>
-                      </v-card-text>
 
                     <v-card-actions class="align-content-end">
                       <v-spacer></v-spacer>
@@ -2434,6 +2442,9 @@ import { ref, onMounted } from "vue";
 import { useField, useForm } from 'vee-validate'
 import { mergeProps } from 'vue'
 
+import { useModuleStore } from '@/store/TaskStore';
+import { useTokenStore } from '@/store/TokenStore'
+
 import ChartComponent from '@/components/ChartComponent.vue'
 import ChartComponent1 from '@/components/ChartComponent1.vue'
 import ChartComponent2 from '@/components/ChartComponent2.vue'
@@ -2441,12 +2452,10 @@ import ChartComponent3 from '@/components/ChartComponent3.vue'
 import ChartComponent4 from '@/components/ChartComponent4.vue'
 
 
-
-import { useModuleStore } from '@/store/TaskStore';
 const moduleStore = useModuleStore()
 
-import { useTokenStore } from '@/store/TokenStore'
 const TokenStore = useTokenStore()
+
 
 const { handleSubmit, handleReset } = useForm({
   validationSchema: {
@@ -2499,8 +2508,7 @@ var myPicture = '';
 var myEmail = '';
 onMounted(() => {
   // this.$router.go(0)
-   if(window.localStorage.getItem('JwtToken') != null)
-   {
+  if (window.localStorage.getItem('JwtToken') != null) {
     JwtToken = localStorage.getItem('JwtToken')
     MyUserName = localStorage.getItem('username')
     myPicture = localStorage.getItem('myPicture')
@@ -2509,11 +2517,11 @@ onMounted(() => {
     // document["myImg"].src = myPicture;
     // var tok = JSON.parse(localStorage.getItem('token'))
     // alert(myPicture)
-   }
-   else{
+  }
+  else {
     window.location = '/login'
     // this.$router.push({ path: `/login` })
-   }
+  }
 });
 </script>
 
@@ -2612,7 +2620,7 @@ export default {
     //   { text: 'Contas', icon: 'mdi-key', to: 'account', descr: 'Contas de utilizadores', dialog: 'Contas' },
     //   { text: 'Definições', icon: 'mdi-cog', to: 'settings', descr: 'Configirações gerais', dialog: 'Settings' }
     // ],
-    
+
 
     topMenus: [
       { text: 'Ver Relatórios', icon: 'mdi-chart-box-outline', to: 'contacts', descr: 'Ver Relatórios', dialog: 'Doente', size: '400px' },
@@ -2791,7 +2799,7 @@ export default {
       // alert(this.isOkToSubmit)
     },
 
-    logOff : function() {
+    logOff: function () {
       localStorage.removeItem("token");
       localStorage.removeItem("JwtToken");
       localStorage.removeItem("module");
@@ -2861,6 +2869,7 @@ export default {
 .v-label {
   font-size: small;
 }
+
 /* 
 .v-icon {
   font-size: small;
@@ -2869,6 +2878,7 @@ export default {
 .v-card-subtitle {
   font-size: small;
 }
+
 /* 
 .v-btn {
   font-size: small;
@@ -2882,8 +2892,7 @@ export default {
   font-size: 20px;
 }
 
-.v-btn{
+.v-btn {
   font-size: 14px;
   font-weight: 500;
-}
-</style>
+}</style>
