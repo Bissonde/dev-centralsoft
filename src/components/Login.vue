@@ -90,18 +90,34 @@
 
 
             <v-card class="pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4" style="opacity:0.9;">
+                <v-toolbar color="white" cards dark flat class="border-bottom border-dark">
+
+                    <!-- <v-btn @click="alert = 'log', handleReset" color="blue-grey-darken-4" icon>
+                            <v-icon>mdi-arrow-left</v-icon>
+                        </v-btn> -->
+                    <v-card-title class="text-h6 font-weight-regular">
+
+                        <div class="d-flex align-center justify-center">
+                            <h5>&nbsp;Iniciar Sessão</h5>
+                        </div>
+                    </v-card-title>
+                    <v-spacer></v-spacer>
+
+                    <v-divider :thickness="7" class="border-opacity-100" color="warning"></v-divider>
+
+                    <v-btn :v-slot:append="right" color="blue-darken-4" size="x-small" variant="elevated" target="_blank"
+                        @click="" icon="mdi-account">
+                    </v-btn>
+                </v-toolbar>
 
                 <v-img class="mx-auto my-6" max-width="228"
                     src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
 
-                <div class="pt-1 d-flex align-center justify-center">
-                    <h3> <v-icon icon="mdi-login"></v-icon>&nbsp;Iniciar Sessão</h3>
-                </div>
 
                 <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 
-                <v-text-field density="compact" v-model="logUser.value.value" clearable
-                        :error-messages="logUser.errorMessage.value"  placeholder="Introduza e-mail" required
+                <v-text-field density="compact" id="LGU" v-model="logUser.value.value" v-bind="$attrs" clearable
+                    :error-messages="logUser.errorMessage.value" placeholder="Introduza e-mail" required
                     prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
@@ -112,10 +128,9 @@
                         <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Esqueceu a palavra-passe?</v-btn>
                 </div>
 
-                <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'"
-                    density="compact" placeholder="Introduza palavra-passe"
-                    v-model="logPwd.value.value" clearable
-                        :error-messages="logPwd.errorMessage.value" 
+                <v-text-field id="LPW" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+                    :type="visible ? 'text' : 'password'" density="compact" placeholder="Introduza palavra-passe"
+                    v-model="logPwd.value.value" clearable :error-messages="logPwd.errorMessage.value"
                     prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visible = !visible"
                     required></v-text-field>
 
@@ -196,30 +211,24 @@
 
             <v-card class="pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4" style="opacity:0.9;">
 
-                <v-toolbar
-                  color="white"
-                  cards
-                  dark
-                  flat
-                  class="border-bottom border-dark"
-                >
+                <v-toolbar color="white" cards dark flat class="border-bottom border-dark">
 
-                  <v-btn @click="alert = 'log', handleReset" color="blue-grey-darken-4" icon>
-                    <v-icon>mdi-arrow-left</v-icon>
-                  </v-btn>
-                  <v-card-title class="text-h6 font-weight-regular">
-                
+                    <v-btn @click="alert = 'log', handleReset" color="blue-grey-darken-4" icon>
+                        <v-icon>mdi-arrow-left</v-icon>
+                    </v-btn>
+                    <v-card-title class="text-h6 font-weight-regular">
+
                         <div class="d-flex align-center justify-center">
-                            <h5> <v-icon icon="mdi-account-question"></v-icon>&nbsp;Recuperar Conta</h5>
+                            <h5>&nbsp;Recuperar Conta</h5>
                         </div>
-                  </v-card-title>
-                  <v-spacer></v-spacer>
-                          
+                    </v-card-title>
+                    <v-spacer></v-spacer>
+
                     <v-divider :thickness="7" class="border-opacity-100" color="warning"></v-divider>
 
-                            <v-btn :v-slot:append="right" color="blue-grey-darken-4" size="x-small" variant="elevated" target="_blank" @click=""
-                                icon="mdi-help">
-                            </v-btn>
+                    <v-btn :v-slot:append="right" color="warning" size="x-small" variant="elevated" target="_blank"
+                        @click="" icon="mdi-help">
+                    </v-btn>
                 </v-toolbar>
 
                 <v-img class="mx-auto my-6" max-width="228"
@@ -229,16 +238,15 @@
                 <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 
                 <v-text-field density="compact" v-model="pwdEmail.value.value" clearable
-                            :error-messages="pwdEmail.errorMessage.value" placeholder="Email address"
-                   prepend-inner-icon="mdi-email-outline"
-                    variant="outlined"></v-text-field>
+                    :error-messages="pwdEmail.errorMessage.value" placeholder="Email address"
+                    prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
 
 
                 <div class="text-subtitle-1 text-medium-emphasis">Telefone</div>
 
                 <v-text-field density="compact" v-model="pwdPhone.value.value" clearable
-                            :error-messages="pwdPhone.errorMessage.value" placeholder="Telemóvel" prepend-inner-icon="mdi-phone-outline"
-                    variant="outlined"></v-text-field>
+                    :error-messages="pwdPhone.errorMessage.value" placeholder="Telemóvel"
+                    prepend-inner-icon="mdi-phone-outline" variant="outlined"></v-text-field>
 
                 <v-card class="mb-4" color="red-accent-4" v-if="loginError" variant="tonal">
                     <v-card-text class="text-medium-emphasis text-caption">
@@ -287,51 +295,33 @@
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
             <v-card class=" pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4" style="opacity:0.9;">
-                
-            <v-toolbar
-              color="white"
-              cards
-              dark
-              flat
-              class="border-bottom border-dark"
-            >
 
-              <v-btn @click="alert = 'log', handleReset" color="blue-grey-darken-4" icon>
-                <v-icon>mdi-arrow-left</v-icon>
-              </v-btn>
-              <v-card-title class="text-h6 font-weight-regular">
-                
-                    <div class="d-flex align-center justify-center">
-                        <h5> <v-icon icon="mdi-account"></v-icon>&nbsp;Inscreva-se</h5>
-                    </div>
-              </v-card-title>
-              <v-spacer></v-spacer>
-                          
-                <v-divider :thickness="7" class="border-opacity-100" color="warning"></v-divider>
+                <v-toolbar color="white" cards dark flat class="border-bottom border-dark">
 
-                        <v-btn :v-slot:append="right" color="blue-grey-darken-4" size="x-small" variant="elevated" target="_blank" @click=""
-                            icon="mdi-help">
-                        </v-btn>
-            </v-toolbar>
-            <v-form
-              ref="form"
-              v-model="isValid"
-              class="pa-0 pt-4"
-            >
-            </v-form>
+                    <v-btn @click="alert = 'log', handleReset" color="blue-grey-darken-4" icon>
+                        <v-icon>mdi-arrow-left</v-icon>
+                    </v-btn>
+                    <v-card-title class="text-h6 font-weight-regular">
 
-                <v-alert
-          v-model="notifyAlert"
-          border="start"
-          variant="tonal"
-          closable
-          close-label="Close Alert"
-          color="success"
-          title="Bem-vindo!"
-          class="border-opacity-100"
-        >
-          Conta criada com sucesso!
-        </v-alert>
+                        <div class="d-flex align-center justify-center">
+                            <h5> <v-icon icon="mdi-account"></v-icon>&nbsp;Inscreva-se</h5>
+                        </div>
+                    </v-card-title>
+                    <v-spacer></v-spacer>
+
+                    <v-divider :thickness="7" class="border-opacity-100" color="warning"></v-divider>
+
+                    <v-btn :v-slot:append="right" color="blue-grey-darken-4" size="x-small" variant="elevated"
+                        target="_blank" @click="" icon="mdi-help">
+                    </v-btn>
+                </v-toolbar>
+                <v-form ref="form" v-model="isValid" class="pa-0 pt-4">
+                </v-form>
+
+                <v-alert v-model="notifyAlert" border="start" variant="tonal" closable close-label="Close Alert"
+                    color="success" title="Bem-vindo!">
+                    Conta criada com sucesso!
+                </v-alert>
 
                 <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
@@ -354,7 +344,7 @@
                 <div class="text-subtitle-1 text-medium-emphasis">Telefone</div>
 
                 <v-text-field density="compact" v-model="regPhone.value.value" :error-messages="regPhone.errorMessage.value"
-                    placeholder="Telemóvel" prepend-inner-icon="mdi-phone-outline" required clearable 
+                    placeholder="Telemóvel" prepend-inner-icon="mdi-phone-outline" required clearable
                     variant="outlined"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
@@ -376,9 +366,11 @@
                     Esqueceu a palavra-passe?</a> -->
                 </div>
 
-                <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" clearable
-                    v-model="regPwd2.value.value" :error-messages="regPwd2.errorMessage.value" required density="compact" placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline"
-                    variant="outlined" @click:append-inner="visible = !visible" hint="As palvra-passes devem ser identicas"></v-text-field>
+                <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'"
+                    clearable v-model="regPwd2.value.value" :error-messages="regPwd2.errorMessage.value" required
+                    density="compact" placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline"
+                    variant="outlined" @click:append-inner="visible = !visible"
+                    hint="As palvra-passes devem ser identicas"></v-text-field>
                 <v-card class="mb-4" color="surface-variant" variant="tonal">
                     <v-card-text class="text-medium-emphasis text-caption surface-variant">
                         <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
@@ -394,27 +386,17 @@
                         style="font-size: 18pt;" />
                 </v-card-text> -->
 
-                <v-checkbox
-            v-model="agreement"
-            :rules="[rules.required]"
-            color="deep-purple"
-          >
-            <template v-slot:label>
-              I agree to the&nbsp;
-              <a
-                href="#"
-                @click.stop.prevent="dialog = true"
-              >Terms of Service</a>
-              &nbsp;and&nbsp;
-              <a
-                href="#"
-                @click.stop.prevent="dialog = true"
-              >Privacy Policy</a>*
-            </template>
-          </v-checkbox>
+                <v-checkbox v-model="agreement" :rules="[rules.required]" color="deep-purple">
+                    <template v-slot:label>
+                        I agree to the&nbsp;
+                        <a href="#" @click.stop.prevent="dialog = true">Terms of Service</a>
+                        &nbsp;and&nbsp;
+                        <a href="#" @click.stop.prevent="dialog = true">Privacy Policy</a>*
+                    </template>
+                </v-checkbox>
 
-                <v-btn type="submit" :loading="loading" @click="load, validate, notifyAlert=true" block class="mb-0 rounded-0"
-                    color="blue-darken-4" size="large" variant="flat">
+                <v-btn type="submit" :loading="loading" @click="load, validate, notifyAlert = true, onflicker" block
+                    class="mb-0 rounded-0" color="blue-darken-4" size="large" variant="flat">
                     <v-icon icon="mdi-login"></v-icon>&nbsp;Terminar
                 </v-btn>
 
@@ -467,7 +449,7 @@
                         :type="show1 ? 'text' : 'password'" name="input-10-1" hint="Pelo menos 8 caracteres" counter
                         @click:append="show1 = !show1" v-model="password" label="Palavra-passe"
                         type="password"></v-text-field>
-                    <a href="#" class="text-caption font-weight-regular">Esqueceu a sua palavra-passe?</a>
+                    <a href="#" class="text-caption font-weight-regular">Esqueceu a sua palavra-passe?9</a>
 
                     <v-btn type="submit" color="primary" block class="mt-2" :ripple="true" :disabled="loading"
                         :loading="loading" prepend-icon="mdi-login">Login</v-btn>
@@ -476,7 +458,7 @@
 
                 </v-form>
                 <div class="mt-2">
-                    <p class="text-body-2">Não tem uma conta? <a href="/register">Subscreva</a></p>
+                    <p class="text-body-2">Não tem uma conta? <a href="/register">Subscreva0</a></p>
                 </div>
             </v-sheet>
 
@@ -508,11 +490,11 @@ const { handleSubmit, handleReset } = useForm({
     validationSchema: {
         // LOGIN
         logUser(value) {
-            if (value?.length == 2) return true
+            if (value?.length >= 2) return true
             return 'Campo obrigatório'
         },
         logPwd(value) {
-            if (value?.length == 2) return true
+            if (value?.length >= 2) return true
             return 'Campo obrigatório'
         },
         // PWD
@@ -549,8 +531,8 @@ const { handleSubmit, handleReset } = useForm({
     }
 })
 
-const logUser = useField('username')
-const logPwd = useField('password')
+const logUser = useField('logUser')
+const logPwd = useField('logPwd')
 const regEmail = useField('regEmail')
 const regFullName = useField('regFullName')
 const regPhone = useField('regPhone')
@@ -561,7 +543,6 @@ const pwdPhone = useField('pwdPhone')
 
 const submit = handleSubmit(values => {
     alert(JSON.stringify(values, null, 2))
-    AuthLogin();
 })
 
 
@@ -667,10 +648,10 @@ export default {
         loginError: false,
         emptyFields: false,
         loading: false,
-        loaded:false,
+        loaded: false,
         notifyAlert: false,
-         agreement: false,
-       rules: {
+        agreement: false,
+        rules: {
             email: v => !!(v || '').match(/@/) || 'Please enter a valid email',
             length: len => v => (v || '').length >= len || `Invalid character length, required ${len}`,
             password: v => !!(v || '').match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/) ||
@@ -705,7 +686,13 @@ export default {
 
     },
     methods: {
+        submit: function () {
+            this.$refs.form.$el.submit();
+        },
 
+        onflicker() {
+            alert(regFullName)
+        },
         onSuccess(googleUser) {
             console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
         },
@@ -749,7 +736,10 @@ export default {
         },
         AuthLogin: async function () {
 
+            var LGU = document.getElementById('LGU').value
+            var LPW = document.getElementById('LPW').value
 
+            // alert(LGU)
             // alert(this.alert)
 
             if (this.alert == 'log') {
@@ -769,7 +759,7 @@ export default {
 
                 var acc = JSON.stringify(auth);
 
-                const joke = await axios.post('auth?username=' + this.username + '&password=' + this.password, config, acc)
+                const joke = await axios.post('auth?username=' + LGU + '&password=' + LPW, config, acc)
 
                     // const newToken = ['ljahsdfq697e69qwerq', 'Vasco Gungui', 'Administrator']
 
@@ -783,9 +773,9 @@ export default {
                                 this.loginError = false;
                                 this.emptyFields = false;
 
-                                setTimeout(() => (
-                                    TokenStore.setToken(response.data, true),
-                                    window.localStorage.setItem('username', this.username),
+                                // setTimeout(() => (
+                                TokenStore.setToken(response.data, true),
+                                    window.localStorage.setItem('username', LGU),
                                     // window.localStorage.setItem('JwtToken', response.data.token)
 
                                     // window.localStorage.setItem('username', response.data.name)
@@ -814,13 +804,13 @@ export default {
                                     // }
                                     window.location = '/dashboard'
 
-                                ), 1000)
+                                // ), 1000)
                             }
                         }
                     )
                     .catch((err) => {
                         // console.log(err.response)
-                        if ((this.username == '' || this.password == '')) {
+                        if ((LGU == '' || LPW == '')) {
                             this.loginError = false
                             this.emptyFields = true
                         }
@@ -832,8 +822,50 @@ export default {
 
             }
             else if (this.alert == 'reg') {
-                // alert(this.alert)
-                validate()
+                let config = {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer'
+                    }
+                }
+
+                let auth = {
+                    username: this.username, //this.username,
+                    password: this.password //this.password
+                };
+
+                var acc = JSON.stringify(auth);
+                const joke = await axios.post('auth?username=' + LGU + '&password=' + LPW, config, acc)
+                    .then(
+                        (response) => {
+                            if (response.data.token != undefined) {
+                                this.loginError = false;
+                                this.emptyFields = false;
+
+                                // setTimeout(() => (
+                                TokenStore.setToken(response.data, true),
+                                    window.localStorage.setItem('username', LGU),
+                                    window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
+
+                                    window.localStorage.setItem('JwtToken', response.credential),
+
+                                    window.localStorage.setItem('JwtToken', response.data.token),
+
+                                    window.location = '/dashboard'
+                            }
+                        }
+                    )
+                    .catch((err) => {
+                        // console.log(err.response)
+                        if ((LGU == '' || LPW == '')) {
+                            this.loginError = false
+                            this.emptyFields = true
+                        }
+                        else {
+                            this.emptyFields = false
+                            this.loginError = true
+                        }
+                    });
             }
 
             // console.log(joke.data);
@@ -957,13 +989,14 @@ export default {
         },
 
         load() {
-            if (this.emptyFields === false) {
-                this.loading = true
-                setTimeout(() => {
-                    this.loading = false
-                    this.loaded = true
-                    }, 1000)
-            }
+            // if (this.emptyFields === false) {
+            this.loading = true
+            setTimeout(() => {
+                this.loading = false
+                this.loaded = true
+                this.AuthLogin()
+            }, 500)
+            // }
 
         },
 
