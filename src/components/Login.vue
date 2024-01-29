@@ -298,7 +298,7 @@
 
                 <v-toolbar color="white" cards dark flat class="border-bottom border-dark">
 
-                    <v-btn @click="alert = 'log', handleReset" color="blue-grey-darken-4" icon>
+                    <v-btn @click="handleReset, alert='log'" color="blue-grey-darken-4" icon>
                         <v-icon>mdi-arrow-left</v-icon>
                     </v-btn>
                     <v-card-title class="text-h6 font-weight-regular">
@@ -315,8 +315,8 @@
                         target="_blank" @click="" icon="mdi-help">
                     </v-btn>
                 </v-toolbar>
-                <v-form ref="form" v-model="isValid" class="pa-0 pt-4">
-                </v-form>
+                <!-- <v-form ref="form" v-model="isValid" class="pa-0 pt-4">
+                </v-form> -->
 
                 <v-alert v-model="notifyAlert" border="start" variant="tonal" closable close-label="Close Alert"
                     color="success" title="Bem-vindo!">
@@ -386,7 +386,7 @@
                         style="font-size: 18pt;" />
                 </v-card-text> -->
 
-                <v-checkbox v-model="agreement" :rules="[rules.required]" color="deep-purple">
+                <v-checkbox v-model="agreementR.value.value" :error-messages="agreementR.errorMessage.value" color="deep-purple">
                     <template v-slot:label>
                         I agree to the&nbsp;
                         <a href="#" @click.stop.prevent="dialog = true">Terms of Service</a>
@@ -395,10 +395,20 @@
                     </template>
                 </v-checkbox>
 
+                <br>
                 <v-btn type="submit" :loading="loading" @click="load, validate, notifyAlert = true, onflicker" block
                     class="mb-0 rounded-0" color="blue-darken-4" size="large" variant="flat">
                     <v-icon icon="mdi-login"></v-icon>&nbsp;Terminar
                 </v-btn>
+                
+                <!-- <br> -->
+                <div style="height:10px">
+
+                </div>
+                    <v-btn @click="handleReset" block
+                        class="mb-0 rounded-0" color="blue-darken-4" size="large" variant="flat">
+                        <v-icon icon="mdi-login"></v-icon>&nbsp;Cancelar
+                    </v-btn>
 
                 <!-- <v-card-text class="text-center">
                 <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
@@ -527,7 +537,12 @@ const { handleSubmit, handleReset } = useForm({
         regPwd2(value) {
             if (value?.length > 2 && /[0-9.-]+/.test(value)) return true
             return 'Este campo deve conter no minímo 2 caractéres'
-        }
+        },
+        agreementR(value) {
+            if (value === '1') return true
+
+            return 'Deve selecionar antes de continuar'
+        },
     }
 })
 
@@ -540,6 +555,7 @@ const regPwd = useField('regPwd')
 const regPwd2 = useField('regPwd2')
 const pwdEmail = useField('pwdEmail')
 const pwdPhone = useField('pwdPhone')
+const agreementR = useField('agreementR')
 
 const submit = handleSubmit(values => {
     alert(JSON.stringify(values, null, 2))
@@ -686,6 +702,13 @@ export default {
 
     },
     methods: {
+        reset() {
+            // this.$refs.form.reset()
+            this.$refs.form.reset()
+        },
+        resetValidation() {
+            this.$refs.form.resetValidation()
+        },
         submit: function () {
             this.$refs.form.$el.submit();
         },
