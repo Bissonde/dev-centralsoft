@@ -108,6 +108,11 @@
                     src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
 
 
+                    <v-alert v-model="emptyFields" border="start" variant="tonal" closable close-label="Close Alert"
+                        color="warning" title="Atenção!" type="warning">
+                        Preencha e-mail / palavra-passe <a>reset</a>
+                    </v-alert>
+
                 <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 
                 <v-text-field density="compact" id="LGU" v-model="logUser.value.value" v-bind="$attrs" clearable
@@ -136,11 +141,7 @@
                     <!-- login? abaixo para redefinir a senha de login. -->
                 </v-alert>
 
-                <v-alert v-if="emptyFields" rounded="0" class="text-caption font-weight-regular"
-                    text="Preencher E-mail/palavra-passe" type="error" variant="tonal">
-                    <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
-                    <!-- login? abaixo para redefinir a senha de login. -->
-                </v-alert>
+             
                 <!-- </v-card-text> -->
                 <!-- <v-card class="mb-4" width="200" color="surface-variant" variant="text">
                         <v-card-text style="color: white;" class="text-medium-emphasis text-caption surface-variant" color="surface-variant">
@@ -155,7 +156,7 @@
                     <v-row>
                         <v-col cols="md-6">
                             <div class="text-caption text-decoration-none text-blue">
-                                Já tem um conta?
+                                Já tem uma conta?
                             </div>
                             <v-btn type="submit" :loading="loading" @click="load" rounded="0" block class="mb-0 flex-grow-1"
                                 color="blue-darken-4" size="large" variant="flat">
@@ -634,21 +635,10 @@
                             </v-checkbox>
 
 
-                            <div class="d-flex justify-center">
-                                <v-sheet class="ma-2 pa-0">
-                                    <v-btn @click="handleReset" block class="mb-0 rounded-0" color="blue-purple-4"
-                                        size="large" variant="tonal">
-                                        <v-icon icon="mdi-close"></v-icon>&nbsp;Limpar
-                                    </v-btn>
 
-                                </v-sheet>
-                                <v-sheet class="ma-2 pa-0">
-                                    <v-btn type="submit" :loading="loading" @click="AuthLogin(), load, validate, onflicker"
-                                        block class="mb-0 rounded-0" color="blue-darken-4" size="large" variant="flat">
-                                        <v-icon icon="mdi-checkbox-marked-circle-outline"></v-icon>&nbsp;Validar
-                                    </v-btn>
-                                </v-sheet>
-                            </div>
+                          
+                       
+
 
 
 
@@ -658,6 +648,36 @@
 
                     </template>
                 </v-stepper>
+                 <!-- <div class="or" style="font-size: 10pt; font-weight: 500;">WELCOME</div>   -->
+
+                 
+                            <br>
+                        <!-- LOGIN BUTTONS -->
+                        <v-card-text class="text-center pt-0">
+
+                            <v-row>
+                                <v-col cols="md-6">
+                                    <div class="text-caption text-decoration-none text-blue">
+                                        Limpar todos os dados?
+                                    </div>
+                                    <v-btn type="submit" :loading="loading" @click="handleReset" rounded="0" block class="mb-0 flex-grow-0"
+                                        color="blue-darken-4" size="large" variant="flat">
+                                        <v-icon icon="mdi-close"></v-icon>&nbsp;Limpar
+                                    </v-btn>
+                                </v-col>
+        <!-- <v-divider vertical></v-divider> -->
+                                <v-col cols="md-6">
+                                    <div class="text-caption text-decoration-none text-blue">
+                                        Criar nova conta?
+                                    </div>
+                                    <v-btn variant="tonal" :loading="loading" @click="AuthLogin(), load, validate, onflicker"
+                                                block class="mb-0 rounded-0" color="blue-darken-4" size="large" >
+                                                <v-icon icon="mdi-checkbox-marked-circle-outline"></v-icon>&nbsp;Validar<v-icon
+                                            icon="mdi-chevron-right"></v-icon>
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
 
                 <div class="text-subtitle-1" style="color: white; font-size:20pt;">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</div>
               
@@ -1037,6 +1057,15 @@ export default {
                 var LGU = document.getElementById('LGU').value
                 var LPW = document.getElementById('LPW').value
 
+                 if ((LGU == '' || LPW == '')) {
+                    this.loginError = false
+                    this.emptyFields = true
+                    return
+                }
+                else {
+                   
+                }
+
                 let config = {
                     headers: {
                         'Accept': 'application/json',
@@ -1103,14 +1132,8 @@ export default {
                     )
                     .catch((err) => {
                         // console.log(err.response)
-                        if ((LGU == '' || LPW == '')) {
-                            this.loginError = false
-                            this.emptyFields = true
-                        }
-                        else {
-                            this.emptyFields = false
-                            this.loginError = true
-                        }
+                        this.emptyFields = false
+                        this.loginError = true
                     });
 
             }
