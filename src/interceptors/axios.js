@@ -1,5 +1,6 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://bissonde.ao/api/'
+// axios.defaults.baseURL = 'https://bissonde.ao/api/'
+axios.defaults.baseURL = 'https://localhost:7127/api/'
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
@@ -20,6 +21,11 @@ axios.interceptors.response.use(response => response, async error => {
 
         if(status === 200)
         {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.JwtToken}`;
+            return axios(error.config);
+        }
+
+        if (status === 400) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${data.JwtToken}`;
             return axios(error.config);
         }
