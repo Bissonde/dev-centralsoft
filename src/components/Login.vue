@@ -497,7 +497,7 @@
             <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
-            <v-card class=" pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4" style="opacity:0.9;">
+            <v-card class=" pa-5 pb-0 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4" style="opacity:0.9;">
 
                 <v-toolbar color="deep-blue-accent-4" cards dark flat>
                     <v-btn @click="handleReset, alert = 'log'" icon>
@@ -539,7 +539,7 @@
 
                 <v-stepper prev-text="Anterior" next-text="Próximo" editable :items="['Passo 1', 'Passo 2', 'Passo 3']">
                     <template v-slot:item.1>
-                        <v-card title="Dados Pessoais" class="text-h6" flat>
+                        <v-card title="Dados Pessoais" prepend-icon="mdi-account" class="text-h6" flat>
                             <div class="text-subtitle-1 text-medium-emphasis">Nome completo</div>
 
                             <v-text-field id="RFN" density="compact" v-model="regFullName.value.value" clearable
@@ -563,7 +563,7 @@
                     </template>
 
                     <template v-slot:item.2>
-                        <v-card title="Segurança" flat>
+                        <v-card title="Segurança"  prepend-icon="mdi-security" flat>
 
 
                             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
@@ -603,7 +603,7 @@
                     </template>
 
                     <template v-slot:item.3>
-                        <v-card title="Detalhes" flat>
+                        <v-card title="Detalhes"  prepend-icon="mdi-check-circle" flat>
                             <div class="text-subtitle-1 text-medium-emphasis" density="comfortable">Sexo</div>
                             <v-combobox id="RSEX" variant="underlined" density="compact" :items=sexCombo
                                 v-model="Sex.value.value" clearable :error-messages="Sex.errorMessage.value"
@@ -661,24 +661,7 @@
 
                 <div class="text-subtitle-1" style="color: white; font-size:20pt;">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</div>
               
-                <!-- <br> -->
-
-                <!-- <br> -->
-                <!-- <v-btn type="submit" :loading="loading" @click="AuthLogin(), load, validate, notifyAlert = true, onflicker"
-                    block class="mb-0 rounded-0" color="blue-darken-4" size="large" variant="flat">
-                    <v-icon icon="mdi-login"></v-icon>&nbsp;Terminar
-                </v-btn> -->
-
-                <!-- <br> -->
-                <div style="height:10px">
-
-                </div>
-
-                <!-- <v-card-text class="text-center">
-                <a class="text-blue text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
-                    Inscreva-se agora<v-icon icon="mdi-chevron-right"></v-icon>
-                </a>
-            </v-card-text> -->
+                
             </v-card>
         </div>
 
