@@ -165,7 +165,7 @@
                             <div class="text-caption text-decoration-none text-blue">
                                 Já tem uma conta?
                             </div>
-                            <v-btn type="submit" :loading="loading" @click="load, loading=!loading" rounded="0" block
+                            <v-btn type="submit" :loading="loading" @click="AuthLogin(), load, loading=!loading" rounded="0" block
                                 class="mb-0 flex-grow-1" color="blue-darken-4" size="large" variant="flat">
                                 <v-icon icon="mdi-login"></v-icon>&nbsp;Entrar
                             </v-btn>
