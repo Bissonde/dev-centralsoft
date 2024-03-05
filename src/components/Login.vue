@@ -98,7 +98,7 @@
 
                 <v-progress-linear color="blue-lighten-3" id="topProgress" style="display: none;"
                     indeterminate></v-progress-linear>
-                    
+
                 <v-toolbar color="deep-blue-accent-4" cards dark flat>
                     <v-btn @click="handleReset, alert = 'log'" icon>
                         <v-icon>mdi-account</v-icon>
@@ -726,7 +726,6 @@
 
                             <v-row>
 
-                                <v-col cols="md-6">
 
                                     <v-btn variant="tonal" size="large" block rounded="0"
                                         class="text-blue text-decoration-none" rel="noopener noreferrer"
@@ -735,7 +734,6 @@
                                         <v-icon icon="mdi-account-star"></v-icon>&nbsp;Iniciar Sessão<v-icon
                                             icon="mdi-chevron-right"></v-icon>
                                     </v-btn>
-                                </v-col>
                             </v-row>
                         </v-card-text>
 
