@@ -560,7 +560,8 @@
                         <div class="text-h6 font-weight-bold">Alteração de palavra-passe</div>
                         <br>
                         <p class="text-caption">Foi submetido e enviado um link para o email <span
-                                class="text-subtitle-1" id="PWE1" style="font-weight:500"></span> com o seu pedido. <br>Abra-o
+                                class="text-subtitle-1" id="PWE1" style="font-weight:500"></span> com o seu pedido.
+                            <br>Abra-o
                             para alterar a sua palavra-passe!</p>
                     </div>
 
@@ -1863,7 +1864,7 @@ export default {
                                     .then(
                                         (response) => {
                                             // window.location = '/profile'
-                                            alert(response.request.status)
+                                            // alert(response.request.status)
                                             // console.log(response.request.status)
 
 
