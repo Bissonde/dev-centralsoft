@@ -95,6 +95,10 @@
 
             <v-card class="pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4"
                 style="opacity:0.9;">
+
+                <v-progress-linear color="blue-lighten-3" id="topProgress" style="display: none;"
+                    indeterminate></v-progress-linear>
+                    
                 <v-toolbar color="deep-blue-accent-4" cards dark flat>
                     <v-btn @click="handleReset, alert = 'log'" icon>
                         <v-icon>mdi-account</v-icon>
@@ -161,8 +165,8 @@
                             <div class="text-caption text-decoration-none text-blue">
                                 Já tem uma conta?
                             </div>
-                            <v-btn type="submit" :loading="loading" @click="load, loading=!loading" rounded="0"
-                                block class="mb-0 flex-grow-1" color="blue-darken-4" size="large" variant="flat">
+                            <v-btn type="submit" :loading="loading" @click="load, loading=!loading" rounded="0" block
+                                class="mb-0 flex-grow-1" color="blue-darken-4" size="large" variant="flat">
                                 <v-icon icon="mdi-login"></v-icon>&nbsp;Entrar
                             </v-btn>
                         </v-col>
@@ -209,6 +213,10 @@
 
             <v-card class="pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4"
                 style="opacity:0.9;">
+
+                <v-progress-linear color="blue-lighten-3" id="topProgress" style="display: none;"
+                    indeterminate></v-progress-linear>
+
                 <v-toolbar color="deep-blue-accent-4" cards dark flat>
                     <v-btn @click="handleReset, alert = 'log'" icon>
                         <v-icon>mdi-arrow-left</v-icon>
