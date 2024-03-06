@@ -17,7 +17,7 @@
         interactivity: {
             events: {
                 onClick: {
-                    enable: true,
+                    // enable: true,
                     mode: 'push'
                 },
                 onHover: {
@@ -29,7 +29,7 @@
                 bubble: {
                     distance: 400,
                     duration: 2,
-                    opacity: 0.8,
+                    opacity: 0.9,
                     size: 40
                 },
                 push: {
@@ -43,14 +43,14 @@
         },
         particles: {
             color: {
-                value: '#ffffff'
+                value: '#ccc'
             },
             links: {
-                color: '#ffffff',
+                color: '#ccc',
                 distance: 150,
                 enable: true,
                 opacity: 0.5,
-                width: 1
+                width: 2
             },
             move: {
                 direction: 'none',
@@ -86,28 +86,30 @@
 
 
         <!-- LOGIN -->
-        <div id="dvLogin" class="d-flex align-center justify-center" width="600" max-width="456" v-if="alert == 'log'"
+        <div id="dvLogin" class="d-flex align-center justify-center" width="500" max-width="456" v-if="alert == 'log'"
             style="height: 100vh;" :style="bottom - gradient">
 
             <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
-
-            <v-card class="pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4"
+            <!-- class="pa-5 pb-8 ma-2" -->
+            <v-card class="pa-3 pb-0 ma-4" elevation="8" max-width="448" rounded="sm" margin-left="4"
                 style="opacity:0.9;">
 
                 <v-progress-linear color="blue-lighten-3" id="topProgress" style="display: none;"
                     indeterminate></v-progress-linear>
 
                 <v-toolbar color="deep-blue-accent-4" cards dark flat>
-                    <v-btn @click="handleReset, alert = 'log'" icon>
+                    <v-btn @click="handleReset, emptyFields = false, alert = 'log'" icon>
                         <v-icon>mdi-account</v-icon>
                     </v-btn>
-                    <v-card-title class="text-h6 font-weight-regular">
+                    <v-card-title class="mx-auto my-8">
                         Iniciar Sessão
                     </v-card-title>
                     <v-spacer></v-spacer>
-
+                    <v-btn @click="handleReset" icon>
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
                 </v-toolbar>
 
 
@@ -205,28 +207,30 @@
         </div>
 
         <!-- RESET PWD -->
-        <div class="d-flex align-center justify-center" width="600" max-width="456" v-if="alert == 'pwd'"
+        <div class="d-flex align-center justify-center" width="500" max-width="456" v-if="alert == 'pwd'"
             style="height: 100vh;" :style="bottom - gradient">
 
             <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
 
-            <v-card id="rstPwd" class="pa-5 pb-8 ma-2" elevation="8" width="500" max-width="448" rounded="sm"
-                margin-left="4" style="opacity:0.9;">
+            <v-card id="rstPwd" class="pa-3 pb-0 ma-4" elevation="8" width="420" max-width="456" rounded="sm"
+                margin-left="0" style="opacity:0.9;">
 
                 <v-progress-linear color="blue-lighten-3" id="topProgress" style="display: none;"
                     indeterminate></v-progress-linear>
 
                 <v-toolbar color="deep-blue-accent-4" cards dark flat>
-                    <v-btn @click="handleReset, alert = 'log'" icon>
+                    <v-btn @click="handleReset, emptyFields = false, alert = 'log'" icon>
                         <v-icon>mdi-arrow-left</v-icon>
                     </v-btn>
-                    <v-card-title class="text-h6 font-weight-regular">
-                        Recuperar Conta
+                    <v-card-title class="mx-auto my-8">
+                        Recuperar Conta!
                     </v-card-title>
                     <v-spacer></v-spacer>
-
+                    <v-btn @click="handleReset, emptyFields = false;" icon>
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
                 </v-toolbar>
 
                 <v-img class="mx-auto my-6" max-width="228"
@@ -245,14 +249,16 @@
 
                 <br>
 
-                <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
+                <div class="pl-2">
+                    <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 
-                <v-text-field id="PWE" density="compact" v-model="pwdEmail.value.value" clearable
-                    :error-messages="pwdEmail.errorMessage.value" placeholder="Email address"
-                    prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
+                    <v-text-field id="PWE" density="compact" v-model="pwdEmail.value.value" clearable
+                        :error-messages="pwdEmail.errorMessage.value" placeholder="Email address"
+                        prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
+                </div>
 
                 <v-row>
-                    <v-col cols="md-5" class="pt-4">
+                    <v-col cols="md-5 pl-5">
                         <div class="text-subtitle-1 text-medium-emphasis">País</div>
                         <select name="countryCode" id="PWC" class="text-subtitle-4 text-medium-emphasis"
                             style="width: 150px;">
@@ -486,7 +492,7 @@
                             </optgroup>
                         </select>
                     </v-col>
-                    <v-col cols="md-7">
+                    <v-col cols="md-">
                         <div class="text-subtitle-1 text-medium-emphasis">Telefone</div>
 
                         <v-text-field id="PWT" density="compact" v-model="pwdPhone.value.value" clearable
@@ -494,10 +500,8 @@
                             prepend-inner-icon="mdi-phone-outline" variant="outlined"></v-text-field>
                     </v-col>
                 </v-row>
-                <v-alert class='text-subtitle-2 text-medium-emphasis font-weight-light pa-4 ma-3' border="start"
-                    border-color="success" elevation="0">
-                    Nota: Deves possuir um e-mail válido e activo
-                </v-alert>
+                <!-- <v-alert class="pa-0 ma-4" icon="mdi-information" text="Nota: Deves possuir um e-mail válido"
+                    variant="tonal"></v-alert> -->
 
                 <v-card class="mb-4" color="red-accent-4" v-if="loginError" variant="tonal">
                     <v-card-text class="text-medium-emphasis text-caption">
@@ -505,6 +509,9 @@
                         <v-icon>mdi-alert</v-icon>&nbsp;E-mail/Palavra-passe errados!
                     </v-card-text>
                 </v-card>
+
+
+                <div class="or" style="font-size: 10pt; font-weight: 500;">TOKEN</div>
 
                 <!-- <v-card class="mb-4" color="surface-variant" variant="tonal"> -->
                 <!-- <v-card-text class="text-medium-emphasis text-caption"> -->
@@ -518,8 +525,8 @@
 
                     <v-row>
                         <v-col cols="md-6">
-                            <v-btn variant="outlined" color="red-accent-4" size="large" block rounded="0"
-                                class="text-red text-decoration-none" rel="noopener noreferrer" target="/register"
+                            <v-btn variant="tonal" color="red-accent-4" size="large" block rounded="0"
+                                class="text-blue text-decoration-none" rel="noopener noreferrer" target="/register"
                                 @click="alert = 'log'; loginError = false;">
                                 <v-icon icon="mdi-arrow-left-circle"></v-icon>&nbsp;Voltar
                             </v-btn>
@@ -544,7 +551,7 @@
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
 
-                <v-card class="pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4"
+                <v-card class="pa-5 pb-8 ma-2 blue-lighten-3" elevation="8" max-width="448" rounded="sm" margin-left="4"
                     style="opacity:0.9;">
 
                     <v-spacer></v-spacer>
@@ -562,7 +569,8 @@
                         <p class="text-caption">Foi submetido e enviado um link para o email <span
                                 class="text-subtitle-1" id="PWE1" style="font-weight:500"></span> com o seu pedido.
                             <br>Abra-o
-                            para alterar a sua palavra-passe!</p>
+                            para alterar a sua palavra-passe!
+                        </p>
                     </div>
 
                     <v-divider></v-divider>
@@ -598,35 +606,35 @@
             <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
-            <v-card class="pa-2 pb-0 ma-2" elevation="2" width="500" max-width="448" rounded="sm" margin-left="4"
+            <v-card class="pa-3 pb-0 ma-4" elevation="2" width="500" max-width="428" rounded="sm" margin-left="4"
                 style="opacity:0.9; margin-bottom:-20px">
 
                 <v-progress-linear color="blue-lighten-3" id="topProgress" style="display: none;"
                     indeterminate></v-progress-linear>
 
                 <v-toolbar id="dvToolbar" color="deep-blue-accent-4" cards dark flat>
-                    <v-btn @click="handleReset, alert = 'log'" icon>
+                    <v-btn @click="handleReset, emptyFields = false, alert = 'log'" icon>
                         <v-icon>mdi-arrow-left</v-icon>
                     </v-btn>
-                    <v-card-title class="text-h6 font-weight-regular">
-                        Inscreva-se
+                    <v-card-title class="mx-auto my-8">
+                        Inscreva-se!
                     </v-card-title>
                     <v-spacer></v-spacer>
                     <v-btn @click="handleReset" icon>
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
-                    <v-btn icon>
+                    <!-- <v-btn icon>
                         <v-icon>mdi-dots-vertical</v-icon>
-                    </v-btn>
+                    </v-btn> -->
                 </v-toolbar>
-                <br>
+                <!-- <br> -->
 
                 <v-alert v-model="ActExist" border="start" variant="tonal" closable close-label="Close Alert"
                     color="error" title="Erro!" type="error">
                     Esta conta já existe!
                 </v-alert>
 
-                <br>
+                <!-- <br> -->
                 <!--                 
                 <v-alert border="start" variant="tonal" close-label="Close Alert"
                     color="primary" title="Atenção!" type="warning">
@@ -643,7 +651,7 @@
                     As palavras-passes não correspondem!
                 </v-alert>
 
-
+                <!-- <br> -->
 
 
                 <v-stepper id="dvReg" prev-text="Anterior" next-text="Próximo" editable
