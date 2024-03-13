@@ -103,7 +103,7 @@
                         <v-icon>mdi-account</v-icon>
                     </v-btn>
                     <v-card-title class="mx-auto my-8">
-                        Iniciar Sessão
+                        Alterar Palavra-Passe
                     </v-card-title>
                     <v-spacer></v-spacer>
                     <v-btn @click="handleReset, emptyFields = false;" icon>
@@ -122,24 +122,34 @@
 
                 <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 
-                <v-text-field density="compact" id="LGU" v-model="logUser.value.value" v-bind="$attrs" clearable
+                <v-text-field density="compact" id="LGU" v-model="logUser.value.value" v-bind="$attrs" disabled
                     :error-messages="logUser.errorMessage.value" placeholder="Introduza e-mail" required
                     prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-                    Palavra-passe
+                    Nova Palavra-passe
 
                     <v-btn class="text-caption text-decoration-none text-blue" variant="text"
                         @click="alert = 'pwd'; loginError = false;">
                         <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Esqueceu a palavra-passe?</v-btn>
                 </div>
 
-                <v-text-field id="LPW" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+                <v-text-field id="PWD1" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                     :type="visible ? 'text' : 'password'" density="compact" placeholder="Introduza palavra-passe"
                     v-model="logPwd.value.value" clearable :error-messages="logPwd.errorMessage.value"
                     prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visible = !visible"
                     required></v-text-field>
 
+
+                <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+                    Repetir Palavra-passe
+                </div>
+
+                <v-text-field id="PWD2" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+                    :type="visible ? 'text' : 'password'" density="compact" placeholder="Introduza palavra-passe"
+                    v-model="logPwd.value.value" clearable :error-messages="logPwd.errorMessage.value"
+                    prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visible = !visible"
+                    required></v-text-field>
                 <!-- <v-card-text class="text-center pt-0"> -->
                 <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
                 <v-alert v-if="loginError" rounded="0" class="text-caption font-weight-regular" text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
@@ -165,10 +175,10 @@
                             <div class="text-caption text-decoration-none text-blue">
                                 Já tem uma conta?
                             </div>
-                            <v-btn type="submit" :loading="loading" @click="load, loading = !loading, AuthLogin()"
-                                rounded="0" block class="mb-0 flex-grow-1" color="blue-darken-4" size="large"
-                                variant="flat">
-                                <v-icon icon="mdi-login"></v-icon>&nbsp;Entrar
+                            <v-btn variant="tonal" color="blue-accent-0" size="large" block rounded="0"
+                                class="text-decoration-none mb-0 flex-grow-1" rel="noopener noreferrer" target="/."
+                                @click="alert = 'log'; loginError = false;">
+                                <v-icon icon="mdi-arrow-left-circle"></v-icon>&nbsp;Voltar
                             </v-btn>
                         </v-col>
 
@@ -176,22 +186,22 @@
                             <div class="text-caption text-decoration-none text-blue">
                                 És novo aqui?
                             </div>
-                            <v-btn variant="tonal" size="large" block rounded="0" class="text-blue text-decoration-none"
-                                rel="noopener noreferrer" target="/register"
-                                @click="alert = 'reg'; loginError = false; emptyFields = false;">
-                                <v-icon icon="mdi-account-plus"></v-icon>&nbsp;Inscreva-se<v-icon
-                                    icon="mdi-chevron-right"></v-icon>
+                            <v-btn variant="flat" size="large" block rounded="0"
+                                class="text-blue text-decoration-none mb-0 flex-grow-1" rel="noopener noreferrer"
+                                :loading="loading" @click="loading = !loading, ResetPassword()">
+                                <v-icon icon="mdi-check"></v-icon>&nbsp;Confirmar<v-icon
+                                    icon="mdi-chevron-right-1"></v-icon>
                             </v-btn>
                         </v-col>
                     </v-row>
                 </v-card-text>
 
-                <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div>
+                <!-- <div class="or" style="font-size: 10pt; font-weight: 500;">OU</div> -->
 
-                <v-card-text class="text-center pt-5">
+                <!-- <v-card-text class="text-center pt-5">
                     <GoogleLogin :callback="callback" block data-width="300" id="g_id_onload" data-type="icon"
                         class="text-center pt-0" data-shape="rectangular" style="font-size: 18pt;" />
-                </v-card-text>
+                </v-card-text> -->
 
                 <!-- <v-card class="mb-4 rounded-0" color="surface-variant" variant="tonal">
                     <v-card-text class="text-medium-emphasis text-caption">
@@ -530,8 +540,8 @@
                         </v-col>
 
                         <v-col cols="md-6">
-                            <v-btn type="submit" :loading="loading" @click="loading = !loading, AuthLogin()" rounded="0"
-                                block class="mb-0" color="blue-darken-4" size="large" v-if="alert == 'pwd'"
+                            <v-btn type="submit" :loading="loading" @click="loading = !loading, ResetPassword()"
+                                rounded="0" block class="mb-0" color="blue-darken-4" size="large" v-if="alert == 'pwd'"
                                 variant="flat">
                                 <v-icon icon="mdi-lock-reset"></v-icon>&nbsp;Recuperar
                             </v-btn>
@@ -1348,6 +1358,19 @@ onMounted(() => {
     else {
     }
 
+    // let urlParams = new URLSearchParams(window.location.search);
+    // console.log(urlParams.has('acc')); // true
+    // console.log(urlParams.get('yourParam')); // "MyParam"
+
+    let uri = window.location.href.split('?')
+    let xta = uri[0].split('=')
+    let xtb = uri[1].split('=')
+
+    // let urix = window.location.href.split('=')
+    // alert(urix[2])
+    document.getElementById('LGU').value = uri[1]
+    //http://localhost:3000/reset?acc=cubenda?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
 });
 </script>
 
@@ -1426,6 +1449,11 @@ export default {
 
     },
     methods: {
+        created() {
+            let urlParams = new URLSearchParams(window.location.search);
+            console.log(urlParams.has('acc')); // true
+            console.log(urlParams.get('yourParam')); // "MyParam"
+        },
         RegComplete: function () {
             this.alert = 'done'
             if (this.notifyAlert == true) {
@@ -1952,9 +1980,90 @@ export default {
             // .then((data) => loadTableData(data))
         },
 
+
+        ResetPassword: async function () {
+
+            // alert(this.alert)
+            this.notifyAlert = false;
+            this.ActIncPwd = false;
+
+            var PWD1 = document.getElementById('PWD1').value
+            var PWD2 = document.getElementById('PWD2').value
+           
+            if (PWD1 == "" || PWD2 == "") {
+                this.ActExist = false;
+                this.ActEmpty = true;
+                this.resetPwdOk = true;
+                return;
+            }
+            else {
+                // alert(false)
+            }
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
+                }
+            }
+
+            let auth = {
+                // username: RFN, //this.username,
+                // password: RPWD1, //this.password
+                // email: REM,
+                // tel: RPH,
+                // hint: this.RHT,
+                // dob: this.RDOB,
+                // sex: this.RSEX,
+                // likes: this.RLK
+            };
+
+            var acc = JSON.stringify(auth);
+            const joke = await axios.post('auth?username=admin&password=auth', config, acc)
+                .then(
+                    (response) => {
+
+                        document.getElementById('topProgress').style.display = "block"
+
+                        this.notifyAlert = false
+                        this.ActExistF = false
+                        this.ActExist = false
+
+                        //SAVE TOKEN
+                        setTimeout(() => (
+                            TokenStore.setToken(response.data, true)
+
+                            // window.localStorage.setItem('username', LGU),
+                            // window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w=")
+
+                            // window.localStorage.setItem('JwtToken', response.credential),
+
+                            // window.localStorage.setItem('JwtToken', response.data.token)
+                        ))
+
+                        if (response.data.token != undefined) {
+                            this.loginError = false,
+                                this.emptyFields = false,
+                                this.UserLogin(response.data.token)
+                        }
+                    }
+                )
+                .catch((err) => {
+                    // console.log(err.response)
+                    if ((LGU == '' || LPW == '')) {
+                        this.loginError = false
+                        this.emptyFields = true
+                    }
+                    else {
+                        this.emptyFields = false
+                        this.loginError = true
+                    }
+                });
+        },
+
         UserLogin: async function (Bearer) {
-            var PWE = document.getElementById('PWE').value
-            
+            var PWE = document.getElementById('PWD1').value
+
             let config = {
                 headers: {
                     'Accept': 'application/json',

@@ -46,6 +46,11 @@ const routes = [
     name: 'profile',
     component: () => import('@/views/Profile.vue')
   },
+  {
+    path: '/reset',
+    name: 'reset',
+    component: () => import('@/views/Reset.vue')
+  },
 ]
 
 const router = createRouter({
