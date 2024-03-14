@@ -228,8 +228,9 @@
 
                         <div class="text-h6 font-weight-bold">Parabéns!</div>
                         <br>
-                        <p class="text-caption">A sua palavra-passe foi alterada com sucesso. <span class="text-subtitle-1"
-                                id="PWE1" style="font-weight:500"></span> <br>e já podes aceder ao nosso portal.
+                        <p class="text-caption">A sua palavra-passe foi alterada com sucesso. <span
+                                class="text-subtitle-1" id="PWE1" style="font-weight:500"></span> e já podes aceder ao
+                            nosso portal.
                             <br>Abra-o clicando no botão abaixo!
                         </p>
                     </div>
@@ -434,6 +435,49 @@ onMounted(() => {
     // gapi.signin2.render('g_id_register', {
     //     onsuccess: this.Register
     // })
+    async function GetAccount(pay) {
+        let config = {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + _JwtToken
+            }
+        }
+
+        axios.post('auth?username=admin&password=auth')
+            .then(
+                (response) => {
+                    
+                    let configx = {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer ' + response.data.token
+                        }
+                    }
+
+                    // alert(response.data.token)
+                    axios.get('Account/' + pay, configx)
+                        .then(
+                            (response) => {
+                                alert(response)
+                                if (response.request.status == '400') {
+
+                                    if (response.request.response == "Not found.") {
+
+                                    }
+                                }
+                                if (response.request.status == '200') {
+
+                                }
+                            }
+                        )
+                        .catch((err) => {
+                            alert(err)
+                        });
+                })
+            .catch((err) => {
+                alert(err)
+            });
+    }
 
     if (window.localStorage.getItem('JwtToken') != null) {
         // window.location = '/dashboard'
@@ -474,7 +518,12 @@ onMounted(() => {
                 }
                 if (response.request.status == '200') {
                     const PayLoad = decodeJwtResponse(_JwtToken)
-                    document.getElementById('PWE').value = PayLoad.acc;
+                    document.getElementById('PWE').value = PayLoad.act;
+
+                    if(PayLoad.exp < Date.now() / 1000)
+                    {
+                        alert("You don't have persmission. This page has expired!")
+                    }
                     // alert(PayLoad.acc)
                 }
             }
@@ -562,7 +611,8 @@ export default {
 
     },
     methods: {
-        GoHome: function() {
+        
+        GoHome: function () {
             window.location = '/'
         },
         GoDash: function () {
@@ -678,21 +728,21 @@ export default {
                         this.ActExistF = false
                         this.ActExist = false
 
-                            this.loginError = false,
-                                this.emptyFields = false
+                        this.loginError = false,
+                            this.emptyFields = false
 
-                            if (response.request.status == '400') {
-                                // this.ActExist = true;
-                                if (response.request.response == "Not found.") {
-                                    this.ActExist = true;
-                                }
+                        if (response.request.status == '400') {
+                            // this.ActExist = true;
+                            if (response.request.response == "Not found.") {
+                                this.ActExist = true;
                             }
-                            if (response.request.status == '200') {
-                                document.getElementById('dvLogin').style.display = "none"
-                                document.getElementById('topProgress').style.display = "none"
-                                // document.getElementById('dvDonePwd').style.display = "block"
-                                document.getElementById('rstPwdOk').style.display = "block"
-                            }
+                        }
+                        if (response.request.status == '200') {
+                            document.getElementById('dvLogin').style.display = "none"
+                            document.getElementById('topProgress').style.display = "none"
+                            // document.getElementById('dvDonePwd').style.display = "block"
+                            document.getElementById('rstPwdOk').style.display = "block"
+                        }
                     }
                 )
                 .catch((err) => {
