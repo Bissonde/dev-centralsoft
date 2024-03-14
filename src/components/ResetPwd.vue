@@ -524,7 +524,7 @@ onMounted(() => {
                     {
                         alert("You don't have persmission. This page has expired!")
                     }
-                    // alert(PayLoad.acc)
+                    // alert(PayLoad.act)
                 }
             }
         )
