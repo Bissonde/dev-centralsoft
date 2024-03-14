@@ -89,7 +89,7 @@
         <!-- LOGIN -->
 
         <div id="dvLogin" class="d-flex align-center justify-center" width="500" max-width="456" v-if="alert == 'log'"
-            style="height: 100vh;" :style="bottom - gradient">
+            style="height: 100vh;">
 
             <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
@@ -106,7 +106,7 @@
                         Iniciar Sessão
                     </v-card-title>
                     <v-spacer></v-spacer>
-                    <v-btn @click="handleReset, emptyFields = false;" icon>
+                    <v-btn @click="handleReset" icon>
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </v-toolbar>
@@ -117,7 +117,12 @@
 
                 <v-alert v-model="emptyFields" class="mb-5 mt-5" border="start" variant="tonal" closable
                     close-label="Close Alert" color="warning" title="Atenção!" type="warning">
-                    Preencha e-mail / palavra-passe
+                    Preencha todos os campos abaixo!
+                </v-alert>
+
+                <v-alert v-model="ActExist" class="mb-5 mt-5" border="start" variant="tonal" closable
+                    close-label="Close Alert" color="error" title="Conta inválida!" type="error">
+                    Esta conta não existe, tente novamente!
                 </v-alert>
 
                 <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
@@ -130,7 +135,7 @@
                     Palavra-passe
 
                     <v-btn class="text-caption text-decoration-none text-blue" variant="text"
-                        @click="alert = 'pwd'; loginError = false;">
+                        @click="ActExist=false, alert = 'pwd'; loginError = false;">
                         <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Esqueceu a palavra-passe?</v-btn>
                 </div>
 
@@ -143,7 +148,7 @@
                 <!-- <v-card-text class="text-center pt-0"> -->
                 <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
                 <v-alert v-if="loginError" rounded="0" class="text-caption font-weight-regular" text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
-                            bloqueada por três horas." type="error" variant="tonal">
+                            bloqueada por três horas." type="warning" variant="tonal">
                     <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
                     <!-- login? abaixo para redefinir a senha de login. -->
                 </v-alert>
@@ -206,7 +211,7 @@
 
         <!-- RESET PWD -->
         <div class="d-flex align-center justify-center" width="500" max-width="456" v-if="alert == 'pwd'"
-            style="height: 100vh;" :style="bottom - gradient">
+            style="height: 100vh;">
 
             <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
@@ -242,7 +247,7 @@
 
                 <v-alert v-model="ActExist" class="mb-5 mt-5" border="start" variant="tonal" closable
                     close-label="Close Alert" color="error" title="Erro!" type="error">
-                    Esta conta não existe!
+                    Esta conta não existe, tente novamente!
                 </v-alert>
 
                 <div class="pl-2">
@@ -499,13 +504,6 @@
                 <!-- <v-alert class="pa-0 ma-4" icon="mdi-information" text="Nota: Deves possuir um e-mail válido"
                     variant="tonal"></v-alert> -->
 
-                <v-card class="mb-4" color="red-accent-4" v-if="loginError" variant="tonal">
-                    <v-card-text class="text-medium-emphasis text-caption">
-                        <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                        <v-icon>mdi-alert</v-icon>&nbsp;E-mail/Palavra-passe errados!
-                    </v-card-text>
-                </v-card>
-
 
                 <div class="or" style="font-size: 10pt; font-weight: 500;">TOKEN</div>
 
@@ -595,7 +593,7 @@
 
         <!-- REGISTER -->
         <div class="d-flex align-center justify-center" width="600" max-width="456" v-if="alert == 'reg'"
-            style="height: 100vh;" :style="bottom - gradient">
+            style="height: 100vh;">
 
 
             <!-- <v-img class="mx-auto my-6" max-width="228"
@@ -1107,10 +1105,7 @@
             </v-card>
         </div>
 
-
-
-        <div class="d-flex align-center justify-center" style="height: 100vh;" :style="bottom - gradient"
-            v-if="alert == 5">
+        <div class="d-flex align-center justify-center" style="height: 100vh;" v-if="alert == 5">
 
             <!-- background-color: white; background-image:url(https://picsum.photos/1920/1080?random); background-repeat: no-repeat; background-size: cover;  -->
 
@@ -1267,7 +1262,7 @@ const submit = handleSubmit(values => {
 
 
 const callback = (response) => {
-    // console.log("Handle the response", response)
+    
     const PayLoad = decodeJwtResponse(response.credential)
     console.log("Handle the response", PayLoad)
     // alert(PayLoad.email)
@@ -1317,9 +1312,9 @@ function decodeJwtResponse(token) {
 
     return JSON.parse(jsonPayload);
 }
-// const particlesLoaded = async container => {
-//     console.log("Particles container loaded", container);
-// };
+const particlesLoaded = async container => {
+    console.log("Particles container loaded", container);
+};
 
 // import Particles from "@tsparticles/vue3";
 //import { loadFull } from "tsparticles"; // if you are going to use `loadFull`, install the "tsparticles" package too.
@@ -1528,7 +1523,7 @@ export default {
 
                     .then(
                         (response) => {
-                            // console.log(response.data), 
+                           
                             //SET USER DATA
 
                             //  alert(response.data.token)
@@ -1573,9 +1568,10 @@ export default {
                         }
                     )
                     .catch((err) => {
-                        // console.log(err.response)
+                       
+                        this.ActExist = true
                         this.emptyFields = false
-                        this.loginError = true
+                        // this.loginError = true
                     });
 
             }
@@ -1705,7 +1701,7 @@ export default {
                                         (response) => {
                                             // window.location = '/profile'
                                             // alert(response.request.status)
-                                            // console.log(response.request.status)
+                                           
 
 
                                             if (response.request.status == '400') {
@@ -1751,7 +1747,7 @@ export default {
                         }
                     )
                     .catch((err) => {
-                        // console.log(err.response)
+                        
                         if ((LGU == '' || LPW == '')) {
                             this.loginError = false
                             this.emptyFields = true
@@ -1767,6 +1763,8 @@ export default {
                 document.getElementById('PWE1').innerText = PWE
                 var PWC = document.getElementById('PWC').value
                 var PWT = document.getElementById('PWT').value
+
+                var CONTACT = PWC + PWT
 
                 if (PWE == "" || PWT == "") {
                     this.ActExist = false;
@@ -1796,10 +1794,12 @@ export default {
                     // likes: this.RLK
                 };
 
-                var acc = JSON.stringify(auth);
-                const joke = await axios.post('auth?username=admin&password=auth', config, acc)
+                await axios.post('AuthPwd?username=' + PWE + '&phone=' + CONTACT, config)
                     .then(
                         (response) => {
+
+                            //SEND LINK VIA EMAIL
+                            console.log(response.data.token)
 
                             document.getElementById('topProgress').style.display = "block"
 
@@ -1819,15 +1819,34 @@ export default {
                                 // window.localStorage.setItem('JwtToken', response.data.token)
                             ))
 
+
+                            // alert(response.request.status)
+                            // alert(response.request.status)
+
                             if (response.data.token != undefined) {
                                 this.loginError = false,
-                                    this.emptyFields = false,
-                                    this.UserLogin(response.data.token)
+                                    this.emptyFields = false
+                            }
+
+
+                            if (response.request.status == '400') {
+                                // this.ActExist = true;
+                                if (response.request.response == "Not found.") {
+                                    this.ActExist = true;
+                                }
+                            }
+                            if (response.request.status == '200') {
+                                document.getElementById('rstPwd').style.display = "none"
+                                document.getElementById('topProgress').style.display = "none"
+                                // document.getElementById('dvDonePwd').style.display = "block"
+                                document.getElementById('rstPwdOk').style.display = "block"
                             }
                         }
                     )
                     .catch((err) => {
-                        // console.log(err.response)
+                        
+                        this.ActExist = true;
+                       
                         if ((LGU == '' || LPW == '')) {
                             this.loginError = false
                             this.emptyFields = true
@@ -1855,17 +1874,17 @@ export default {
 
             // axios.post(URL, auth, config)
             //     .then(function (response) {
-            //         // console.log(response);
+            //        
             //     })
             //     .catch(function (error) {
-            //         // console.log(error)
+            //       
             //     });
 
 
 
 
             // const joke = await axios.get('https://icanhazdadjoke.com', config);
-            // console.log(joke.data);
+           
 
             // try{
             //     const response = await axios.get(
@@ -1881,12 +1900,11 @@ export default {
             //     return response.data;
             // }
             // catch(err){
-            //     console.log(err.message)
-            //     console.log(err.response.status)
+         
             // }
 
             // this.login().then(data => {
-            //     console.log(data);
+           
             // });
 
             // Your login logic here
@@ -1905,16 +1923,16 @@ export default {
             //     username: this.username,
             //     password: this.password
             // };
-            // // console.log(data1);
+          
 
             // await axios.post('https://localhost:7127/api/auth', auth)
             // .then(
             //     res => {
-            //         console.log(res)
+         
             //     }
             // ).catch(
             //     err => {
-            //         console.log(err)
+          
             //     }
             // )
 
@@ -1927,18 +1945,18 @@ export default {
             //  axios.get('https://localhost:7127/api/Account/' + this.username)
             //         .then(function(response)
             //         {
-            //            console.log(response.data.email + ' ' + response.data.pass + ' ' + response.data.ask)
+            //           
             //         }) 
 
             // axios.get('https://rest.bissonde.ao/api/Account/' + this.username,
             // )
             //     .then(function (response) {
-            // console.log(response.data.email + ' ' + response.data.pass + ' ' + response.data.ask)
+           
 
 
 
             //    {
-            //     console.log(response.data)
+           
             //    })
 
             // const AxiosHeaders = {
@@ -1954,7 +1972,7 @@ export default {
 
         UserLogin: async function (Bearer) {
             var PWE = document.getElementById('PWE').value
-            
+
             let config = {
                 headers: {
                     'Accept': 'application/json',
@@ -1974,7 +1992,7 @@ export default {
                     (response) => {
                         // window.location = '/profile'
                         // alert(response.request.status)
-                        // console.log(response.request.status)
+                      
 
                         if (response.request.status == '400') {
                             // this.ActExist = true;
@@ -1991,8 +2009,8 @@ export default {
                     }
                 )
                 .catch((err) => {
-                    alert(err)
-                    // console.log(err.response)
+                  
+                    
                     this.emptyFields = false
                     this.loginError = true
                 });
