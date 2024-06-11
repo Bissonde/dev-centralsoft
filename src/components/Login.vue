@@ -129,7 +129,8 @@
                 </v-alert>
 
                 <v-alert v-model="ActDisabled" class="mb-5 mt-5" border="start" variant="tonal" closable
-                    close-label="Close Alert" icon="mdi-block-helper" color="error" title="Conta suspensa!" type="error">
+                    close-label="Close Alert" icon="mdi-block-helper" color="error" title="Conta suspensa!"
+                    type="error">
                     Contacte o administrador para resolver!
                 </v-alert>
 
@@ -184,8 +185,8 @@
                                 Já tem uma conta?
                             </div>
                             <v-btn type="submit" :loading="loading" :disabled="isFormValid"
-                                @click="load, loading = !loading, AuthLogin()" rounded="0"
-                                block class="mb-0 flex-grow-1" color="blue-darken-4" size="large" variant="flat">
+                                @click="load, loading = !loading, AuthLogin()" rounded="0" block
+                                class="mb-0 flex-grow-1" color="blue-darken-4" size="large" variant="flat">
                                 <v-icon icon="mdi-login"></v-icon>&nbsp;Entrar
                             </v-btn>
                         </v-col>
@@ -820,8 +821,14 @@
                     :items="['1º Passo ', '2º Passo', '3º Passo']">
                     <template v-slot:item.1>
                         <v-card title="Dados Pessoais" prepend-icon="mdi-account" class="text-h6 mr-0" flat>
-                            <div class="text-subtitle-1 text-medium-emphasis">Nome completo</div>
+                            <div class="text-subtitle-1 text-medium-emphasis">Empresa</div>
 
+                            <v-text-field id="RCN" density="compact" v-model="companyName.value.value" clearable
+                                :error-messages="companyName.errorMessage.value" placeholder="Nome da Empresa" required
+                                prepend-inner-icon="mdi-account-outline" variant="underlined">
+                            </v-text-field>
+
+                            <div class="text-subtitle-1 text-medium-emphasis">Nome completo</div>
                             <v-text-field id="RFN" density="compact" v-model="regFullName.value.value" clearable
                                 :error-messages="regFullName.errorMessage.value" placeholder="Nome Completo" required
                                 prepend-inner-icon="mdi-account-outline" variant="underlined">
@@ -1123,7 +1130,7 @@
                     <template v-slot:item.3>
                         <v-card title="Detalhes" prepend-icon="mdi-check-circle" style="width:auto" flat>
                             <div class="text-subtitle-1 text-medium-emphasis" density="comfortable">Sexo</div>
-                            <v-combobox id="RSEX" variant="underlined" density="compact" :items=sexCombo
+                            <v-combobox id="RSEX" variant="tonal" density="compact" :items=sexCombo
                                 v-model="Sex.value.value" :error-messages="Sex.errorMessage.value"
                                 required></v-combobox>
 
@@ -1395,6 +1402,12 @@ const { handleSubmit, handleReset } = useForm({
             return 'Formato: 912345678'
         },
 
+        // CMP
+        companyName(value) {
+            if (value?.length >= 2) return true
+            return 'Este campo deve conter no minímo 2 caractéres'
+        },
+
         // REG
         regFullName(value) {
             if (value?.length >= 2) return true
@@ -1439,6 +1452,7 @@ const { handleSubmit, handleReset } = useForm({
 const logUser = useField('logUser')
 const logPwd = useField('logPwd')
 const regEmail = useField('regEmail')
+const companyName = useField('companyName')
 const regFullName = useField('regFullName')
 const regPhone = useField('regPhone')
 const regPwd = useField('regPwd')
@@ -2169,9 +2183,11 @@ export default {
 
                 // return;
 
+
                 //REGISTER
                 this.ActEmpty = false;
                 this.requestNewAcc = true
+                var RCN = document.getElementById('RCN').value
                 var RFN = document.getElementById('RFN').value
                 var REM = document.getElementById('REM').value
                 document.getElementById('PWE1').innerText = REM.replace(/(\w{3})[\w.-]+@([\w.]+\w)/, "$1***@$2")
@@ -2206,6 +2222,101 @@ export default {
                 }
 
                 let config = {
+                    headers: {
+                        'Accept': 'application/json',
+                        // 'Authorization': 'Bearer ' + response.data.token
+                    }
+                }
+
+                var today = new Date();
+                var year = today.getFullYear();
+                var month = (today.getMonth() + 1)
+                var day = today.getDate()
+                var time = today.getHours() + today.getMinutes() + today.getSeconds();
+                var NOW = year + '' + month + '' + day + '' + time
+
+                document.getElementById('topProgress').style.display = "block"
+
+                axios.post('Account',
+                    {
+                        partnerID: 'PRT' + NOW,
+                        Branch: RCN,
+                        Username: RFN, //this.username,
+                        Pass: RPWD1, //this.password
+                        Email: REM,
+                        Tel: PWT,
+                        CountryCode: PWC,
+                        Ask: 'N/A',
+                        Domain: 'convidado',
+                        ID: NOW,
+                        quest: 'N/A',
+                        user: REM
+                    }, config)
+                    .then(
+                        (response) => {
+
+                            if (response.request.status == '400') {
+                                // this.ActExist = true;
+                                this.createNewAcc = false;
+                                this.ActExist = true;
+                                document.getElementById('btnValidate').style.display = "true"
+
+                                this.requestNewAcc = false
+                                if (response.request.response == "Username already exists") {
+                                    this.ActEmpty = false;
+                                    this.ActExist = true;
+                                    this.createNewAcc = false;
+                                    // document.getElementById('btnValidate').style.display = "true"
+                                }
+                            }
+                            if (response.request.status == '200') {
+
+                                this.SaveAcc(REM, RPWD1, response.data.token)
+
+                                this.createNewAcc = false;
+                                this.requestNewAcc = false
+                                document.getElementById('dvToolbar').style.display = "none"
+                                document.getElementById('dvReg').style.display = "none"
+                                document.getElementById('topProgress').style.display = "block"
+                                document.getElementById('dvDone').style.display = "block"
+
+                                regDone = true;
+                                // RegComplete();
+                                if (RFN & RPWD1 & REM & PWT) {
+                                    this.ActEmpty = false;
+                                    this.notifyAlert = true;
+                                }
+                                else {
+                                    this.ActEmpty = false;
+                                    this.notifyAlert = true
+                                }
+                                this.isFormValid = false
+                            }
+                            else {
+                                this.createNewAcc = false;
+                                document.getElementById('btnValidate').style.display = "true"
+                            }
+                        }
+                    )
+                    .catch(
+                        (error) => {
+                            this.createNewAcc = false;
+                            document.getElementById('btnValidate').style.display = "true"
+
+                            this.requestNewAcc = false
+                            if (error.response) {
+                                console.log(error.response.data);
+                                console.log(error.response.status);
+                                console.log(error.response.headers);
+                                console.log(error.toJSON)
+                            }
+                            return error.response;
+                        }
+                    )
+
+                    return;
+
+                let configx = {
                     headers: {
                         'Accept': 'application/json',
                         'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
@@ -2246,96 +2357,7 @@ export default {
                                 this.emptyFields = false;
 
 
-                                let config = {
-                                    headers: {
-                                        'Accept': 'application/json',
-                                        'Authorization': 'Bearer ' + response.data.token
-                                    }
-                                }
-
-                                var today = new Date();
-                                var year = today.getFullYear();
-                                var month = (today.getMonth() + 1)
-                                var day = today.getDate()
-                                var time = today.getHours() + today.getMinutes() + today.getSeconds();
-                                var NOW = year + '' + month + '' + day + '' + time
-
-                                document.getElementById('topProgress').style.display = "block"
-
-                                axios.post('Account',
-                                    {
-                                        Username: RFN, //this.username,
-                                        Pass: RPWD1, //this.password
-                                        Email: REM,
-                                        Tel: PWT,
-                                        CountryCode: PWC,
-                                        Ask: 'N/A',
-                                        Domain: 'convidado',
-                                        ID: NOW,
-                                        quest: 'N/A',
-                                        user: REM
-                                    }, config)
-                                    .then(
-                                        (response) => {
-
-                                            if (response.request.status == '400') {
-                                                // this.ActExist = true;
-                                                this.createNewAcc = false;
-                                                this.ActExist = true;
-                                                document.getElementById('btnValidate').style.display = "true"
-
-                                                this.requestNewAcc = false
-                                                if (response.request.response == "Username already exists") {
-                                                    this.ActEmpty = false;
-                                                    this.ActExist = true;
-                                                    this.createNewAcc = false;
-                                                    // document.getElementById('btnValidate').style.display = "true"
-                                                }
-                                            }
-                                            if (response.request.status == '200') {
-
-                                                this.SaveAcc(REM, RPWD1, response.data.token)
-
-                                                this.createNewAcc = false;
-                                                this.requestNewAcc = false
-                                                document.getElementById('dvToolbar').style.display = "none"
-                                                document.getElementById('dvReg').style.display = "none"
-                                                document.getElementById('topProgress').style.display = "block"
-                                                document.getElementById('dvDone').style.display = "block"
-
-                                                regDone = true;
-                                                // RegComplete();
-                                                if (RFN & RPWD1 & REM & PWT) {
-                                                    this.ActEmpty = false;
-                                                    this.notifyAlert = true;
-                                                }
-                                                else {
-                                                    this.ActEmpty = false;
-                                                    this.notifyAlert = true
-                                                }
-                                                this.isFormValid = false
-                                            }
-                                            else {
-                                                this.createNewAcc = false;
-                                                document.getElementById('btnValidate').style.display = "true"
-                                            }
-                                        }
-                                    )
-                                    .catch(
-                                        (error) => {
-                                            this.createNewAcc = false;
-                                            document.getElementById('btnValidate').style.display = "true"
-
-                                            this.requestNewAcc = false
-                                            if (error.response) {
-                                                console.log(error.response.data);
-                                                console.log(error.response.status);
-                                                console.log(error.response.headers);
-                                                console.log(error.toJSON)
-                                            }
-                                            return error.response;
-                                        }
-                                    )
+                                
                             }
                         }
                     )
