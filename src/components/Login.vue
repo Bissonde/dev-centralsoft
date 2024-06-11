@@ -80,12 +80,13 @@
         detectRetina: true
     }" />
 
-    <v-form ref="form" fast-fail @submit.prevent="submit" class="circular"
+    <v-form ref="form" style="border-top:5px solid darkorange" fast-fail @submit.prevent="submit" class="circular"
         v-bind:style="{ 'background-image': 'url(' + bgimage + ')' }">
 
         <!-- PROGRESS BAR -->
         <v-progress-linear :active="loading" :indeterminate="loading" color="blue-lighten-3" id="topProgress"
             style="display: none;" indeterminate></v-progress-linear>
+
         <!-- LOGIN -->
 
         <div id="dvLogin" class="d-flex align-center justify-center" width="500" max-width="456" v-if="alert == 'log'"
@@ -94,11 +95,13 @@
             <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
+
             <!-- class="pa-5 pb-8 ma-2" -->
-            <v-card class="pa-3 pb-0 ma-4" elevation="8" max-width="448" rounded="sm" margin-left="4"
+            <v-card id="dop" class="pa-3 pb-0 ma-4" elevation="8" max-width="448" rounded="sm" margin-left="4"
                 style="opacity:0.9;">
 
-                <v-toolbar color="deep-blue-accent-4" cards dark flat>
+                <v-toolbar color="deep-blue-accent-4"
+                    style="background-image: linear-gradient(40deg, #cccca0  35%, #acd4ff 100%);" cards dark flat>
                     <v-btn @click="handleReset, emptyFields = false, alert = 'log'" icon>
                         <v-icon>mdi-account</v-icon>
                     </v-btn>
@@ -125,6 +128,16 @@
                     Esta conta não existe, tente novamente!
                 </v-alert>
 
+                <v-alert v-model="ActDisabled" class="mb-5 mt-5" border="start" variant="tonal" closable
+                    close-label="Close Alert" icon="mdi-block-helper" color="error" title="Conta suspensa!" type="error">
+                    Contacte o administrador para resolver!
+                </v-alert>
+
+                <v-alert v-model="ActWrong" class="mb-5 mt-5" border="start" variant="tonal" closable
+                    close-label="Close Alert" color="error" title="Conta errada!" type="error">
+                    Utilizador / password estão incorrectos
+                </v-alert>
+
                 <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 
                 <v-text-field density="compact" id="LGU" v-model="logUser.value.value" v-bind="$attrs" clearable
@@ -135,7 +148,7 @@
                     Palavra-passe
 
                     <v-btn class="text-caption text-decoration-none text-blue" variant="text"
-                        @click="ActExist=false, alert = 'pwd'; loginError = false;">
+                        @click="ActExist = false, isFormValid = false, alert = 'pwd'; loginError = false;">
                         <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Esqueceu a palavra-passe?</v-btn>
                 </div>
 
@@ -170,9 +183,9 @@
                             <div class="text-caption text-decoration-none text-blue">
                                 Já tem uma conta?
                             </div>
-                            <v-btn type="submit" :loading="loading" @click="load, loading = !loading, AuthLogin()"
-                                rounded="0" block class="mb-0 flex-grow-1" color="blue-darken-4" size="large"
-                                variant="flat">
+                            <v-btn type="submit" :loading="loading" :disabled="isFormValid"
+                                @click="load, loading = !loading, AuthLogin()" rounded="0"
+                                block class="mb-0 flex-grow-1" color="blue-darken-4" size="large" variant="flat">
                                 <v-icon icon="mdi-login"></v-icon>&nbsp;Entrar
                             </v-btn>
                         </v-col>
@@ -209,6 +222,54 @@
             </v-card>
         </div>
 
+
+        <!-- DONE RESET -->
+        <div id='dont' class="d-flex align-center justify-center" width="500" max-width="456" style="height: 100vh;"
+            v-if="alert == 'don'">
+
+            <v-card class="pa-5 pb-1 ma-2 blue-lighten-3" elevation="8" max-width="448" rounded="sm" margin-left="4"
+                style="opacity:0.9;">
+
+                <v-spacer></v-spacer>
+
+                <v-img class="mx-auto my-6" max-width="228"
+                    src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
+
+                <v-divider></v-divider>
+
+                <div class="py-12 text-center">
+                    <v-icon class="mb-2" color="success" icon="mdi-check-circle-outline" size="108"></v-icon>
+
+                    <div class="text-h6 font-weight-bold">Conta activada com sucesso!</div>
+                    <br>
+                    <p class="text-subtitle-1">A sua conta foi activada com sucesso. <span class="text-subtitle-1"
+                            id="PWE1" style="font-weight:500"></span> e já podes aceder
+                        ao
+                        nosso portal.
+                    </p>
+                </div>
+
+                <!-- <v-divider></v-divider> -->
+
+                <div class="or pb-10" style="font-size: 10pt; font-weight: 500;">OU</div>
+
+
+                <!-- LOGIN BUTTONS -->
+                <v-card-text class="text-center pt-0">
+
+                    <v-row>
+
+
+                        <v-btn variant="tonal" size="large" block rounded="0"
+                            class="text-blue text-decoration-none mb-3" rel="noopener noreferrer" @click="GoDash();">
+                            <v-icon icon="mdi-account-star"></v-icon>&nbsp;Ir para minha Conta<v-icon
+                                icon="mdi-chevron-right"></v-icon>
+                        </v-btn>
+                    </v-row>
+                </v-card-text>
+            </v-card>
+        </div>
+
         <!-- RESET PWD -->
         <div class="d-flex align-center justify-center" width="500" max-width="456" v-if="alert == 'pwd'"
             style="height: 100vh;">
@@ -220,23 +281,27 @@
             <v-card id="rstPwd" class="pa-3 pb-0 ma-4" elevation="8" width="420" max-width="456" rounded="sm"
                 margin-left="0" style="opacity:0.9;">
 
-                <!-- <v-progress-linear color="blue-lighten-3" id="topProgress" style="display: none;"
-                    indeterminate></v-progress-linear> -->
 
-                <v-toolbar color="deep-blue-accent-4" cards dark flat>
-                    <v-btn @click="handleReset, emptyFields = false, alert = 'log'" icon>
+                <v-alert v-model="requestNewAcc" class="pa-0 ma-0" style="background-color: transparent;">
+                    <v-progress-linear color="deep-purple-accent-4" height="6" indeterminate
+                        rounded></v-progress-linear>
+                </v-alert>
+
+                <v-toolbar color="deep-blue-accent-4"
+                    style="background-image: linear-gradient(40deg, #cccca0 35%, #acd4ff 100%);" cards dark flat>
+                    <v-btn @click="handleReset, emptyFields = false, isFormValid = false, alert = 'log'" icon>
                         <v-icon>mdi-arrow-left</v-icon>
                     </v-btn>
                     <v-card-title class="mx-auto my-8">
                         Recuperar Conta!
                     </v-card-title>
                     <v-spacer></v-spacer>
-                    <v-btn @click="handleReset" icon>
+                    <v-btn @click="handleReset, isFormValid = false" icon>
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </v-toolbar>
 
-                <v-img class="mx-auto my-6" max-width="228"
+                <v-img class="mx-auto my-12" max-width="228"
                     src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
 
 
@@ -249,6 +314,18 @@
                     close-label="Close Alert" color="error" title="Erro!" type="error">
                     Esta conta não existe, tente novamente!
                 </v-alert>
+
+                <!-- <v-alert v-model="requestPwdChg" style="background-color: transparent;">
+
+                    <v-card class="pa-0 text-caption">
+                        <v-progress-linear color="deep-purple-accent-4" height="6" indeterminate
+                            rounded></v-progress-linear>
+                        <v-card-text class="text-medium-emphasis text-caption">
+                            <b>Atenção:</b> Por favor aguarde, quanto submetemos o teu pedido!
+                        </v-card-text>
+                    </v-card>
+                </v-alert> -->
+
 
                 <div class="pl-2">
                     <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
@@ -528,8 +605,9 @@
                         </v-col>
 
                         <v-col cols="md-6">
-                            <v-btn type="submit" :loading="loading" @click="loading = !loading, AuthLogin()" rounded="0"
-                                block class="mb-0" color="blue-darken-4" size="large" v-if="alert == 'pwd'"
+                            <v-btn type="submit" :disabled="isFormValid" :loading="loading"
+                                @click="loading = !loading, AuthLogin(), isFormValid = !isFormValid, requestPwdChg = true"
+                                rounded="0" block class="mb-0" color="blue-darken-4" size="large" v-if="alert == 'pwd'"
                                 variant="flat">
                                 <v-icon icon="mdi-lock-reset"></v-icon>&nbsp;Recuperar
                             </v-btn>
@@ -546,6 +624,95 @@
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
 
+                <v-card class="pa-3 pb-1 ma-1 blue-lighten-3" elevation="8" max-width="448" rounded="sm" margin-left="4"
+                    style="opacity:0.9;">
+
+                    <v-spacer></v-spacer>
+
+                    <v-img class="mx-auto my-0" max-width="228"
+                        src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
+
+                    <v-divider></v-divider>
+
+                    <v-alert v-model="emptyFields" class="mb-5 mt-5" border="start" variant="tonal" closable
+                        close-label="Close Alert" color="warning" title="Atenção!" type="warning">
+                        Preencha todos os campos abaixo!
+                    </v-alert>
+
+                    <v-alert v-model="ActRsError" class="mb-5 mt-5" border="start" variant="tonal" closable
+                        close-label="Close Alert" color="error" title="Erro!" type="error">
+                        O código de confirmação está errado!
+                    </v-alert>
+
+                    <div class="py-3 text-center">
+                        <v-icon class="mb-6" color="success" icon="mdi-check-circle-outline" size="108"></v-icon>
+
+                        <div class="text-h6 font-weight-bold">Alteração de palavra-passe</div>
+                        <br>
+                        <p class="text-caption">Foi enviado um link e um código de verificação para o seu
+                            email&nbsp;<span class="text-subtitle-3" id="PWE1" style="font-weight:500"></span>. Abra-o
+                            para alterar a sua palavra-passe!
+                        </p>
+                    </div>
+
+                    <div class="or pb-1" style="font-size: 10pt; font-weight: 500;">OU</div>
+                    <div class="py-3 text-center">
+                        <span class="text-caption">Insira o código de verificação para alterar a sua
+                            palavra-passe!</span>
+                        <v-otp-input v-model="otp" onclick="this.isFormValid=false;" onchange="this.isFormValid=false;"
+                            class="mb-0" divider="•" length="4" variant="outlined"></v-otp-input>
+                        <!-- 
+                        <v-alert v-model="emptyFields" class="pl-10 pr-10" border="start" variant="tonal"
+                            close-label="Close Alert" style="font-size:10pt;" color="error" type="error">
+                            O código de confirmação está errado!
+                        </v-alert> -->
+                    </div>
+
+                    <!-- LOGIN BUTTONS -->
+                    <v-card-text class="text-center pt-0">
+
+                        <v-row>
+                            <v-col cols="md-6">
+                                <v-btn variant="tonal" color="red-accent-4" size="large" block rounded="0"
+                                    class="text-blue text-decoration-none" rel="noopener noreferrer" target="/register"
+                                    @click="alert = 'log'; loginError = false;">
+                                    <v-icon icon="mdi-arrow-left-circle"></v-icon>&nbsp;Voltar
+                                </v-btn>
+
+                            </v-col>
+
+                            <v-col cols="md-6">
+                                <v-btn type="submit" :disabled="isFormValid" :loading="loading"
+                                    @click="loading = !loading, ValidateToken()" rounded="0" block class="mb-0"
+                                    color="blue-darken-4" size="large" variant="flat">
+                                    <v-icon icon="mdi-account-star"></v-icon>&nbsp;Verificar<v-icon
+                                        icon="mdi-chevron-right"></v-icon>
+                                </v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+
+                    <div style="display:none;"
+                        class="text-subtitle-1 text-medium-emphasis d-flex align-right justify-space-between">
+                        &nbsp;&nbsp;&nbsp;
+
+                        <v-btn v-if="ResendToken == false" class="text-caption text-decoration-none text-blue"
+                            variant="text"
+                            @click=" this.startCountDown(60), ResendEmail('Reset Password'), isFormValid = false">
+                            <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Não recebeu o código de
+                            verificação?&nbsp;</v-btn>
+                        <div v-if="ResendToken == true" class="text-caption text-center" variant="text">
+                            <v-icon icon="mdi-help-circle1"></v-icon>&nbsp;O código de confirmação foi
+                            re-enviado!&nbsp; <b>Não recebeu?</b> aguarde&nbsp;<b><span
+                                    id="tseconds"></span></b>&nbsp;segundos
+                        </div>
+                    </div>
+                </v-card>
+            </div>
+
+            <!-- DONE -->
+            <div id='don' style="display:none;">
+
                 <v-card class="pa-5 pb-1 ma-2 blue-lighten-3" elevation="8" max-width="448" rounded="sm" margin-left="4"
                     style="opacity:0.9;">
 
@@ -557,14 +724,14 @@
                     <v-divider></v-divider>
 
                     <div class="py-12 text-center">
-                        <v-icon class="mb-6" color="success" icon="mdi-check-circle-outline" size="108"></v-icon>
+                        <v-icon class="mb-2" color="success" icon="mdi-check-circle-outline" size="108"></v-icon>
 
-                        <div class="text-h6 font-weight-bold">Alteração de palavra-passe</div>
+                        <div class="text-h6 font-weight-bold">Palavra-passe alterada com sucesso!</div>
                         <br>
-                        <p class="text-caption">Foi submetido e enviado um link para o email <span
-                                class="text-subtitle-1" id="PWE1" style="font-weight:500"></span> com o seu pedido.
-                            <br>Abra-o
-                            para alterar a sua palavra-passe!
+                        <p class="text-subtitle-1">A sua palavra-passe foi alterada com sucesso. <span
+                                class="text-subtitle-1" id="PWE1" style="font-weight:500"></span> e já podes aceder
+                            ao
+                            nosso portal.
                         </p>
                     </div>
 
@@ -580,9 +747,8 @@
 
 
                             <v-btn variant="tonal" size="large" block rounded="0" class="text-blue text-decoration-none"
-                                rel="noopener noreferrer" target="/register"
-                                @click="alert = 'log'; loginError = false; emptyFields = false;">
-                                <v-icon icon="mdi-account-star"></v-icon>&nbsp;Iniciar Sessão<v-icon
+                                rel="noopener noreferrer" @click="GoDash();">
+                                <v-icon icon="mdi-account-star"></v-icon>&nbsp;Ir para minha Conta<v-icon
                                     icon="mdi-chevron-right"></v-icon>
                             </v-btn>
                         </v-row>
@@ -602,24 +768,32 @@
             <v-card class="pa-3 pb-0 ma-4" elevation="2" width="500" max-width="428" rounded="sm" margin-left="4"
                 style="opacity:0.9; margin-bottom:-20px">
 
-                <!-- <v-progress-linear color="blue-lighten-3" id="topProgress" style="display: none;"
-                    indeterminate></v-progress-linear> -->
+                <v-alert v-model="createNewAcc" class="pa-0 ma-0" style="background-color: transparent;">
+                    <v-progress-linear color="deep-purple-accent-4" height="6" indeterminate
+                        rounded></v-progress-linear>
+                </v-alert>
 
-                <v-toolbar id="dvToolbar" color="deep-blue-accent-4" cards dark flat>
-                    <v-btn @click="handleReset, emptyFields = false, alert = 'log'" icon>
+                <v-toolbar id="dvToolbar" style="background-image: linear-gradient(40deg, #cccca0 35%, #acd4ff 100%);"
+                    color="deep-blue-accent-4" cards dark flat>
+                    <v-btn @click="handleReset, isFormValid = false, emptyFields = false, alert = 'log'" icon>
                         <v-icon>mdi-arrow-left</v-icon>
                     </v-btn>
                     <v-card-title class="mx-auto my-8">
                         Inscreva-se!
                     </v-card-title>
                     <v-spacer></v-spacer>
-                    <v-btn @click="handleReset, ActEmpty = false;" icon>
+                    <v-btn @click="handleReset" icon>
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                     <!-- <v-btn icon>
                         <v-icon>mdi-dots-vertical</v-icon>
                     </v-btn> -->
                 </v-toolbar>
+
+                <v-alert v-model="ActCrError" class="mb-5 mt-5" border="start" variant="tonal" closable
+                    close-label="Close Alert" color="error" title="Erro!" type="error">
+                    O código de confirmação está errado!
+                </v-alert>
 
                 <v-alert v-model="ActExist" class="mb-5 mt-5" border="start" variant="tonal" closable
                     close-label="Close Alert" color="error" title="Erro!" type="error">
@@ -650,19 +824,19 @@
 
                             <v-text-field id="RFN" density="compact" v-model="regFullName.value.value" clearable
                                 :error-messages="regFullName.errorMessage.value" placeholder="Nome Completo" required
-                                prepend-inner-icon="mdi-account-outline" variant="outlined">
+                                prepend-inner-icon="mdi-account-outline" variant="underlined">
                             </v-text-field>
 
                             <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
 
                             <v-text-field id="REM" density="compact" v-model="regEmail.value.value"
                                 :error-messages="regEmail.errorMessage.value" placeholder="Email address" required
-                                prepend-inner-icon="mdi-email-outline" clearable variant="outlined"></v-text-field>
+                                prepend-inner-icon="mdi-email-outline" clearable variant="underlined"></v-text-field>
 
                             <v-row>
                                 <v-col cols="md-5" class="pt-4">
                                     <div class="text-subtitle-1 text-medium-emphasis">País</div>
-                                    <select name="countryCode" id="" class="text-subtitle-4 text-medium-emphasis"
+                                    <select name="countryCode" id="PWC" class="text-subtitle-2 text-medium-emphasis"
                                         style="width: 150px;">
                                         <option data-countryCode="AO" value="244" Selected>Angola (+244)</option>
                                         <option data-countryCode="PT" value="351">Portugal (+351)</option>
@@ -897,10 +1071,10 @@
                                 </v-col>
                                 <v-col cols="md-7">
                                     <div class="text-subtitle-1 text-medium-emphasis">Telefone</div>
-                                    <v-text-field id="RPH" density="compact" v-model="regPhone.value.value"
+                                    <v-text-field id="PWT" density="compact" v-model="regPhone.value.value"
                                         :error-messages="regPhone.errorMessage.value" placeholder="Telemóvel"
                                         prepend-inner-icon="mdi-phone-outline" required clearable
-                                        variant="outlined"></v-text-field>
+                                        variant="underlined"></v-text-field>
                                 </v-col>
                             </v-row>
                         </v-card>
@@ -918,7 +1092,7 @@
                                 :type="visible ? 'text' : 'password'" v-model="regPwd.value.value"
                                 :error-messages="regPwd.errorMessage.value" required density="compact"
                                 placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline"
-                                variant="outlined" clearable @click:append-inner="visible = !visible"
+                                variant="underlined" clearable @click:append-inner="visible = !visible"
                                 hint="As palvra-passes devem ser identicas"></v-text-field>
 
                             <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
@@ -932,7 +1106,7 @@
                                 :type="visible ? 'text' : 'password'" clearable v-model="regPwd2.value.value"
                                 :error-messages="regPwd2.errorMessage.value" required density="compact"
                                 placeholder="Enter your password" prepend-inner-icon="mdi-lock-outline"
-                                variant="outlined" @click:append-inner="visible = !visible"
+                                variant="underlined" @click:append-inner="visible = !visible"
                                 hint="As palvra-passes devem ser identicas"></v-text-field>
 
                             <div class="text-subtitle-1 text-medium-emphasis">Dica</div>
@@ -940,7 +1114,7 @@
                             <v-text-field id="RHT" density="compact" v-model="regFullName.value.value" clearable
                                 :error-messages="regFullName.errorMessage.value"
                                 placeholder="Ajuda a lembrar a palavra-passe" required prepend-inner-icon="mdi-lastpass"
-                                variant="outlined">
+                                variant="underlined">
                             </v-text-field>
 
                         </v-card>
@@ -949,19 +1123,19 @@
                     <template v-slot:item.3>
                         <v-card title="Detalhes" prepend-icon="mdi-check-circle" style="width:auto" flat>
                             <div class="text-subtitle-1 text-medium-emphasis" density="comfortable">Sexo</div>
-                            <v-combobox id="RSEX" variant="solo" density="compact" :items=sexCombo
+                            <v-combobox id="RSEX" variant="underlined" density="compact" :items=sexCombo
                                 v-model="Sex.value.value" :error-messages="Sex.errorMessage.value"
                                 required></v-combobox>
 
 
                             <div class="text-subtitle-1 text-medium-emphasis">Data de nascimento</div>
                             <v-text-field id="RDOB" density="compact" v-model="DOB.value.value" clearable
-                                :error-messages="DOB.errorMessage.value" label="Data*" type="date"
+                                :error-messages="DOB.errorMessage.value" label="Data*" type="date" variant="underlined"
                                 prepend-inner-icon="mdi-calendar" required></v-text-field>
 
                             <div class="text-subtitle-1 text-medium-emphasis">Interesses</div>
                             <v-combobox id="RLK" persistent-hint hide-selected :hide-no-data="false"
-                                variant="solo-filled" density="compact" chips v-model="Likes.value.value" clearable
+                                variant="underlined" density="compact" chips v-model="Likes.value.value" clearable
                                 :error-messages="Likes.errorMessage.value" required multiple
                                 :items=myInterests></v-combobox>
 
@@ -980,9 +1154,9 @@
                             <div class="text-caption text-decoration-none text-blue">
                                 Criar nova conta?
                             </div>
-                            <v-btn variant="tonal" :loading="loading"
-                                @click="loading = !loading, AuthLogin(), load, validate, onflicker" block
-                                class="mb-0 rounded-0" color="blue-darken-4" size="large">
+                            <v-btn id="btnValidate" type="submit" :disabled="isFormValid" variant="tonal"
+                                :loading="loading" @click="loading = !loading, AuthLogin(), load, validate, onflicker"
+                                block class="mb-0 rounded-0" color="blue-darken-4" size="large">
                                 <v-icon icon="mdi-checkbox-marked-circle-outline"></v-icon>&nbsp;Validar
                             </v-btn>
 
@@ -993,36 +1167,42 @@
                 </v-stepper>
 
 
-                <!-- DONE -->
+                <!-- CREATE DONE -->
                 <div id="dvDone" style="display: none;">
 
                     <!-- <v-img class="mx-auto my-6" max-width="228"
                 src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
 
 
-                    <v-card class="pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4"
+                    <v-card class="pa-1 pb-1 ma-2" elevation="0" max-width="448" rounded="sm" margin-left="4"
                         style="opacity:0.9;">
 
                         <v-spacer></v-spacer>
 
-                        <v-img class="mx-auto my-6" max-width="228"
+                        <v-img class="mx-auto my-3" max-width="228"
                             src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
 
                         <v-divider></v-divider>
+                        <div class="py-1 text-center">
+                            <v-icon class="mb-2" color="success" icon="mdi-check-circle-outline" size="108"></v-icon>
 
-                        <div class="py-12 text-center">
-                            <v-icon class="mb-6" color="success" icon="mdi-check-circle-outline" size="108"></v-icon>
-
-                            <div class="text-h6 font-weight-bold">Conta criada com sucesso!</div>
+                            <div class="text-h6 font-weight-bold">Conta adicionada com sucesso!</div>
                             <br>
-                            <p class="text-caption">Foi enviado um link para o seu email. Abra-o para activar a sua
-                                conta de utilizador!</p>
+                            <p class="text-caption">Foi enviado um link e um código de verificação para o seu
+                                email&nbsp;<span class="text-subtitle-3" id="PWE1" style="font-weight:500"></span>.
+                                Abra-o
+                                para activar a sua conta!
+                            </p>
                         </div>
 
-                        <!-- <v-divider></v-divider> -->
-                        <div class="or pb-10" style="font-size: 10pt; font-weight: 500;">OU</div>
-
-
+                        <div class="or pb-1" style="font-size: 10pt; font-weight: 500;">OU</div>
+                        <div class="py-3 text-center">
+                            <span class="text-caption">Insira o código de verificação para alterar a sua1
+                                palavra-passe!</span>
+                            <v-otp-input v-model="otp1" onclick="this.isFormValid=false;"
+                                onchange="this.isFormValid=false;" class="mb-0" divider="•" length="4"
+                                variant="outlined"></v-otp-input>
+                        </div>
                         <!-- LOGIN BUTTONS -->
                         <v-card-text class="text-center pt-0">
 
@@ -1031,13 +1211,27 @@
 
                                 <v-btn variant="tonal" size="large" block rounded="0"
                                     class="text-blue text-decoration-none" rel="noopener noreferrer" target="/register"
-                                    @click="alert = 'log'; loginError = false; emptyFields = false;">
-                                    <v-icon icon="mdi-account-star"></v-icon>&nbsp;Iniciar Sessão<v-icon
+                                    @click="ValidateAccount(); loginError = false; emptyFields = false;">
+                                    <v-icon icon="mdi-account-star"></v-icon>&nbsp;Verificar<v-icon
                                         icon="mdi-chevron-right"></v-icon>
                                 </v-btn>
                             </v-row>
+                            <br>
+                            <v-btn v-if="ResendToken == false" class="text-caption text-decoration-none text-blue"
+                                variant="text"
+                                @click=" startCountDown(60); ResendEmail('Confirmar Registo'), isFormValid = false, ActCrError = false">
+                                <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Não recebeu o código de
+                                verificação?&nbsp;</v-btn>
+
                         </v-card-text>
+                        <div v-if="ResendToken == true" class="text-caption text-center" variant="text">
+                            <v-icon icon="mdi-help-circle1"></v-icon>&nbsp;O código de confirmação foi
+                            re-enviado!&nbsp; <b>Não recebeu?</b> aguarde&nbsp;<b><span
+                                    id="tseconds"></span></b>&nbsp;segundos
+                        </div>
                     </v-card>
+
+
                 </div>
 
                 <!-- RESET PWD -->
@@ -1060,7 +1254,7 @@
                         <div class="py-12 text-center">
                             <v-icon class="mb-6" color="success" icon="mdi-check-circle-outline" size="108"></v-icon>
 
-                            <div class="text-h6 font-weight-bold">Conta criada com sucesso!</div>
+                            <div class="text-h6 font-weight-bold">Confirmar Registo com sucesso!</div>
                             <br>
                             <p class="text-caption">Foi enviado um link para o seu email. Abra-o para activar a sua
                                 conta de utilizador!</p>
@@ -1162,7 +1356,6 @@
     </v-form>
 </template>
 
-
 <script setup>
 
 import Particles from "@tsparticles/vue3";
@@ -1173,6 +1366,7 @@ import { loadSlim } from "@tsparticles/slim"; // if you are going to use `loadSl
 // useTokenStore
 import { ref, onMounted } from 'vue';
 import { useTokenStore } from '@/store/TokenStore';
+import { useEmailStore } from '@/store/EmailStore'
 import axios from 'axios'
 import router from '@/router';
 import { useRouter } from 'vue-router';
@@ -1260,12 +1454,10 @@ const submit = handleSubmit(values => {
     alert(JSON.stringify(values, null, 2))
 })
 
-
 const callback = (response) => {
-    
+
     const PayLoad = decodeJwtResponse(response.credential)
     console.log("Handle the response", PayLoad)
-    // alert(PayLoad.email)
     TokenStore.setToken(response.credential, true);
     window.localStorage.setItem('username', PayLoad.name)
     window.localStorage.setItem('family_name', PayLoad.family_name)
@@ -1278,10 +1470,8 @@ const callback = (response) => {
 
 
 const callbackReg = (response) => {
-    // console.log("Handle the response", response)
     const PayLoad = decodeJwtResponse(response.credential)
     console.log("Handle the response", PayLoad)
-    // alert(PayLoad.email)
     // TokenStore.setToken(response.credential, true);
 
     window.localStorage.setItem('username', PayLoad.name)
@@ -1293,10 +1483,12 @@ const callbackReg = (response) => {
     this.regFullName = PayLoad.family_name
 
     Register();
-
-    // window.localStorage.setItem('JwtToken', response.credential)
-    // window.location = '/dashboard'
 }
+
+let IP = document.createElement('script')
+IP.setAttribute('type', 'application/javascript')
+IP.setAttribute('src', 'https://api.ipify.org?format=jsonp&callback=getIP')
+document.head.appendChild(IP)
 
 function decodeJwtResponse(token) {
     var base64Url = token.split(".")[1];
@@ -1328,17 +1520,20 @@ init: async engine => {
 };
 
 onMounted(() => {
-    // alert(TokenStore.tokenID) 
     // this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
-    // this.regEmail = window.localStorage.getItem('email')
-    // alert(this.regEmail)
+
+    // alert(window.location.origin)
 
     // gapi.signin2.render('g_id_register', {
     //     onsuccess: this.Register
     // })
 
+    // resp.headers.get('x-auth-token'));
+
+    // let IpValue = window.localStorage.getItem('IP') + ' ' + getDeviceType().charAt(0).toUpperCase() + getDeviceType().slice(1);
+
+
     if (window.localStorage.getItem('JwtToken') != null) {
-        // window.location = '/dashboard'
     }
     else {
     }
@@ -1348,11 +1543,40 @@ onMounted(() => {
 
 <script>
 const TokenStore = useTokenStore();
+const EmailStore = useEmailStore();
 const newToken = ['ljahsdfq697e69qwerq', 'Vasco Gungui', 'Administrator']
+const getDeviceType = () => {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+        return "tablet";
+    }
+    if (
+        /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+            ua
+        )
+    ) {
+        return "mobile";
+    }
+    return "desktop";
+};
 
 
 export default {
     data: () => ({
+        ActWrong: false,
+        ActDisabled: false,
+        ResendToken: false,
+        ActRsError: false,
+        ActCrError: false,
+        returnUrl: '',
+        createNewAcc: false,
+        requestNewAcc: false,
+        regDone: false,
+        otp: '',
+        otp1: '',
+        myIPAdr: 'https://api.ipify.org',
+        requestPwdChg: false,
+        isFormValid: false,
         PWE1: '',
         resetPwdOk: false,
         MainPanel: false,
@@ -1363,7 +1587,7 @@ export default {
         myInterests: ['Tecnológia', 'Portáteis', 'Telefones', 'Impressoras', 'Auriculares', 'Acessórios', 'Consumiveis', 'Comunicação', 'Web', 'Payrol', 'SMS/E-mail'],
         sexCombo: ['Homem', 'Mulher'],
         tab: null,
-        bgimage: "https://www.verangola.net/va/images/cache/750x380/crop/images%7Ccms-image-000008157.jpg",
+        bgimage: "https://img.freepik.com/free-vector/white-abstract-background-design_23-2148825582.jpg", //https://www.verangola.net/va/images/cache/750x380/crop/images%7Ccms-image-000008157.jpg
         joke: '',
         username: '',
         password: '',
@@ -1375,6 +1599,8 @@ export default {
         loginError: false,
         emptyFields: false,
         loading: false,
+        loadingChg: false,
+        loadingPwd: false,
         loaded: false,
         notifyAlert: false,
         agreement: false,
@@ -1403,9 +1629,20 @@ export default {
         loading(val) {
             if (!val) return
 
-            setTimeout(() => (this.loading = false), 6000)
+            setTimeout(() => (this.loading = false), 1000)
         },
+        loadingChg(val) {
+            if (!val) return
+
+            setTimeout(() => (this.loadingChg = false), 1000)
+        }
+        // loadingPwd(val) {
+        //     if (!val) return
+
+        //     setTimeout(() => (this.loadin = false), 9000)
+        // },
     },
+
     setup() {
         // const router = useRouter();
 
@@ -1420,11 +1657,272 @@ export default {
         // }       
 
     },
+
     methods: {
+
+        returnURL: function (page) {
+            var returnUrl = window.location.href
+            var goToPage = returnUrl.split('=')
+            if (window.location.href.includes('returnUrl')) {
+                window.location = goToPage[1]
+            }
+            else {
+                window.location = page
+            }
+        },
+
+        LoadPage: function () {
+
+            //  let uri = window.location.host
+        },
+        GoDash: async function () {
+
+            let _JwtToken = window.localStorage.getItem('JwtToken')
+            const PayLoad = this.decodeJwtResponse(_JwtToken)
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + _JwtToken
+                }
+            }
+
+            await axios.get('AccountLogin?xid=' + PayLoad.act, config)
+                .then(
+                    (response) => {
+
+                        if (response.request.status == '200') {
+                            //SET USER DATA
+                            window.localStorage.setItem('username', PayLoad.act),
+                                window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
+
+                                window.localStorage.removeItem('PWE'),
+                                window.localStorage.removeItem('PWD'),
+                                window.location = PayLoad.url
+                        }
+                    }
+                )
+                .catch((err) => {
+
+                });
+        },
+        decodeJwtResponse: function (token) {
+            var base64Url = token.split(".")[1];
+            var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+            var jsonPayload = decodeURIComponent(
+                atob(base64)
+                    .split("")
+                    .map(function (c) {
+                        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+                    })
+                    .join("")
+            );
+
+            return JSON.parse(jsonPayload);
+        },
+        ValidateToken: async function () {
+
+            let OTPX = this.otp;
+
+            if (OTPX == '') {
+                this.emptyFields = true;
+                return;
+            }
+
+            var PWE = document.getElementById('PWE').value
+            document.getElementById('PWE1').innerText = PWE.replace(/(\w{3})[\w.-]+@([\w.]+\w)/, "$1***@$2")
+            var PWC = document.getElementById('PWC').value
+            var PWT = document.getElementById('PWT').value
+
+            var CONTACT = PWC + PWT
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
+                }
+            }
+            await axios.post('AuthPwd?username=' + PWE + '&phone=' + PWT + '&token=null', config)
+                .then(
+                    (response) => {
+
+                        if (response.request.status == '400') {
+                            this.isFormValid = false;
+                        }
+                        if (response.request.status == '200') {
+                            this.ValidateChgToken(PWE, CONTACT, response.data.token)
+
+
+                        }
+                    })
+                .catch((err) => {
+                    setTimeout(() => {
+                    }, 1000);
+                });
+        },
+        ValidateChgToken: async function (USR, TEL, token) {
+
+            let OTPX = this.otp;
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            }
+            await axios.get('AuthPwd/' + USR + ',' + TEL + ',' + OTPX, config)
+                .then(
+                    (response) => {
+
+
+                        if (response.request.status == '400') {
+                            this.isFormValid = false;
+                            this.resetPwdOk = true;
+                            this.ActRsError = true;
+                        }
+                        else if (response.request.status == '200') {
+                            // this.Send_Email_Client(token, 'Password Alterada', USR, TEL)
+                            document.getElementById('rstPwdOk').style.display = "none"
+                            // document.getElementById('don').style.display = "block"
+                            window.location = window.location.origin + "/reset?" + response.data.token
+                        }
+                    }
+                )
+                .catch((err) => {
+                    setTimeout(() => {
+                    }, 1000);
+                });
+        },
+        ValidateAccount: async function () {
+
+            var PWE = document.getElementById('REM').value
+            var PWC = document.getElementById('PWC').value
+            var PWT = document.getElementById('PWT').value
+            var OTPX = this.otp1;
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
+                }
+            }
+            await axios.get('AccountLogin/' + PWE + ',' + OTPX, config)
+                .then(
+                    (response) => {
+
+
+                        if (response.request.status == '400') {
+                            this.ActCrError = true;
+                            this.isFormValid = false;
+
+                        }
+                        if (response.request.status == '200') {
+                            this.ActivateAccount();
+
+                            // document.getElementById('dop').style.display = "none"
+                            // document.getElementById('don').style.display = "block"
+
+                            this.alert = 'don'
+                        }
+                    }
+                )
+                .catch((err) => {
+                    setTimeout(() => {
+                    }, 1000);
+                });
+        },
+        ActivateAccount: function () {
+            const PayLoad = this.decodeJwtResponse(window.localStorage.getItem('JwtToken'))
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
+                }
+            }
+            axios.put('Account',
+                {
+                    Email: window.localStorage.getItem('PWE'),
+                    Stat: "true"
+                }, config)
+                .then(
+                    (response) => {
+                    }
+                )
+                .catch(
+                    (error) => {
+                        return error.response;
+                    }
+                )
+        },
+
+        getCurrentURL: function () {
+            return window.location.href
+
+        },
+        Send_Email_Client: async function (token_, mode, USR, TEL) {
+
+            const url = window.location.origin;
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + token_
+                }
+            }
+
+            let IpValue = window.localStorage.getItem('IP')
+            let IpGeoLoc = window.localStorage.getItem('GEO')
+            let IpDevice = window.localStorage.getItem('DEV')
+
+            if (token_ != undefined) {
+                await axios.post('Messages',
+                    {
+                        partnerID: '',
+                        branch: '',
+                        CRDATE: '',
+                        ADMIN: '',
+                        CLIENT: USR,
+                        DEST: TEL,
+                        CC: '',
+                        BCC: '',
+                        TOPIC: mode,
+                        MESSAGE1: token_,
+                        IP: IpValue,
+                        DEVICE: IpDevice,
+                        GEOLOCATION: IpGeoLoc,
+                        WEBURL: url
+                    }, config)
+                    .then(
+                        (response) => {
+                            if (response.request.status == '400') {
+
+                            }
+                            if (response.request.status == '200') {
+
+                                document.getElementById('PWE1').value = USR
+                                this.requestPwdChg = false;
+                                document.getElementById('rstPwd').style.display = "none"
+                                document.getElementById('topProgress').style.display = "none"
+                                this.isFormValid = false
+                                document.getElementById('rstPwdOk').style.display = "block"
+                            }
+                        }
+                    )
+                    .catch((err) => {
+
+                    });
+            }
+        },
+
+        OffRecover() {
+            // this.$refs.form.reset()
+            this.disabled = true;
+        },
         RegComplete: function () {
             this.alert = 'done'
             if (this.notifyAlert == true) {
-                alert(true)
+
             }
         },
         reset() {
@@ -1439,7 +1937,7 @@ export default {
         },
 
         onflicker() {
-            alert(regFullName)
+
         },
         onSuccess(googleUser) {
             console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
@@ -1462,9 +1960,6 @@ export default {
             window.localStorage.setItem('JwtToken', JSON.stringify(newToken));
             this.$router.push({ path: `/dashboard` })
             // window.location = '/dashboard'
-            //  alert(TokenStore.tokenID);
-            // alert(useModule.dialog)
-            // alert(this.isOkToSubmit)
         },
         handleSubmit() {
 
@@ -1481,11 +1976,76 @@ export default {
             const joke = await axios.get('https://localhost:7127/api/account/cubenda@gmail.com', config);
             console.log(joke.data);
         },
+
+        SaveAcc: async function (LGU, LPW, TOKEN) {
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + TOKEN
+                }
+            }
+
+            await axios.post('auth?username=' + LGU + '&password=' + LPW, config)
+                .then(
+                    (response) => {
+
+                        console.log(response.data.token)
+                        //SET USER DATA
+                        if (response.data.token != undefined) {
+
+                            window.localStorage.setItem('PWE', LGU)
+                            window.localStorage.setItem('PWD', LPW)
+
+                            this.Send_Email_Client(response.data.token, 'Confirmar Registo', LGU, LPW)
+                        }
+                    }
+                )
+                .catch((err) => {
+
+                    console.log(err)
+                });
+        },
+        ResendEmail: function (task) {
+            this.ResendToken = true
+            let TOKEN = window.localStorage.getItem('JwtToken')
+            var PWE = window.localStorage.getItem('PWE')
+
+            this.Send_Email_Client(TOKEN, task, PWE, null)
+
+            // setTimeout(() => {
+            //     this.ResendToken = false
+            // }, 5000);
+
+            this.startCountDown(60)
+        },
+        startCountDown: function (seconds) {
+
+            // if (document.getElementById('rstPwdOk').style.visible == "block") {
+            let counter = seconds;
+
+            const interval = setInterval(() => {
+                document.getElementById('tseconds').innerHTML = counter
+                counter--;
+                if (counter <= 0) {
+                    clearTimeout(interval);
+                }
+                if (counter < 0) {
+                    this.ResendToken = false
+                }
+            }, 1000)
+            // }
+        },
+        stopCountDown: function () {
+            const timeout = this.startCountDown(null)
+            clearTimeout(timeout);
+        },
         AuthLogin: async function () {
 
-            // alert(this.alert)
             this.notifyAlert = false;
             this.ActIncPwd = false;
+            this.ActDisabled = false;
+            this.ActWrong = false;
 
             if (this.alert == 'log') {
 
@@ -1496,10 +2056,11 @@ export default {
                 if ((LGU == '' || LPW == '')) {
                     this.loginError = false
                     this.emptyFields = true
+                    this.isFormValid = false
                     return
                 }
                 else {
-
+                    this.requestPwdChg = true
                 }
 
                 let config = {
@@ -1519,67 +2080,103 @@ export default {
 
                 const joke = await axios.post('auth?username=' + LGU + '&password=' + LPW, config, acc)
 
-                    // const newToken = ['ljahsdfq697e69qwerq', 'Vasco Gungui', 'Administrator']
-
                     .then(
                         (response) => {
-                           
-                            //SET USER DATA
+                            
+                            if (response.request.status == '400') {
+                                if (response.request.response == "account disabled") {
+                                    this.ActDisabled = true
+                                }
+                                if (response.request.response == "username or password incorrect") {
+                                    this.ActWrong = true
+                                }
+                                this.isFormValid = false
+                            }
+                            if (response.request.status == '200') {
+                                this.isFormValid = true
 
-                            //  alert(response.data.token)
-                            if (response.data.token != undefined) {
-                                this.loginError = false;
-                                this.emptyFields = false;
-                                document.getElementById('topProgress').style.display = "block"
+                                const PayLoad = this.decodeJwtResponse(response.data.token)
 
-                                // setTimeout(() => (
-                                TokenStore.setToken(response.data, true),
-                                    window.localStorage.setItem('username', LGU),
-                                    // window.localStorage.setItem('JwtToken', response.data.token)
+                                // return;
 
-                                    // window.localStorage.setItem('username', response.data.name)
-                                    // window.localStorage.setItem('family_name', response.data.family_name)
-                                    // window.localStorage.setItem('given_name', response.data.given_name)
-                                    // window.localStorage.setItem('email', response.data.email)
+                                //SET USER DATA
+                                if (response.data.token != undefined) {
+                                    this.loginError = false;
+                                    this.emptyFields = false;
+                                    this.requestPwdChg = false
 
-                                    // if (response.data.picture == null) {
-                                    // if(response.data.sex == '0'){
-                                    window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
-                                    // }
-                                    // else{
-                                    // window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/512044369/pt/vetorial/homem-com-cabe%C3%A7a-de-silhueta-isolado.jpg?s=612x612&w=0&k=20&c=TG1sJNJBrNox7bCG4-jlrCgzG2uR4ZV-tOtwWBPzZaI=")
-                                    // }
-                                    // }
-                                    window.localStorage.setItem('JwtToken', response.credential),
-                                    // alert(response.data.token)
-                                    // alert(response.token)
 
-                                    // if (response.data.token != undefined) {
-                                    window.localStorage.setItem('JwtToken', response.data.token),
-                                    // }
-                                    // else
-                                    // {
-                                    //     window.localStorage.setItem('JwtToken', response.token)
-                                    // }
-                                    window.location = '/dashboard'
+                                    document.getElementById('topProgress').style.display = "block"
+                                    TokenStore.setToken(response.data, true),
+                                        window.localStorage.setItem('username', LGU),
+                                      
+                                        window.localStorage.setItem('PID', PayLoad.pid),
+                                        window.localStorage.setItem('BID', PayLoad.bid),
+                                        window.localStorage.setItem('AID', PayLoad.aid),
+                                        window.localStorage.setItem('AFN', PayLoad.afn),
 
-                                // ), 1000)
+                                        // window.localStorage.setItem('JwtToken', response.data.token)
+
+                                        // window.localStorage.setItem('username', response.data.name)
+                                        // window.localStorage.setItem('family_name', response.data.family_name)
+                                        // window.localStorage.setItem('given_name', response.data.given_name)
+                                        // window.localStorage.setItem('email', response.data.email)
+
+                                        // if (response.data.picture == null) {
+                                        // if(response.data.sex == '0'){
+                                        window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
+                                        // }
+                                        // else{
+                                        // window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/512044369/pt/vetorial/homem-com-cabe%C3%A7a-de-silhueta-isolado.jpg?s=612x612&w=0&k=20&c=TG1sJNJBrNox7bCG4-jlrCgzG2uR4ZV-tOtwWBPzZaI=")
+                                        // }
+                                        // }
+                                        window.localStorage.setItem('JwtToken', response.credential),
+
+                                        // if (response.data.token != undefined) {
+                                        window.localStorage.setItem('JwtToken', response.data.token),
+
+                                        window.localStorage.setItem('PWE', LGU),
+                                        // }
+                                        // else
+                                        // {
+                                        //     window.localStorage.setItem('JwtToken', response.token)
+                                        // }
+
+                                        this.returnURL(PayLoad.url)
+
+                                    // ), 1000)
+                                }
                             }
                         }
                     )
                     .catch((err) => {
-                       
+
+                        console.log(err)
+
                         this.ActExist = true
                         this.emptyFields = false
+                        this.requestPwdChg = false
+                        this.isFormValid = true
                         // this.loginError = true
                     });
 
             }
             else if (this.alert == 'reg') {
+                this.createNewAcc = true;
+                this.isFormValid = false;
+                this.ActExist = false;
+                // document.getElementById('btnValidate').style.display = "none"
+
+                // return;
+
                 //REGISTER
+                this.ActEmpty = false;
+                this.requestNewAcc = true
                 var RFN = document.getElementById('RFN').value
                 var REM = document.getElementById('REM').value
-                var RPH = document.getElementById('RPH').value
+                document.getElementById('PWE1').innerText = REM.replace(/(\w{3})[\w.-]+@([\w.]+\w)/, "$1***@$2")
+                var PWT = document.getElementById('PWT').value
+                var PWC = document.getElementById('PWC').value
                 var RPWD1 = document.getElementById('RPWD1').value
                 var RPWD2 = document.getElementById('RPWD2').value
                 var RTAC = document.getElementById('RTAC').checked
@@ -1589,7 +2186,6 @@ export default {
                 // var RDOB = document.getElementById('RDOB').value
                 // var RLK = document.getElementById('RLK').value
 
-                // alert(RPWD1)
 
 
                 if (RPWD1 == null) {
@@ -1603,7 +2199,7 @@ export default {
                 }
 
 
-                if (RFN == "" || RPWD1 == "" || RPWD2 == "" || REM == "" || RPH == "" || RTAC == false) {
+                if (RFN == "" || RPWD1 == "" || RPWD2 == "" || REM == "" || PWT == "" || RTAC == false) {
                     this.ActExist = false;
                     this.ActEmpty = true;
                     return;
@@ -1620,7 +2216,7 @@ export default {
                     username: RFN, //this.username,
                     password: RPWD1, //this.password
                     email: REM,
-                    tel: RPH,
+                    tel: PWT,
                     // hint: this.RHT,
                     // dob: this.RDOB,
                     // sex: this.RSEX,
@@ -1628,10 +2224,9 @@ export default {
                 };
 
                 var acc = JSON.stringify(auth);
-                const joke = await axios.post('auth?username=admin&password=auth', config, acc)
+                const joke = await axios.post('auth?username=admin&password=auth')
                     .then(
                         (response) => {
-
 
                             this.notifyAlert = false
                             this.ActExistF = false
@@ -1642,12 +2237,9 @@ export default {
                                 TokenStore.setToken(response.data, true),
                                 window.localStorage.setItem('username', LGU),
                                 window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
-
                                 window.localStorage.setItem('JwtToken', response.credential),
-
                                 window.localStorage.setItem('JwtToken', response.data.token)
                             ))
-
 
                             if (response.data.token != undefined) {
                                 this.loginError = false;
@@ -1661,17 +2253,6 @@ export default {
                                     }
                                 }
 
-                                let authx = {
-                                    Username: RFN, //this.username,
-                                    Pass: RPWD1, //this.password
-                                    Email: REM,
-                                    Tel: RPH,
-                                    // hint: this.RHT,
-                                    // dob: this.RDOB,
-                                    // sex: this.RSEX,
-                                    // likes: this.RLK
-                                };
-
                                 var today = new Date();
                                 var year = today.getFullYear();
                                 var month = (today.getMonth() + 1)
@@ -1679,61 +2260,73 @@ export default {
                                 var time = today.getHours() + today.getMinutes() + today.getSeconds();
                                 var NOW = year + '' + month + '' + day + '' + time
 
-                                // alert(year + '' + month + '' + day + '' + time)
-
                                 document.getElementById('topProgress').style.display = "block"
 
-
-                                var act = JSON.stringify(authx);
-                                const joke = axios.post('Account',
+                                axios.post('Account',
                                     {
                                         Username: RFN, //this.username,
                                         Pass: RPWD1, //this.password
                                         Email: REM,
-                                        Tel: RPH,
+                                        Tel: PWT,
+                                        CountryCode: PWC,
                                         Ask: 'N/A',
-                                        Domain: 'donvidado',
+                                        Domain: 'convidado',
                                         ID: NOW,
                                         quest: 'N/A',
                                         user: REM
-                                    })
+                                    }, config)
                                     .then(
                                         (response) => {
-                                            // window.location = '/profile'
-                                            // alert(response.request.status)
-                                           
-
 
                                             if (response.request.status == '400') {
                                                 // this.ActExist = true;
-                                                if (response.request.response == "Username already exists") {
+                                                this.createNewAcc = false;
+                                                this.ActExist = true;
+                                                document.getElementById('btnValidate').style.display = "true"
 
+                                                this.requestNewAcc = false
+                                                if (response.request.response == "Username already exists") {
                                                     this.ActEmpty = false;
                                                     this.ActExist = true;
+                                                    this.createNewAcc = false;
+                                                    // document.getElementById('btnValidate').style.display = "true"
                                                 }
                                             }
                                             if (response.request.status == '200') {
+
+                                                this.SaveAcc(REM, RPWD1, response.data.token)
+
+                                                this.createNewAcc = false;
+                                                this.requestNewAcc = false
                                                 document.getElementById('dvToolbar').style.display = "none"
                                                 document.getElementById('dvReg').style.display = "none"
-                                                document.getElementById('topProgress').style.display = "none"
+                                                document.getElementById('topProgress').style.display = "block"
                                                 document.getElementById('dvDone').style.display = "block"
+
+                                                regDone = true;
                                                 // RegComplete();
-                                                if (RFN & RPWD1 & REM & RPH) {
+                                                if (RFN & RPWD1 & REM & PWT) {
                                                     this.ActEmpty = false;
                                                     this.notifyAlert = true;
-
-
                                                 }
                                                 else {
                                                     this.ActEmpty = false;
                                                     this.notifyAlert = true
                                                 }
+                                                this.isFormValid = false
+                                            }
+                                            else {
+                                                this.createNewAcc = false;
+                                                document.getElementById('btnValidate').style.display = "true"
                                             }
                                         }
                                     )
                                     .catch(
                                         (error) => {
+                                            this.createNewAcc = false;
+                                            document.getElementById('btnValidate').style.display = "true"
 
+                                            this.requestNewAcc = false
                                             if (error.response) {
                                                 console.log(error.response.data);
                                                 console.log(error.response.status);
@@ -1747,7 +2340,7 @@ export default {
                         }
                     )
                     .catch((err) => {
-                        
+
                         if ((LGU == '' || LPW == '')) {
                             this.loginError = false
                             this.emptyFields = true
@@ -1759,105 +2352,128 @@ export default {
                     });
             }
             else if (this.alert == 'pwd') {
-                var PWE = document.getElementById('PWE').value
-                document.getElementById('PWE1').innerText = PWE
-                var PWC = document.getElementById('PWC').value
-                var PWT = document.getElementById('PWT').value
 
-                var CONTACT = PWC + PWT
-
-                if (PWE == "" || PWT == "") {
-                    this.ActExist = false;
-                    this.ActEmpty = true;
-                    this.resetPwdOk = true;
-                    return;
-                }
-                else {
-                    // alert(false)
-                }
-
-                let config = {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
-                    }
-                }
-
-                let auth = {
-                    // username: RFN, //this.username,
-                    // password: RPWD1, //this.password
-                    // email: REM,
-                    // tel: RPH,
-                    // hint: this.RHT,
-                    // dob: this.RDOB,
-                    // sex: this.RSEX,
-                    // likes: this.RLK
-                };
-
-                await axios.post('AuthPwd?username=' + PWE + '&phone=' + CONTACT, config)
-                    .then(
-                        (response) => {
-
-                            //SEND LINK VIA EMAIL
-                            console.log(response.data.token)
-
-                            document.getElementById('topProgress').style.display = "block"
-
-                            this.notifyAlert = false
-                            this.ActExistF = false
-                            this.ActExist = false
-
-                            //SAVE TOKEN
-                            setTimeout(() => (
-                                TokenStore.setToken(response.data, true)
-
-                                // window.localStorage.setItem('username', LGU),
-                                // window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w=")
-
-                                // window.localStorage.setItem('JwtToken', response.credential),
-
-                                // window.localStorage.setItem('JwtToken', response.data.token)
-                            ))
+                if (document.getElementById('rstPwdOk').style.display == "none") {
 
 
-                            // alert(response.request.status)
-                            // alert(response.request.status)
+                    await axios.post('auth?username=admin&password=auth')
+                        .then(
+                            (response) => {
+                                //SAVE TOKEN
+                                setTimeout(() => (
+                                    TokenStore.setToken(response.data, true),
+                                    window.localStorage.setItem('JwtToken', response.credential),
+                                    window.localStorage.setItem('JwtToken', response.data.token)
+                                ))
 
-                            if (response.data.token != undefined) {
-                                this.loginError = false,
-                                    this.emptyFields = false
-                            }
+                                if (response.data.token != undefined) {
 
-
-                            if (response.request.status == '400') {
-                                // this.ActExist = true;
-                                if (response.request.response == "Not found.") {
-                                    this.ActExist = true;
                                 }
                             }
-                            if (response.request.status == '200') {
-                                document.getElementById('rstPwd').style.display = "none"
-                                document.getElementById('topProgress').style.display = "none"
-                                // document.getElementById('dvDonePwd').style.display = "block"
-                                document.getElementById('rstPwdOk').style.display = "block"
-                            }
-                        }
-                    )
-                    .catch((err) => {
-                        
-                        this.ActExist = true;
-                       
-                        if ((LGU == '' || LPW == '')) {
-                            this.loginError = false
-                            this.emptyFields = true
-                        }
-                        else {
-                            this.emptyFields = false
-                            this.loginError = true
-                        }
-                    });
-            }
+                        )
+                        .catch((err) => {
 
+                        });
+
+
+
+
+
+
+                    this.ActExist = false;
+                    document.getElementById('topProgress').style.display = "block"
+                    var PWE = document.getElementById('PWE').value
+                    document.getElementById('PWE1').innerText = PWE.replace(/(\w{3})[\w.-]+@([\w.]+\w)/, "$1***@$2")
+                    var PWC = document.getElementById('PWC').value
+                    var PWT = document.getElementById('PWT').value
+
+                    var CONTACT = PWC + PWT
+
+                    if (PWE == "" || PWT == "") {
+                        this.ActExist = false;
+                        this.ActEmpty = true;
+                        this.resetPwdOk = true;
+                        return;
+                    }
+                    else {
+                    }
+
+                    let config = {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
+                        }
+                    }
+
+                    await axios.post('AuthPwd?username=' + PWE + '&phone=' + CONTACT + '&token=null', config)
+                        .then(
+                            (response) => {
+
+                                // const PayLoad = decodeJwtResponse(response.data.token)
+
+
+                                //SEND LINK VIA EMAIL
+                                this.notifyAlert = false
+                                this.ActExistF = false
+                                this.ActExist = false
+
+
+                                //SAVE TOKEN
+                                setTimeout(() => (
+                                    TokenStore.setToken(response.data, true)
+                                ))
+
+                                if (response.data.token != undefined) {
+                                    this.loginError = false,
+                                        this.emptyFields = false
+                                }
+                                else {
+                                }
+
+                                if (response.request.status == '400') {
+                                    if (response.request.response == "E-mail account not found.") {
+                                        this.ActExist = true;
+                                    }
+                                }
+                                if (response.request.status == '200') {
+                                    // console.log(response.data.token)
+                                    this.Send_Email_Client(response.data.token, 'Reset Password', PWE, PWT)
+                                    // EmailStore.setMail(response.data.token, 'Reset Password', PWE, PWT)
+                                }
+                            }
+                        )
+                        .catch((err) => {
+
+                            if (err.response) {
+                                this.ActExist = true;
+
+                                if ((LGU == '' || LPW == '')) {
+                                    this.loginError = false
+                                    this.emptyFields = true
+                                }
+                                else {
+                                    this.emptyFields = false
+                                    this.loginError = true
+                                }
+                            }
+                            else if (err.response) {
+                            }
+                            else {
+                                this.emptyFields = false
+                                this.loginError = true
+                                this.isFormValid = false;
+
+                                setTimeout(() => {
+                                    this.ActExist = true;
+                                    this.requestPwdChg = false;
+                                }, 1000);
+                            }
+                        });
+                }
+                else {
+                    this.ValidateToken();
+                }
+            }
 
 
             // const URL = 'https://localhost:7127/api/auth';
@@ -1884,7 +2500,7 @@ export default {
 
 
             // const joke = await axios.get('https://icanhazdadjoke.com', config);
-           
+
 
             // try{
             //     const response = await axios.get(
@@ -1900,16 +2516,15 @@ export default {
             //     return response.data;
             // }
             // catch(err){
-         
+
             // }
 
             // this.login().then(data => {
-           
+
             // });
 
             // Your login logic here
             // axios.get('https://jsonplaceholder.typicode.com/posts/1')
-            // alert(this.username)
             // axios.get('http://rest.bissonde.ao/api/Account/' + this.username)
 
             //  axios.get('https://rest.bissonde.ao/api/Account/' + this.username)
@@ -1923,16 +2538,16 @@ export default {
             //     username: this.username,
             //     password: this.password
             // };
-          
+
 
             // await axios.post('https://localhost:7127/api/auth', auth)
             // .then(
             //     res => {
-         
+
             //     }
             // ).catch(
             //     err => {
-          
+
             //     }
             // )
 
@@ -1951,12 +2566,12 @@ export default {
             // axios.get('https://rest.bissonde.ao/api/Account/' + this.username,
             // )
             //     .then(function (response) {
-           
+
 
 
 
             //    {
-           
+
             //    })
 
             // const AxiosHeaders = {
@@ -1990,9 +2605,6 @@ export default {
             const joke = axios.get('Account/' + PWE, config)
                 .then(
                     (response) => {
-                        // window.location = '/profile'
-                        // alert(response.request.status)
-                      
 
                         if (response.request.status == '400') {
                             // this.ActExist = true;
@@ -2002,15 +2614,15 @@ export default {
                         }
                         if (response.request.status == '200') {
                             document.getElementById('rstPwd').style.display = "none"
-                            document.getElementById('topProgress').style.display = "none"
+                            document.getElementById('topProgress').style.display = "block"
                             // document.getElementById('dvDonePwd').style.display = "block"
                             document.getElementById('rstPwdOk').style.display = "block"
                         }
                     }
                 )
                 .catch((err) => {
-                  
-                    
+
+
                     this.emptyFields = false
                     this.loginError = true
                 });
@@ -2019,7 +2631,6 @@ export default {
         Register() {
             // this.regFullName = window.localStorage.getItem('given_name') + ' ' + window.localStorage.getItem('family_name')
             // this.regEmail = window.localStorage.getItem('email')
-            // alert(this.regEmail)
 
             this.loading = true
             setTimeout(() => {
@@ -2043,10 +2654,15 @@ export default {
 
         async validate() {
             const { valid } = await this.$refs.form.validate()
-            alert(valid)
         }
     },
+    
     computed: {
+
+    },
+    beforeMount() {
+
+        this.LoadPage();
 
     },
     validations() {

@@ -24,6 +24,7 @@ export const useModuleStore = defineStore({
     },
     getters: {
         getModule: (state) => {
+            alert(state)
             // if (state.name === 5) return 'Contacts'
             //return 'odd'
              

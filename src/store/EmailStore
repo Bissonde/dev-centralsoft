@@ -1,0 +1,74 @@
+import { defineStore } from "pinia";
+
+export const useEmailStore = defineStore({
+    id: 'email',
+    state: () => ({
+        //(token, mode, USR, TEL
+        token: '0',
+        mode: 'Contactos',
+        user: 'mdi-account', 
+        phone: 'contacts'
+    }),
+    actions: {
+        async setMail(value) {
+            this.token=value.token,
+                this.mode=value.mode,
+                    this.user=value.user,
+                        this.phone=value.phone 
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + value.token
+                }
+            }
+
+            let IpValue = window.localStorage.getItem('IP')
+            let IpGeoLoc = window.localStorage.getItem('GEO')
+            let IpDevice = window.localStorage.getItem('DEV')
+
+            if (value.token != undefined) {
+                await axios.post('Messages',
+                    {
+                        partnerID: '',
+                        branch: '',
+                        CRDATE: '',
+                        ADMIN: '',
+                        CLIENT: value.user,
+                        DEST: value.phone,
+                        CC: '',
+                        BCC: '',
+                        TOPIC: value.mode,
+                        MESSAGE1: value.token,
+                        IP: IpValue,
+                        DEVICE: IpDevice,
+                        GEOLOCATION: IpGeoLoc
+                    }, config)
+                    .then(
+                        (response) => {
+                            if (response.request.status == '400') {
+
+                            }
+                            if (response.request.status == '200') {
+                                alert(true)
+
+                                this.requestPwdChg = false;
+                                document.getElementById('rstPwd').style.display = "none"
+                                document.getElementById('topProgress').style.display = "none"
+                                this.isFormValid = false
+                                document.getElementById('rstPwdOk').style.display = "block"
+                            }
+                        }
+                    )
+                    .catch((err) => {
+
+                    });
+            }
+        }
+    },
+    getters: {
+        getMail: (state) => {
+            
+        }
+    }
+})

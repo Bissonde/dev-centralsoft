@@ -11,7 +11,19 @@
 import { useModuleStore } from './store/TaskStore';
 const useModule = useModuleStore()
 //
-</script>
 
+</script>
 <script>
+
+export default {
+  name: 'App',
+  watch: {
+    $router: {
+      imediate: true,
+      handler(to, from) {
+        document.title = to.meta.title || 'Profile'
+      }
+    }
+  }
+};
 </script>

@@ -91,116 +91,11 @@
         <div class="d-flex align-center justify-center" width="500" max-width="456"
             style="height: 100vh; border-top:5px solid darkorange">
 
-            <!-- <v-img class=" mx-auto my-6" max-width="228"
-            src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
-
-            <!-- LOGIN" -->
-            <div id='log' style="display:none;">
-                <v-card class="pa-3 pb-0 ma-4" elevation="8" max-width="448" rounded="sm" margin-left="4">
-
-                    <v-toolbar color="deep-blue-accent-4" cards dark flat>
-                        <v-btn @click="handleReset, emptyFields = false" icon>
-                            <v-icon>mdi-account</v-icon>
-                        </v-btn>
-                        <v-card-title class="mx-auto my-8">
-                            Definir Nova Palavra-Passe
-                        </v-card-title>
-                        <v-spacer></v-spacer>
-                        <v-btn @click="handleReset, emptyFields = false;" icon>
-                            <v-icon>mdi-close</v-icon>
-                        </v-btn>
-                    </v-toolbar>
-
-                    <v-img class="mx-auto my-6" max-width="228"
-                        src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
-
-
-                    <v-alert v-model="emptyFields" class="mb-5 mt-5" border="start" variant="tonal" closable
-                        close-label="Close Alert" color="warning" title="Atenção!" type="warning">
-                        Preencha e-mail / palavra-passe
-                    </v-alert>
-
-                    <v-alert v-model="resetPwdOk" class="mb-5 mt-5" border="start" variant="tonal" closable
-                        close-label="Close Alert" color="warning" title="Atenção!" type="warning">
-                        Preencha todos os campos abaixo!
-                    </v-alert>
-
-                    <v-alert v-model="ActExist" class="mb-5 mt-5" border="start" variant="tonal" closable
-                        close-label="Close Alert" color="error" title="Erro!" type="error">
-                        Esta conta não existe!
-                    </v-alert>
-
-                    <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
-
-                    <v-text-field density="compact" id="PWE" v-model="logUser.value.value" v-bind="$attrs" disabled
-                        :error-messages="logUser.errorMessage.value" placeholder="Introduza e-mail" required
-                        prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
-
-                    <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-                        Nova Palavra-passe
-
-                        <v-btn class="text-caption text-decoration-none text-blue" variant="text"
-                            @click="alert = 'pwd'; loginError = false;">
-                            <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Esqueceu a palavra-passe?</v-btn>
-                    </div>
-
-                    <v-text-field id="PWD1" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                        :type="visible ? 'text' : 'password'" density="compact" placeholder="Introduza palavra-passe"
-                        v-model="logPwd.value.value" clearable :error-messages="logPwd.errorMessage.value"
-                        prepend-inner-icon="mdi-lock-outline" variant="outlined"
-                        @click:append-inner="visible = !visible" required></v-text-field>
-
-
-                    <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-                        Repetir Palavra-passe
-                    </div>
-
-                    <v-text-field id="PWD2" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                        :type="visible ? 'text' : 'password'" density="compact" placeholder="Introduza palavra-passe"
-                        v-model="logPwd.value.value" clearable :error-messages="logPwd.errorMessage.value"
-                        prepend-inner-icon="mdi-lock-outline" variant="outlined"
-                        @click:append-inner="visible = !visible" required></v-text-field>
-                    <!-- <v-card-text class="text-center pt-0"> -->
-                    <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                    <v-alert v-if="loginError" rounded="0" class="text-caption font-weight-regular" text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
-                            bloqueada por três horas." type="error" variant="tonal">
-                    </v-alert>
-
-                    <!-- LOGIN BUTTONS -->
-                    <v-card-text class="text-center pt-0">
-
-                        <v-row>
-                            <v-col cols="md-6">
-                                <div class="text-caption text-decoration-none text-blue">
-                                    Já tem uma conta?
-                                </div>
-                                <v-btn variant="tonal" color="blue-accent-0" size="large" block rounded="0"
-                                    class="text-decoration-none mb-0 flex-grow-1" rel="noopener noreferrer" target="/."
-                                    @click="GoHome(); loginError = false;">
-                                    <v-icon icon="mdi-arrow-left-circle"></v-icon>&nbsp;Voltar
-                                </v-btn>
-                            </v-col>
-
-                            <v-col cols="md-6">
-                                <div class="text-caption text-decoration-none text-blue">
-                                    És novo aqui?
-                                </div>
-                                <v-btn variant="flat" size="large" block rounded="0"
-                                    class="text-blue text-decoration-none mb-0 flex-grow-1" rel="noopener noreferrer"
-                                    :loading="loading" @click="loading = !loading, ResetPassword()">
-                                    <v-icon icon="mdi-check"></v-icon>&nbsp;Confirmar<v-icon
-                                        icon="mdi-chevron-right-1"></v-icon>
-                                </v-btn>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-card>
-            </div>
 
             <!-- DONE -->
             <div id='don' style="display:none;">
 
-                <v-card class="pa-5 pb-1 ma-2 blue-lighten-3" elevation="8" max-width="448" rounded="sm" margin-left="4"
+                <v-card class="pa-6 pb-3 ma-2 blue-lighten-3" elevation="8" max-width="448" rounded="sm" margin-left="4"
                     style="opacity:0.9;">
 
                     <v-spacer></v-spacer>
@@ -213,10 +108,10 @@
                     <div class="py-12 text-center">
                         <v-icon class="mb-2" color="success" icon="mdi-check-circle-outline" size="108"></v-icon>
 
-                        <div class="text-h6 font-weight-bold">Palavra-passe alterada com sucesso!</div>
+                        <div class="text-h6 font-weight-bold">Conta activada com sucesso!</div>
                         <br>
-                        <p class="text-subtitle-1">A sua palavra-passe foi alterada com sucesso. <span
-                                class="text-subtitle-1" id="PWE1" style="font-weight:500"></span> e já podes aceder
+                        <p class="text-subtitle-1">A sua conta foi activada com sucesso. <span class="text-subtitle-1"
+                                id="PWE1" style="font-weight:500"></span> e já podes aceder
                             ao
                             nosso portal.
                         </p>
@@ -536,11 +431,76 @@ export default {
             return JSON.parse(jsonPayload);
         },
 
+        CheckAccount: async function () {
+            const PayLoad = this.decodeJwtResponse(_JwtToken)
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + _JwtToken
+                }
+            }
+
+            await axios.get('Account/' + PayLoad.act, config)
+                .then(
+                    (response) => { 
+
+                        // alert(response.request.status)
+
+                        if (response.request.status == '400') {
+                            const dt = new Date(0)
+                            dt.setTime(PayLoad.iat * 1000)
+
+                                document.getElementById('tkExpDate').innerText = dt
+                                document.getElementById('adn').style.display = "block"
+                        }
+                        else if (response.request.status == '200') {
+                            this.ActivateAccount();
+                            document.getElementById('don').style.display = "block"
+                        }  
+                        else if (response.request.status == '500') {
+                            document.getElementById('tkExpDate').innerText = dt
+                            document.getElementById('adn').style.display = "block"
+                        }                      
+                    }
+                )
+                .catch(
+                    (error) => {
+                        return error.response;
+                    }
+                )
+        },
+
+        ActivateAccount: function () {
+            const PayLoad = this.decodeJwtResponse(_JwtToken)
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + _JwtToken
+                }
+            }
+            axios.put('Account',
+                {
+                    Email: PayLoad.act,
+                    Stat: "true"
+                }, config)
+                .then(
+                    (response) => { }
+                )
+                .catch(
+                    (error) => {
+                        return error.response;
+                    }
+                )
+        },
+
         LoadPage: function () {
 
             let uri = window.location.href.split('?')
             _JwtToken = uri[1]
 
+            window.localStorage.setItem('JwtToken', _JwtToken)
             const PayLoad = this.decodeJwtResponse(_JwtToken)
 
             let config = {
@@ -555,25 +515,26 @@ export default {
                     (response) => {
 
                         if (response.request.status == '400') {
-                            // document.getElementById('act').style.display = "block"
                             const dt = new Date(0)
                             dt.setTime(PayLoad.iat * 1000)
 
                             document.getElementById('tkExpDate').innerText = dt
                             document.getElementById('adn').style.display = "block"
+                            // document.getElementById('act').style.display = "block"
                         }
                         if (response.request.status == '200') {
 
                             const dt = new Date(0)
-                            dt.setTime(PayLoad.exp * 1000)
+                            dt.setTime(PayLoad.iat * 1000)
+
 
                             if (PayLoad.exp < Date.now() / 1000) {
+
                                 document.getElementById('tkExpDate').innerText = dt
                                 document.getElementById('adn').style.display = "block"
                             }
                             else {
-                                document.getElementById('PWE').value = PayLoad.act;
-                                document.getElementById('log').style.display = "block"
+                                this.CheckAccount();
                             }
                         }
                     }
@@ -586,28 +547,29 @@ export default {
             window.location = '/'
         },
         GoDash: async function () {
-            let PWE = window.localStorage.getItem('PWE')
-            let PWD = window.localStorage.getItem('PWD')
+
+            const PayLoad = this.decodeJwtResponse(_JwtToken)
 
             let config = {
                 headers: {
                     'Accept': 'application/json',
-                    'Authorization': 'Bearer' + _JwtToken
+                    'Authorization': 'Bearer ' + _JwtToken
                 }
             }
-            await axios.post('auth?username=' + PWE + '&password=' + PWD, config)
+
+            await axios.get('AccountLogin?xid=' + PayLoad.act, config)
                 .then(
                     (response) => {
-                        const PayLoad = this.decodeJwtResponse(response.data.token)
 
-                        //SET USER DATA
-                        window.localStorage.setItem('username', PWE),
-                            window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
-                            window.localStorage.setItem('JwtToken', response.credential),
-                            window.localStorage.setItem('JwtToken', response.data.token),
-                            window.localStorage.removeItem('PWE'),
-                            window.localStorage.removeItem('PWD'),
-                            window.location = PayLoad.url
+                        if (response.request.status == '200') {
+                            //SET USER DATA
+                            window.localStorage.setItem('username', PayLoad.act),
+                                window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
+
+                                window.localStorage.removeItem('PWE'),
+                                window.localStorage.removeItem('PWD'),
+                                window.location = PayLoad.url
+                        }
                     }
                 )
                 .catch((err) => {
@@ -620,11 +582,6 @@ export default {
 
             _JwtToken = uri[1].split('=')
             _account = uri[2].split('=')
-
-            // document.getElementById('LGU').value = _account; 
-
-            // alert(_JwtToken)
-            // alert(_account)
         },
         created() {
             let urlParams = new URLSearchParams(window.location.search);
@@ -696,9 +653,6 @@ export default {
                 }
             }
 
-            // alert(USR)
-            // alert(mode + ' ' + USR + ' ' + TEL)
-
             let IpValue = window.localStorage.getItem('IP')
             let IpGeoLoc = window.localStorage.getItem('GEO')
             let IpDevice = window.localStorage.getItem('DEV')
@@ -727,12 +681,6 @@ export default {
                             }
                             if (response.request.status == '200') {
 
-                                window.localStorage.setItem('PWE', PWE)
-                                window.localStorage.setItem('PWD', PWD1)
-
-                                document.getElementById('log').style.display = "none"
-                                document.getElementById('don').style.display = "block"
-
                                 // this.requestPwdChg = false;
                                 // document.getElementById('rstPwd').style.display = "none"
                                 // document.getElementById('topProgress').style.display = "none"
@@ -751,14 +699,6 @@ export default {
 
             this.notifyAlert = false;
             this.ActIncPwd = false;
-
-            var PWE = document.getElementById('PWE').value
-            var PWD1 = document.getElementById('PWD1').value
-            var PWD2 = document.getElementById('PWD2').value
-
-            // alert(PWE)
-            // alert(PWD1)
-            // alert(_JwtToken)
 
             if (PWD1 == "" || PWD2 == "") {
                 this.ActExist = false;
@@ -803,6 +743,12 @@ export default {
                         if (response.request.status == '200') {
 
                             this.Send_Email_Client(_JwtToken, 'Password Alterada', PWE, PWD1)
+
+                            window.localStorage.setItem('PWE', PWE)
+                            window.localStorage.setItem('PWD', PWD1)
+
+                            // document.getElementById('log').style.display = "none"
+                            document.getElementById('don').style.display = "block"
                         }
                     }
                 )
