@@ -225,8 +225,8 @@
 
 
         <!-- DONE RESET -->
-        <div id='dont' class="d-flex align-center justify-center" width="500" max-width="456" style="height: 100vh;"
-            v-if="alert == 'don'">
+        <div id="dvAccess" class="d-flex align-center justify-center" width="500" max-width="456" style="height: 100vh;"
+            v-if="alert == 'access'">
 
             <v-card class="pa-5 pb-1 ma-2 blue-lighten-3" elevation="8" max-width="448" rounded="sm" margin-left="4"
                 style="opacity:0.9;">
@@ -1124,6 +1124,13 @@
                                 variant="underlined">
                             </v-text-field>
 
+                            <v-checkbox id="R2F" v-model="agreementR.value.value"
+                                :error-messages="agreementR.errorMessage.value" color="deep-purple">
+                                <template v-slot:label>
+                                    Autenticação de 2-Factores
+                                </template>
+                            </v-checkbox>
+
                         </v-card>
                     </template>
 
@@ -1204,8 +1211,7 @@
 
                         <div class="or pb-1" style="font-size: 10pt; font-weight: 500;">OU</div>
                         <div class="py-3 text-center">
-                            <span class="text-caption">Insira o código de verificação para alterar a sua1
-                                palavra-passe!</span>
+                            <span class="text-caption">Insira o código de verificação para confirmar a sua conta!</span>
                             <v-otp-input v-model="otp1" onclick="this.isFormValid=false;"
                                 onchange="this.isFormValid=false;" class="mb-0" divider="•" length="4"
                                 variant="outlined"></v-otp-input>
@@ -1218,7 +1224,7 @@
 
                                 <v-btn variant="tonal" size="large" block rounded="0"
                                     class="text-blue text-decoration-none" rel="noopener noreferrer" target="/register"
-                                    @click="ValidateAccount(); loginError = false; emptyFields = false;">
+                                    @click="ValidateAccount(); alert='access'; loginError = false; emptyFields = false;">
                                     <v-icon icon="mdi-account-star"></v-icon>&nbsp;Verificar<v-icon
                                         icon="mdi-chevron-right"></v-icon>
                                 </v-btn>
@@ -1243,11 +1249,6 @@
 
                 <!-- RESET PWD -->
                 <div id="dvDonePwd" style="display: none;">
-
-                    <!-- <v-img class="mx-auto my-6" max-width="228"
-                src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
-
-
                     <v-card class="pa-5 pb-8 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4"
                         style="opacity:0.9;">
 
@@ -1708,7 +1709,7 @@ export default {
                         if (response.request.status == '200') {
                             //SET USER DATA
                             window.localStorage.setItem('username', PayLoad.act),
-                                window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
+                                window.localStorage.setItem('myPicture', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1GaU7tqt_-bim0aECTgQsrSxg9EO-iUgofD9Pu4dSowq7I0q9TRzbGZ8ytiZDPJucccM&usqp=CAU"),
 
                                 window.localStorage.removeItem('PWE'),
                                 window.localStorage.removeItem('PWD'),
@@ -1735,6 +1736,8 @@ export default {
             return JSON.parse(jsonPayload);
         },
         ValidateToken: async function () {
+
+            alert(true)
 
             let OTPX = this.otp;
 
@@ -1836,7 +1839,6 @@ export default {
                             // document.getElementById('dop').style.display = "none"
                             // document.getElementById('don').style.display = "block"
 
-                            this.alert = 'don'
                         }
                     }
                 )
@@ -1861,6 +1863,11 @@ export default {
                 }, config)
                 .then(
                     (response) => {
+
+                        
+                        document.getElementById('dvDone').style.display = "none"
+                        document.getElementById('dvAccess').style.display = "block"
+                        this.alert = 'access'; 
                     }
                 )
                 .catch(
@@ -2004,7 +2011,7 @@ export default {
                 .then(
                     (response) => {
 
-                        console.log(response.data.token)
+                        window.localStorage.setItem('JwtToken', response.data.token)
                         //SET USER DATA
                         if (response.data.token != undefined) {
 
@@ -2096,7 +2103,7 @@ export default {
 
                     .then(
                         (response) => {
-                            
+
                             if (response.request.status == '400') {
                                 if (response.request.response == "account disabled") {
                                     this.ActDisabled = true
@@ -2123,11 +2130,12 @@ export default {
                                     document.getElementById('topProgress').style.display = "block"
                                     TokenStore.setToken(response.data, true),
                                         window.localStorage.setItem('username', LGU),
-                                      
+
                                         window.localStorage.setItem('PID', PayLoad.pid),
                                         window.localStorage.setItem('BID', PayLoad.bid),
                                         window.localStorage.setItem('AID', PayLoad.aid),
                                         window.localStorage.setItem('AFN', PayLoad.afn),
+                                        window.localStorage.setItem('MSC', PayLoad.msc),
 
                                         // window.localStorage.setItem('JwtToken', response.data.token)
 
@@ -2138,7 +2146,7 @@ export default {
 
                                         // if (response.data.picture == null) {
                                         // if(response.data.sex == '0'){
-                                        window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/513501731/pt/vetorial/silhueta-de-uma-mulher-cabe%C3%A7a.jpg?s=612x612&w=0&k=20&c=LF6Sto6AB8taV1HGAZaqJ5rubniAXPyeSxQ-fgxa12w="),
+                                        window.localStorage.setItem('myPicture', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1GaU7tqt_-bim0aECTgQsrSxg9EO-iUgofD9Pu4dSowq7I0q9TRzbGZ8ytiZDPJucccM&usqp=CAU"),
                                         // }
                                         // else{
                                         // window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/512044369/pt/vetorial/homem-com-cabe%C3%A7a-de-silhueta-isolado.jpg?s=612x612&w=0&k=20&c=TG1sJNJBrNox7bCG4-jlrCgzG2uR4ZV-tOtwWBPzZaI=")
@@ -2234,12 +2242,13 @@ export default {
                 var day = today.getDate()
                 var time = today.getHours() + today.getMinutes() + today.getSeconds();
                 var NOW = year + '' + month + '' + day + '' + time
+                var PRT = new Date().getFullYear().toString().substr(-2) + '' + month + '' + day + '' + time
 
                 document.getElementById('topProgress').style.display = "block"
 
                 axios.post('Account',
                     {
-                        partnerID: 'PRT' + NOW,
+                        partnerID: 'P' + PRT + 'T',
                         Branch: RCN,
                         Username: RFN, //this.username,
                         Pass: RPWD1, //this.password
@@ -2314,7 +2323,7 @@ export default {
                         }
                     )
 
-                    return;
+                return;
 
                 let configx = {
                     headers: {
@@ -2357,7 +2366,7 @@ export default {
                                 this.emptyFields = false;
 
 
-                                
+
                             }
                         }
                     )
@@ -2678,7 +2687,7 @@ export default {
             const { valid } = await this.$refs.form.validate()
         }
     },
-    
+
     computed: {
 
     },

@@ -196,6 +196,12 @@
                     mdi-translate
                   </v-icon>
                 </v-btn>
+                <v-btn variant="text" @click="openDialog(n); viewModal = !viewModal">
+                  <v-icon color="primary">
+                    mdi-battery-charging-90
+                  </v-icon>
+                  &nbsp;{{ this.messageCounter }}
+                </v-btn>
 
               </v-col>
             </v-row>
@@ -228,7 +234,7 @@
                   &nbsp;
                 </v-btn> -->
                 <v-btn color="purple-darken-4" variant="tonal" class="float-sm-right"
-                  @click=" GoPlayNew(); goPlayModal = !goPlayModal;">
+                  @click="goPlayModal = !goPlayModal; GoPlayNew();">
                   <v-icon>
                     mdi-plus-circle
                   </v-icon>&nbsp;D-Wings
@@ -356,13 +362,10 @@
                         <thead>
                           <tr>
                             <th class="text-left">
-                              Name
+                              Data
                             </th>
                             <th class="text-left">
-                              Date
-                            </th>
-                            <th class="text-left">
-                              Messagem
+                              Mensagem
                             </th>
                             <!-- <th class="text-left">
                               Quant.
@@ -380,7 +383,7 @@
                         </thead>
                         <tbody>
                           <tr v-for="item in topKPI" :key="item.id">
-                            <td>{{ item.id }}</td>
+                            <!-- <td>{{ item.id }}</td> -->
                             <td>{{ item.crdate }}</td>
                             <td>{{ item.name }}</td>
                             <!-- <td>1</td> -->
@@ -1892,9 +1895,9 @@ Save
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'SMS' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwSms" label="SMS"
+                              <v-autocomplete :disabled="!isEditing" v-model="dwSms" label="Contactos"
                                 :items="cellContactList" :item-value="cellContactList[0]"
-                                prepend-inner-icon="mdi-message-text"></v-autocomplete>
+                                prepend-inner-icon="mdi-account"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'Telefone' & dWingsMode == 'Singular'">
@@ -3934,6 +3937,10 @@ Save
                     </template>
                   </v-toolbar>
 
+                  <v-alert type="warning" title="Sucesso" v-model="noMsgCredit" transition="slide-y-transition"
+                    border="start" variant="tonal" closable
+                    text="Não tens crédio disponível para enviar mensagens!"></v-alert>
+
                   <v-alert type="success" title="Sucesso" v-model="alertSuccess" transition="slide-y-transition"
                     border="start" variant="tonal" closable
                     text="As suas alterações foram gravadas com sucesso!"></v-alert>
@@ -3990,9 +3997,9 @@ Save
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'SMS' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwSms" label="SMS"
+                              <v-autocomplete :disabled="!isEditing" v-model="dwSms" label="Contactos"
                                 :items="cellContactList" :item-value="cellContactList[0]"
-                                prepend-inner-icon="mdi-message-text"></v-autocomplete>
+                                prepend-inner-icon="mdi-account"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'Telefone' & dWingsMode == 'Singular'">
@@ -4039,7 +4046,7 @@ Save
 
                             <v-col cols="12" sm="12" md="12" class="pa-0 ma-0">
                               <v-textarea :disabled="!isEditing" label="Descrição*" v-model="dwMessage" :counter="200"
-                                :rules="lastNameRules" prepend-inner-icon="mdi-message-text-outline"
+                                :readonly="true" :rules="lastNameRules" prepend-inner-icon="mdi-message-text-outline"
                                 required></v-textarea>
                             </v-col>
                           </v-row>
@@ -4146,7 +4153,7 @@ Save
                       prepend-icon="mdi-close-circle">Fechar</v-btn>
 
                     <v-btn variant="flat" color="success" type="submit"
-                      @click="validate(); checkInput(); CUSTOMER_MESSAGE_HISTORY_SAVE(); SMS_SEND(); if (isOkToSubmit != '') { handleSubmit(), alert = !alert; loading = !loading; dialog = !dialog; }"
+                      @click="validate(); checkInput();  SMS_SEND(); CUSTOMER_MESSAGE_HISTORY_SAVE(); if (isOkToSubmit != '') { handleSubmit(), alert = !alert; loading = !loading; dialog = !dialog; }"
                       :ripple="true" :disabled="loading" :loading="loading" prepend-icon="mdi-content-save-outline">
                       Submeter
                       <template v-slot:loader>
@@ -4457,12 +4464,14 @@ const useModule = useModuleStore()
 
 export default {
   data: () => ({
+    noMsgCredit: false,
+    messageCounter: window.localStorage.getItem('MSC'),
     countrycode: '244',
     theme: 'light',
     dwID: '',
     dwStat: 'Novo',
     dwMode: '',
-    dwCategory: '',
+    dwCategory: 'SMS',
     dwGroup: '',
     dwDate: '',
     dwTime: '',
@@ -4911,7 +4920,9 @@ export default {
 
   mounted: async function () {
 
-    this.overlayd();
+    this.overlayOFF();
+
+    // this.overlayON();
 
     document.onreadystatechange = () => {
       if (document.readyState == "complete") {
@@ -5226,6 +5237,8 @@ export default {
 
     CUSTOMER_GROUP_GET_LIST_ALL: async function () {
 
+      this.overlayON();
+
       var PID = window.localStorage.getItem('PID')
       var BID = window.localStorage.getItem('BID')
 
@@ -5249,11 +5262,14 @@ export default {
             this.cellGroupListID.push(LST[i].groupId)
 
           }
+          this.overlayOFF();
         })
         .catch(err => console.error(err));
     },
 
     CUSTOMER_GET_LIST_ALL: async function () {
+
+      this.overlayON();
 
       var PID = window.localStorage.getItem('PID')
       var BID = window.localStorage.getItem('BID')
@@ -5279,11 +5295,15 @@ export default {
 
           }
           // console.log(this.cellContactList)
+
+          this.overlayOFF();
         })
         .catch(err => console.error(err));
     },
 
     CUSTOMER_CAMPAIGN_GET_LIST_ALL: async function () {
+
+      this.overlayON();
 
       var PID = window.localStorage.getItem('PID')
       var BID = window.localStorage.getItem('BID')
@@ -5308,11 +5328,15 @@ export default {
             this.cellCampaignListID.push(LST[i].Id)
 
           }
+
+          this.overlayOFF();
         })
         .catch(err => console.error(err));
     },
 
     CUSTOMER_MESSAGE_GET_LIST_ALL: async function () {
+
+      this.overlayON();
 
       var PID = window.localStorage.getItem('PID')
       var BID = window.localStorage.getItem('BID')
@@ -5336,11 +5360,15 @@ export default {
             this.cellMessageList.push(LST[i].name)
             this.cellMessageListID.push(LST[i].Id)
           }
+
+          this.overlayOFF();
         })
         .catch(err => console.error(err));
     },
 
     CUSTOMER_MESSAGE_GET_DESCR: async function (item) {
+
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5353,12 +5381,14 @@ export default {
       const customersGroups = await axios.get('CustomerMessages1/' + item, config)
         .then(response => {
 
-
+          this.overlayOFF();
         })
         .catch(err => console.error(err));
     },
 
     CUSTOMER_GROUP_MEMBERS_GET_ALL: async function (groupID) {
+
+      this.overlayON();
 
       var PID = window.localStorage.getItem('PID')
       var BID = window.localStorage.getItem('BID')
@@ -5378,11 +5408,15 @@ export default {
           this.serverItems1 = response.data['$values']
 
           // console.log(response.data['$values'])
+
+          this.overlayOFF();
         })
         .catch(err => console.error(err));
     },
 
     CUSTOMER_GROUP_SAVE: async function () {
+
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5424,6 +5458,9 @@ export default {
               this.CUSTOMER_GROUP_GET_ALL()
 
               this.CUSTOMER_LOG_GET(this.customerID);
+
+
+              this.overlayOFF();
             }
           }
         )
@@ -5433,6 +5470,8 @@ export default {
     },
 
     CUSTOMER_GROUP_GET: async function (item) {
+
+      this.overlayON();
 
       this.alertDelete = false
       this.groupID = item.groupId
@@ -5445,9 +5484,14 @@ export default {
 
       this.CUSTOMER_LOG_GET(this.customerID)
 
+
+      this.overlayOFF();
+
     },
 
     CUSTOMER_CAMPAIGN_GET: async function (item) {
+
+      this.overlayON();
 
       this.alertDelete = false
       this.campID = item.id
@@ -5470,9 +5514,12 @@ export default {
       // this.CUSTOMER_LOG_GET(this.customerID)
 
 
+      this.overlayOFF();
     },
 
     CUSTOMER_GROUP_DELETE: async function (id) {
+
+      this.overlayON();
 
       this.alertSuccess = false
       this.alertDelete = false
@@ -5502,6 +5549,8 @@ export default {
               this.serverItems.splice(this.editedIndex, 1)
               this.closeDelete();
               this.editModal = false;
+
+              this.overlayOFF();
             }
           }
         )
@@ -5511,6 +5560,8 @@ export default {
     },
 
     CUSTOMER_CAMPAIGN_DELETE: async function (item) {
+
+      this.overlayON();
 
       // console.log(this.deleteValue)
 
@@ -5541,6 +5592,8 @@ export default {
               this.serverItems.splice(this.editedIndex, 1)
               this.closeDelete();
               this.editModal = false;
+
+              this.overlayOFF();
             }
           }
         )
@@ -5551,6 +5604,7 @@ export default {
 
     CUSTOMER_CAMPAIGN_SAVE: async function () {
 
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5598,6 +5652,8 @@ export default {
               this.CUSTOMER_CAMPAIGN_GET_ALL()
 
               // this.CUSTOMER_LOG_GET(this.customerID);
+
+              this.overlayOFF();
             }
           }
         )
@@ -5607,6 +5663,8 @@ export default {
     },
 
     CUSTOMER_CAMPAIGN_GET_ALL: async function () {
+
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5625,6 +5683,8 @@ export default {
           // = response.data
           this.loading = true
           this.serverItems = response.data['$values']
+
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
@@ -5637,6 +5697,8 @@ export default {
     },
 
     CUSTOMER_CAMPAIGN1_GET: async function (item) {
+
+      this.overlayON();
 
       // alert(item)
 
@@ -5662,6 +5724,8 @@ export default {
 
               this.msgText = json[0]["descr"]
               this.dwMessage = json[0]["descr"]
+
+              this.overlayOFF();
             }
           }
         )
@@ -5672,6 +5736,8 @@ export default {
     },
 
     CUSTOMER_MESSAGE_GET_ALL: async function (item) {
+
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5690,6 +5756,8 @@ export default {
           // = response.data
           this.loading = true
           this.serverItems = response.data['$values']
+
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
@@ -6023,6 +6091,11 @@ export default {
 
     SMS_SEND: async function () {
 
+      if(this.messageCounter == "10")
+      {
+        this.noMsgCredit = true;
+        return;
+      }
 
       let config = {
         headers: {
@@ -6056,6 +6129,7 @@ export default {
           ID: this.dwID,
           Dest: this.dwSms[1],
           message1: this.dwMessage,
+          IP: this.dwCategory,
           crdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt')
         }, config)
         .then(
@@ -6075,6 +6149,10 @@ export default {
 
     CUSTOMER_MESSAGE_HISTORY_SAVE: async function () {
 
+      if (this.messageCounter == "10") {
+        this.noMsgCredit = true;
+        return;
+      }
 
       let config = {
         headers: {
@@ -6448,12 +6526,21 @@ export default {
 
       this.dwID = ''
       this.dwMode = ''
-      this.dwCategory = ''
+      this.dwCategory = 'SMS'
       this.dwGroup = ''
       this.dwDate = ''
       this.dwTime = ''
       this.dwCampaign = ''
+      
       this.dwMessage = ''
+      this.dwStat = ''
+
+      this.dwContact = ''
+      this.dwSms = ''
+      this.dwPhone = ''
+      this.dwWhatsApp = ''
+      this.dwEmail = ''
+      this.dwTitle = ''
 
       var today = new Date();
       var year = today.getFullYear();
@@ -6463,6 +6550,7 @@ export default {
       var NOW = year + '' + month + '' + day + '' + time
       this.dwID = NOW
 
+;
       this.CUSTOMER_GROUP_GET_LIST_ALL();
       this.CUSTOMER_CAMPAIGN_GET_LIST_ALL();
       this.CUSTOMER_MESSAGE_GET_LIST_ALL();
@@ -6820,9 +6908,15 @@ export default {
     handleClick: function (event) {
       this.isActiveBtn = !this.isActiveBtn;
     },
-    overlayd: function (event) {
+    overlayOFF: function (event) {
       setTimeout(() => {
         this.overlay = false,
+          this.viewMainForm = true
+      }, (500));
+    },
+    overlayON: function (event) {
+      setTimeout(() => {
+        this.overlay = true,
           this.viewMainForm = true
       }, (500));
     },
