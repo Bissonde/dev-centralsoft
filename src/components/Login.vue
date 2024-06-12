@@ -1224,7 +1224,7 @@
 
                                 <v-btn variant="tonal" size="large" block rounded="0"
                                     class="text-blue text-decoration-none" rel="noopener noreferrer" target="/register"
-                                    @click="ValidateAccount(); alert='access'; loginError = false; emptyFields = false;">
+                                    @click="ValidateAccount(); loginError = false; emptyFields = false;">
                                     <v-icon icon="mdi-account-star"></v-icon>&nbsp;Verificar<v-icon
                                         icon="mdi-chevron-right"></v-icon>
                                 </v-btn>
@@ -1838,7 +1838,7 @@ export default {
 
                             // document.getElementById('dop').style.display = "none"
                             // document.getElementById('don').style.display = "block"
-
+                            this.alert = 'access';
                         }
                     }
                 )
@@ -1863,9 +1863,7 @@ export default {
                 }, config)
                 .then(
                     (response) => {
-
-                        
-                        document.getElementById('dvDone').style.display = "none"
+                        // document.getElementById('dvDone').style.display = "none"
                         document.getElementById('dvAccess').style.display = "block"
                         this.alert = 'access'; 
                     }
