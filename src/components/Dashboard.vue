@@ -6091,11 +6091,11 @@ export default {
 
     SMS_SEND: async function () {
 
-      if(this.messageCounter == "10")
-      {
-        this.noMsgCredit = true;
-        return;
-      }
+      // if(this.messageCounter == "10")
+      // {
+      //   this.noMsgCredit = true;
+      //   return;
+      // }
 
       let config = {
         headers: {
