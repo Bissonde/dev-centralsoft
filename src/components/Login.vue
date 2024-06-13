@@ -2244,8 +2244,6 @@ export default {
 
                 document.getElementById('topProgress').style.display = "block"
 
-                alert(PRT)
-
                 axios.post('Account',
                     {
                         partnerID: 'P' + PRT + 'T',
