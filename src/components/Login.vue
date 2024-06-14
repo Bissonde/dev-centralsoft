@@ -2254,7 +2254,9 @@ export default {
                         Tel: PWT,
                         CountryCode: PWC,
                         Ask: 'N/A',
-                        Domain: 'convidado',
+                        crdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt'),
+                        mdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt'),
+                        Domain: 'Convidado',
                         ID: NOW,
                         quest: 'N/A',
                         user: REM

@@ -6090,12 +6090,12 @@ export default {
     },
 
     SMS_SEND: async function () {
-
-      // if(this.messageCounter == "10")
-      // {
-      //   this.noMsgCredit = true;
-      //   return;
-      // }
+      var msg = parseInt(this.messageCounter)
+      if (msg < 1)
+      {
+        this.noMsgCredit = true;
+        return;
+      }
 
       let config = {
         headers: {
@@ -6130,7 +6130,9 @@ export default {
           Dest: this.dwSms[1],
           message1: this.dwMessage,
           IP: this.dwCategory,
-          crdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt')
+          crdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt'),
+          ADMIN: window.localStorage.getItem('username'),
+          MsgCredit: window.localStorage.getItem('MSC')
         }, config)
         .then(
           (response) => {
@@ -6138,6 +6140,9 @@ export default {
 
             }
             if (response.request.status == '200') {
+              let x = parseInt(window.localStorage.getItem('MSC'))-1;
+              window.localStorage.setItem('MSC', x),
+                this.messageCounter = window.localStorage.getItem('MSC')
               this.alertSuccess = true
             }
           }
@@ -6149,7 +6154,8 @@ export default {
 
     CUSTOMER_MESSAGE_HISTORY_SAVE: async function () {
 
-      if (this.messageCounter == "10") {
+      var msg = parseInt(this.messageCounter)
+      if (msg < 1) {
         this.noMsgCredit = true;
         return;
       }
