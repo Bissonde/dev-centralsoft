@@ -274,8 +274,15 @@
                         </v-btn>
 
                         <v-card-title>
-                          <v-icon class="text-h6">{{ n.icon }}</v-icon>&nbsp;{{ n.title }}
-                          <v-label class="text-subtitle-1">{{ n.text }}</v-label>
+                          <v-btn variant="text" class="float-sm-right"
+                            @click.stop="openViewDialog(n); moduleStore.setModule(n.dialog); viewModal = !viewModal;"
+                            v-on:click="moduleStore.setModule(n);" v-model="moduleStore.name" style="font-size: 8pt;"
+                            v-bind="props"> 
+                            <v-icon class="text-h6">{{ n.icon }}</v-icon>
+                            &nbsp; {{ n.title }}
+                            <v-label class="text-subtitle-1">{{ n.text }} </v-label>
+                          </v-btn>
+
                         </v-card-title>
                         <v-card-actions class="d-flex justify-end">
                           <v-btn variant="plain" density="compact"
@@ -4464,6 +4471,7 @@ const useModule = useModuleStore()
 
 export default {
   data: () => ({
+    hrefGoTo: '#',
     noMsgCredit: false,
     messageCounter: window.localStorage.getItem('MSC'),
     countrycode: '244',
