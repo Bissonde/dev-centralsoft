@@ -95,7 +95,7 @@
           </v-list-group>
         </v-list>
       </v-navigation-drawer>
-      <!-- 
+      <!--
     <v-slide-group-item v-for="n in items" :key="n" v-slot="{ isSelected, toggle }">
         <v-list :items="items">
           <v-icon>{{ items.title }}</v-icon>
@@ -277,7 +277,7 @@
                           <v-btn variant="text" class="float-sm-right"
                             @click.stop="openViewDialog(n); moduleStore.setModule(n.dialog); viewModal = !viewModal;"
                             v-on:click="moduleStore.setModule(n);" v-model="moduleStore.name" style="font-size: 8pt;"
-                            v-bind="props"> 
+                            v-bind="props">
                             <v-icon class="text-h6">{{ n.icon }}</v-icon>
                             &nbsp; {{ n.title }}
                             <v-label class="text-subtitle-1">{{ n.text }} </v-label>
@@ -417,13 +417,13 @@
                         </tbody>
                       </v-table>
 
-                      <!-- 
+                      <!--
                       <v-data-table :headers="headers" :items="topKPI" :search="search" show-select return-object
                         :loading="loading" v-model="selected" density="compact"
                         style="width:600px; max-height:140px; overflow-y:hidden;" fixed-header
                         :sort-by="[{ key: 'name', order: 'asc' }]">
                         <template v-slot:top>
-                          
+
                         </template>
                         <template v-slot:item.actions="{ item }">
                           <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
@@ -590,7 +590,7 @@
           <!-- <v-divider></v-divider> -->
           <!-- <br> -->
 
-          <!--         
+          <!--
         <div style="height:300px;">
           <v-img cover src="https://media.istockphoto.com/id/1311598658/photo/businessman-trading-online-stock-market-on-teblet-screen-digital-investment-concept.jpg?b=1&s=612x612&w=0&k=20&c=bpQMsH07ziELXla0SZJt84-w0JkxsVXs05c7T2Iygks="></v-img>
         </div> -->
@@ -761,6 +761,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0">
                               <div class="text-subtitle-1 text-medium-emphasis">País</div>
+                              <!--
                               <select name="countryCode" id="PWC" class="text-subtitle-1 d-50"
                                 v-model="this.countrycode" style="width: auto; font-size:25px;">
                                 <option data-countryCode="AO" value="244" Selected>Angola (+244)</option>
@@ -969,12 +970,12 @@
                                     (+1649)</option>
                                   <option data-countryCode="TV" value="688">Tuvalu (+688)</option>
                                   <option data-countryCode="UG" value="256">Uganda (+256)</option>
-                                  <!-- <option data-countryCode="GB" value="44">UK (+44)</option> -->
+                                  <option data-countryCode="GB" value="44">UK (+44)</option>
                                   <option data-countryCode="UA" value="380">Ukraine (+380)</option>
                                   <option data-countryCode="AE" value="971">United Arab Emirates (+971)
                                   </option>
                                   <option data-countryCode="UY" value="598">Uruguay (+598)</option>
-                                  <!-- <option data-countryCode="US" value="1">USA (+1)</option> -->
+                                  <option data-countryCode="US" value="1">USA (+1)</option>
                                   <option data-countryCode="UZ" value="7">Uzbekistan (+7)</option>
                                   <option data-countryCode="VU" value="678">Vanuatu (+678)</option>
                                   <option data-countryCode="VA" value="379">Vatican City (+379)</option>
@@ -992,6 +993,8 @@
                                   <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
                                 </optgroup>
                               </select>
+                              -->
+
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0">
                               <v-text-field :disabled="!isEditing" id="cellphone" v-model="cellphone" label="Telefone*"
@@ -2052,7 +2055,7 @@ Save
                       </v-window-item>
                     </v-window>
                   </v-card-text>
-                  <!-- 
+                  <!--
                       <v-window v-model="tab">
                         <v-window-item
                           v-for="                                                                                         item in items                                                                                         "
@@ -5925,7 +5928,7 @@ export default {
 
     },
 
-    CONTACTS_GET_ALL: async function () {      
+    CONTACTS_GET_ALL: async function () {
 
       let config = {
         headers: {
@@ -6441,7 +6444,7 @@ export default {
       //   GR = this.cellGroup.join(', ')
       // }
 
-      
+
       // alert(lastName)
       // return;
       this.hide_alert();
@@ -6545,7 +6548,7 @@ export default {
       this.dwDate = ''
       this.dwTime = ''
       this.dwCampaign = ''
-      
+
       this.dwMessage = ''
       this.dwStat = ''
 
@@ -7092,7 +7095,7 @@ export default {
   font-size: small;
 }
 
-/* 
+/*
 .v-icon {
   font-size: small;
 } */
@@ -7101,7 +7104,7 @@ export default {
   font-size: small;
 }
 
-/* 
+/*
 .v-btn {
   font-size: small;
 } */
