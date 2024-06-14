@@ -761,7 +761,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0">
                               <div class="text-subtitle-1 text-medium-emphasis">País</div>
-                              <!--
+
                               <select name="countryCode" id="PWC" class="text-subtitle-1 d-50"
                                 v-model="this.countrycode" style="width: auto; font-size:25px;">
                                 <option data-countryCode="AO" value="244" Selected>Angola (+244)</option>
@@ -993,7 +993,7 @@
                                   <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
                                 </optgroup>
                               </select>
-                              -->
+
 
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0">
