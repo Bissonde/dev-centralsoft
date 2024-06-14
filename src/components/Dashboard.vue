@@ -763,14 +763,14 @@
                               <div class="text-subtitle-1 text-medium-emphasis">País</div>
 
                                <select
-                                  name="countryCode"
-                                  id="PWC"
-                                  class="text-subtitle-1 d-50"
-                                  v-model="this.countrycode"
-                                  style="width: auto; font-size:25px;">
-                                    <option data-countryCode="AO" value="244" Selected>Angola (+244)</option>
-                                    <option data-countryCode="PT" value="351">Portugal (+351)</option>
-                                </select>
+                          name="countryCode"
+                          id="PWC"
+                          class="text-subtitle-1 d-50"
+                          v-model="countrycode"
+                          style="width: auto; font-size:25px;">
+                            <option data-countryCode="AO" value="244" Selected>Angola (+244)</option>
+                            <option data-countryCode="PT" value="351">Portugal (+351)</option>
+                        </select>
 
 
                             </v-col>
