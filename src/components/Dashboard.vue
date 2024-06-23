@@ -760,8 +760,8 @@
                             <v-col cols="12" sm="6" md="6" class="pa-0">
                               <div class="text-subtitle-1 text-medium-emphasis">País</div>
 
-                              <select name="countryCode" id="PWC" class="text-subtitle-1 d-50"
-                                v-model="countrycode" style="width: auto; font-size:25px;">
+                              <select name="countryCode" id="PWC" class="text-subtitle-1 d-50" v-model="countrycode"
+                                style="width: auto; font-size:25px;">
                                 <option data-countryCode="AO" value="244" Selected>Angola (+244)</option>
                                 <option data-countryCode="PT" value="351">Portugal (+351)</option>
                                 <optgroup label="Outros Países">
@@ -4439,8 +4439,11 @@ var myPicture = '';
 var myEmail = '';
 var PID = '';
 var BID = '';
+var messageCounter = '';
 onMounted(() => {
   // this.$router.go(0)
+
+  messageCounter = window.localStorage.getItem('MSC')
 
   if (window.localStorage.getItem('JwtToken') != null) {
     PID = window.localStorage.getItem('PID')
@@ -4469,13 +4472,12 @@ onMounted(() => {
 
 <script>
 const useModule = useModuleStore()
-let mc = window.localStorage.getItem('MSC')
+// let mc = window.localStorage.getItem('MSC')
 
 export default {
   data: () => ({
     hrefGoTo: '#',
     noMsgCredit: false,
-    messageCounter: mc,
     countrycode: '244',
     theme: 'light',
     dwID: '',
@@ -6152,7 +6154,7 @@ export default {
             if (response.request.status == '200') {
               let x = parseInt(window.localStorage.getItem('MSC'))-1;
               window.localStorage.setItem('MSC', x),
-                this.messageCounter = window.localStorage.getItem('MSC')
+                // this.messageCounter = window.localStorage.getItem('MSC')
               this.alertSuccess = true
             }
           }
