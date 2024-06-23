@@ -7087,7 +7087,7 @@ export default {
 </style>
 
 <style>
-.activateBtn {}
+/* .activateBtn {} */
 
 .v-label {
   font-size: small;
