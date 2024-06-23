@@ -4469,12 +4469,13 @@ onMounted(() => {
 
 <script>
 const useModule = useModuleStore()
+let mc = window.localStorage.getItem('MSC')
 
 export default {
   data: () => ({
     hrefGoTo: '#',
     noMsgCredit: false,
-    messageCounter: window.localStorage.getItem('MSC'),
+    messageCounter: mc,
     countrycode: '244',
     theme: 'light',
     dwID: '',
