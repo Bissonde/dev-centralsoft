@@ -1,4 +1,7 @@
 <template>
+    <v-overlay :model-value="overlay" class="align-center justify-center">
+        <v-progress-circular color="primary" indeterminate size="64"></v-progress-circular>
+    </v-overlay>
     <!-- <div> -->
 
     <!-- </div> -->
@@ -1578,6 +1581,7 @@ const getDeviceType = () => {
 
 export default {
     data: () => ({
+        overlay: false,
         ActWrong: false,
         ActDisabled: false,
         ResendToken: false,
@@ -2061,6 +2065,7 @@ export default {
         },
         AuthLogin: async function () {
 
+            this.overlay = true;
             this.notifyAlert = false;
             this.ActIncPwd = false;
             this.ActDisabled = false;
@@ -2178,6 +2183,8 @@ export default {
                         this.requestPwdChg = false
                         this.isFormValid = true
                         // this.loginError = true
+
+                        this.overlay = false
                     });
 
             }
@@ -2309,6 +2316,8 @@ export default {
                     )
                     .catch(
                         (error) => {
+
+                            this.overlay = false
                             this.createNewAcc = false;
                             document.getElementById('btnValidate').style.display = "true"
 
@@ -2464,6 +2473,7 @@ export default {
                                 if (response.request.status == '400') {
                                     if (response.request.response == "E-mail account not found.") {
                                         this.ActExist = true;
+                                        this.overlay = false
                                     }
                                 }
                                 if (response.request.status == '200') {
@@ -2474,6 +2484,7 @@ export default {
                             }
                         )
                         .catch((err) => {
+                            this.overlay = false
 
                             if (err.response) {
                                 this.ActExist = true;

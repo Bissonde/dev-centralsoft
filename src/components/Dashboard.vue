@@ -338,8 +338,6 @@
             <v-sheet class="d-flex d-lg-flex flex-wrap pb-3">
               <v-sheet class="flex-1-0 " style="height: auto; width: auto">
 
-
-
                 <!-- <v-hover v-slot="{ isHovering, props }"> -->
                 <!-- class="pa-1 mt-2 pr-1 mr-1 mb-10 mx-auto transition-swing">  border-bottom:solid #0277BD 5px;-->
                 <div v-bind="props" :class="`elevation-${isHovering ? 6 : 2}`" style="height: 200px;"
@@ -969,12 +967,12 @@
                                     (+1649)</option>
                                   <option data-countryCode="TV" value="688">Tuvalu (+688)</option>
                                   <option data-countryCode="UG" value="256">Uganda (+256)</option>
-                                  <!-- <option data-countryCode="GB" value="44">UK (+44)</option> -->
+                                  <option data-countryCode="GB" value="44">UK (+44)</option>
                                   <option data-countryCode="UA" value="380">Ukraine (+380)</option>
                                   <option data-countryCode="AE" value="971">United Arab Emirates (+971)
                                   </option>
                                   <option data-countryCode="UY" value="598">Uruguay (+598)</option>
-                                  <!-- <option data-countryCode="US" value="1">USA (+1)</option> -->
+                                  <option data-countryCode="US" value="1">USA (+1)</option>
                                   <option data-countryCode="UZ" value="7">Uzbekistan (+7)</option>
                                   <option data-countryCode="VU" value="678">Vanuatu (+678)</option>
                                   <option data-countryCode="VA" value="379">Vatican City (+379)</option>
