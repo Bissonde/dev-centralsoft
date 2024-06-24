@@ -200,7 +200,7 @@
                   <v-icon color="primary">
                     mdi-battery-charging-90
                   </v-icon>
-                  &nbsp;{{ this.messageCounter }}
+                  &nbsp;{{ messageCounter }}
                 </v-btn>
 
               </v-col>
@@ -1440,7 +1440,7 @@
                               </v-col>
                               <v-col cols="12" sm="12" class="pa-0">
                                 <v-autocomplete :disabled="!isEditing" v-model="campaignSms" :items="cellMessageList"
-                                  :change="this.CUSTOMER_MESSAGE1_GET(campaignSms)" label="SMS"
+                                  :change="CUSTOMER_MESSAGE1_GET(campaignSms)" label="SMS"
                                   prepend-inner-icon="mdi-message-settings-outline"></v-autocomplete>
                               </v-col>
                               <v-col cols="12" sm="12" class="pa-0">
@@ -1934,7 +1934,7 @@ Save
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0" v-if="dWingsMode == 'Singular'">
                               <v-autocomplete :disabled="!isEditing" v-model="dwTitle" :items="cellMessageList"
-                                :change="this.CUSTOMER_MESSAGE1_GET(dwTitle)"
+                                :change="CUSTOMER_MESSAGE1_GET(dwTitle)"
                                 :menu-props="{ closeOnContentClick: true }" label="Mensagem"
                                 append-icon-inner="mdi-comment-search"
                                 prepend-inner-icon="mdi-set-center"></v-autocomplete>
@@ -1947,7 +1947,7 @@ Save
                             <v-col cols="12" sm="6" md="6" class="pa-0">
                               <v-autocomplete :disabled="!isEditing" v-model="dwCampaign"
                                 v-if="dWingsMode == 'Múltiplos'" :items="cellCampaignList"
-                                :change="this.CUSTOMER_CAMPAIGN1_GET(dwCampaign)" label="Campanha"
+                                :change="CUSTOMER_CAMPAIGN1_GET(dwCampaign)" label="Campanha"
                                 prepend-inner-icon="mdi-forum"></v-autocomplete>
                             </v-col>
 
@@ -4036,7 +4036,7 @@ Save
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0" v-if="dWingsMode == 'Singular'">
                               <v-autocomplete :disabled="!isEditing" v-model="dwTitle" :items="cellMessageList"
-                                :change="this.CUSTOMER_MESSAGE1_GET(dwTitle)"
+                                :change="CUSTOMER_MESSAGE1_GET(dwTitle)"
                                 :menu-props="{ closeOnContentClick: true }" label="Mensagem"
                                 append-icon-inner="mdi-comment-search"
                                 prepend-inner-icon="mdi-set-center"></v-autocomplete>
@@ -4048,7 +4048,7 @@ Save
                             <v-col cols="12" sm="6" md="6" class="pa-0">
                               <v-autocomplete :disabled="!isEditing" v-model="dwCampaign"
                                 v-if="dWingsMode == 'Múltiplos'" :items="cellCampaignList"
-                                :change="this.CUSTOMER_CAMPAIGN1_GET(dwCampaign)" label="Campanha"
+                                :change="CUSTOMER_CAMPAIGN1_GET(dwCampaign)" label="Campanha"
                                 prepend-inner-icon="mdi-forum"></v-autocomplete>
                             </v-col>
 
@@ -4369,6 +4369,8 @@ import ChartComponent2 from '@/components/ChartComponent2.vue'
 import ChartComponent3 from '@/components/ChartComponent3.vue'
 import ChartComponent4 from '@/components/ChartComponent4.vue'
 
+const messageCounter = window.localStorage.getItem('MSC')
+
 
 const moduleStore = useModuleStore()
 
@@ -4439,11 +4441,8 @@ var myPicture = '';
 var myEmail = '';
 var PID = '';
 var BID = '';
-var messageCounter = '';
 onMounted(() => {
   // this.$router.go(0)
-
-  messageCounter = window.localStorage.getItem('MSC')
 
   if (window.localStorage.getItem('JwtToken') != null) {
     PID = window.localStorage.getItem('PID')
@@ -6114,7 +6113,7 @@ export default {
     },
 
     SMS_SEND: async function () {
-      var msg = parseInt(this.messageCounter)
+      var msg = parseInt(messageCounter)
       if (msg < 1)
       {
         this.noMsgCredit = true;
@@ -6178,7 +6177,7 @@ export default {
 
     CUSTOMER_MESSAGE_HISTORY_SAVE: async function () {
 
-      var msg = parseInt(this.messageCounter)
+      var msg = parseInt(messageCounter)
       if (msg < 1) {
         this.noMsgCredit = true;
         return;
