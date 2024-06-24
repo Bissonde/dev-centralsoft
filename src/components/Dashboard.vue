@@ -1934,9 +1934,8 @@ Save
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0" v-if="dWingsMode == 'Singular'">
                               <v-autocomplete :disabled="!isEditing" v-model="dwTitle" :items="cellMessageList"
-                                :change="CUSTOMER_MESSAGE1_GET(dwTitle)"
-                                :menu-props="{ closeOnContentClick: true }" label="Mensagem"
-                                append-icon-inner="mdi-comment-search"
+                                :change="CUSTOMER_MESSAGE1_GET(dwTitle)" :menu-props="{ closeOnContentClick: true }"
+                                label="Mensagem" append-icon-inner="mdi-comment-search"
                                 prepend-inner-icon="mdi-set-center"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0">
@@ -3945,9 +3944,9 @@ Save
                     </template>
                   </v-toolbar>
 
-                  <v-alert type="warning" title="Sucesso" v-model="noMsgCredit" transition="slide-y-transition"
+                  <v-alert type="error" title="Sucesso" v-model="noMsgCredit" transition="slide-y-transition"
                     border="start" variant="tonal" closable
-                    text="Não tens crédio disponível para enviar mensagens!"></v-alert>
+                    text="Não tens crédito disponível para enviar mensagens!"></v-alert>
 
                   <v-alert type="success" title="Sucesso" v-model="alertSuccess" transition="slide-y-transition"
                     border="start" variant="tonal" closable
@@ -4036,9 +4035,8 @@ Save
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0" v-if="dWingsMode == 'Singular'">
                               <v-autocomplete :disabled="!isEditing" v-model="dwTitle" :items="cellMessageList"
-                                :change="CUSTOMER_MESSAGE1_GET(dwTitle)"
-                                :menu-props="{ closeOnContentClick: true }" label="Mensagem"
-                                append-icon-inner="mdi-comment-search"
+                                :change="CUSTOMER_MESSAGE1_GET(dwTitle)" :menu-props="{ closeOnContentClick: true }"
+                                label="Mensagem" append-icon-inner="mdi-comment-search"
                                 prepend-inner-icon="mdi-set-center"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0">
@@ -4161,7 +4159,7 @@ Save
                       prepend-icon="mdi-close-circle">Fechar</v-btn>
 
                     <v-btn variant="flat" color="success" type="submit"
-                      @click="validate(); checkInput();  SMS_SEND(); CUSTOMER_MESSAGE_HISTORY_SAVE(); if (isOkToSubmit != '') { handleSubmit(), alert = !alert; loading = !loading; dialog = !dialog; }"
+                      @click="validate(); checkInput();  SMS_SEND(); if (isOkToSubmit != '') { handleSubmit(), alert = !alert; loading = !loading; dialog = !dialog; }"
                       :ripple="true" :disabled="loading" :loading="loading" prepend-icon="mdi-content-save-outline">
                       Submeter
                       <template v-slot:loader>
@@ -4475,6 +4473,7 @@ const useModule = useModuleStore()
 
 export default {
   data: () => ({
+    msgCounter: '0',
     hrefGoTo: '#',
     noMsgCredit: false,
     countrycode: '244',
@@ -4930,6 +4929,7 @@ export default {
   },
 
   mounted: async function () {
+    this.msgCounter = this.messageCounter
 
     this.overlayOFF();
 
@@ -6060,6 +6060,13 @@ export default {
     },
 
     CUSTOMER_MESSAGE_SAVE: async function () {
+    
+      var msg = parseInt(window.localStorage.getItem('MSC'))
+      if (msg <= 0) {
+        this.alertSuccess = false;
+        this.noMsgCredit = true;
+        return;
+      }
 
       let config = {
         headers: {
@@ -6113,9 +6120,10 @@ export default {
     },
 
     SMS_SEND: async function () {
-      var msg = parseInt(messageCounter)
-      if (msg < 1)
+      var msg = parseInt(window.localStorage.getItem('MSC'))
+      if (msg <= 0)
       {
+        this.alertSuccess = false;
         this.noMsgCredit = true;
         return;
       }
@@ -6143,7 +6151,11 @@ export default {
       {
         this.dwContact = this.dwWhatsApp
       }
-      // alert(this.dwSms[1])
+      
+      if (this.dwSms[1] == undefined | this.dwMessage == '')
+      {
+        return;
+      }
 
       await axios.post('Twilio',
         {
@@ -6159,14 +6171,24 @@ export default {
         }, config)
         .then(
           (response) => {
+
             if (response.request.status == '400') {
 
             }
             if (response.request.status == '200') {
-              let x = parseInt(window.localStorage.getItem('MSC'))-1;
-              window.localStorage.setItem('MSC', x),
-                // this.messageCounter = window.localStorage.getItem('MSC')
-              this.alertSuccess = true
+              
+              if (msg > 0) {
+                let x = parseInt(window.localStorage.getItem('MSC')) - 1;                
+                window.localStorage.setItem('MSC', x)
+              }
+              this.alertSuccess = true,
+              this.msgCounter = response.data,
+              this.messageCounter = response.data,
+
+              CUSTOMER_MESSAGE_HISTORY_SAVE(); 
+
+              location.reload();
+            
             }
           }
         )
@@ -6177,8 +6199,9 @@ export default {
 
     CUSTOMER_MESSAGE_HISTORY_SAVE: async function () {
 
-      var msg = parseInt(messageCounter)
-      if (msg < 1) {
+      var msg = parseInt(this.msgCounter)
+      if (msg <= 0) {
+        this.alertSuccess = false;
         this.noMsgCredit = true;
         return;
       }
@@ -6199,6 +6222,10 @@ export default {
       // var DATE_TIME = year + '-' + month + '-' + day + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 
       // alert(this.dwSms[1])
+
+      if (this.dwSms[1] == undefined | this.dwMessage == '') {
+        return;
+      }
 
       await axios.post('CustomerMessageHistory',
         {
@@ -6234,6 +6261,9 @@ export default {
               this.KPI_GET_ALL();
 
               // this.CUSTOMER_LOG_GET(this.customerID);
+
+              messageCounter = window.localStorage.getItem('MSC')
+              msgCounter = window.localStorage.getItem('MSC')
             }
           }
         )
@@ -6562,7 +6592,7 @@ export default {
       this.dwCampaign = ''
 
       this.dwMessage = ''
-      this.dwStat = ''
+      this.dwStat = 'Novo'
 
       this.dwContact = ''
       this.dwSms = ''
