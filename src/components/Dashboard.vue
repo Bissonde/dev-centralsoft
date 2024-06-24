@@ -5389,6 +5389,8 @@ export default {
         }
       }
 
+      alert(item)
+
 
       const customersGroups = await axios.get('CustomerMessages1/' + item, config)
         .then(response => {
@@ -5722,6 +5724,10 @@ export default {
       }
       // this.hide_alert();
 
+      if (item == '') {
+        return;
+      }
+
       await axios.get('CustomerCampaign1/' + item,
         {
           'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken'),
@@ -5984,6 +5990,12 @@ export default {
         }
       }
       // this.hide_alert();
+
+      
+      if (item == '')
+      {
+        return;
+      }
 
       await axios.get('CustomerMessages1/' + item,
         {
