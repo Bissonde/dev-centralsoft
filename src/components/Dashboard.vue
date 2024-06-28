@@ -1858,209 +1858,6 @@ Save
                     </v-window>
                   </v-card-text>
 
-                  <v-card-text v-if="useModule.dialog == 'dWings'">
-
-                    <v-tabs v-model="tabs" align-tabs="centered">
-                      <v-tab prepend-icon="mdi-information-outline">Detalhes</v-tab>
-                      <v-tab prepend-icon="mdi-history">Histórico</v-tab>
-                    </v-tabs>
-
-                    <v-window v-model="tabs" class="pb-0 mb-0">
-                      <v-window-item v-model="details">
-                        <!-- <v-card> -->
-                        <!-- <v-card-title>
-          <span class="text-h5">User Profile</span>
-        </v-card-title> -->
-
-
-                        <v-card-text>
-                          <!-- <v-container> -->
-                          <v-row>
-                            <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-text-field :disabled="!isEditing" label="ID" id="CID" v-model="dwID"
-                                prepend-inner-icon="mdi-key" hint="example of helper text only on focus"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-autocomplete :disabled="!isEditing" id="cellFlex" v-model="dWingsMode"
-                                :items="['Singular', 'Múltiplos']" label="Modo de envio"
-                                prepend-inner-icon="mdi-shuffle"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwCategory"
-                                :items="['SMS', 'Telefone', 'WhatsApp', 'E-mail']" :item-value="'SMS'" label="Categoria"
-                                prepend-inner-icon="mdi-cube-send"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0" v-show="dWingsMode == 'Múltiplos'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwGroup" :items="cellGroupList"
-                                :item-value="cellGroupListID" label="Grupo"
-                                prepend-inner-icon="mdi-account-multiple"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0"
-                              v-if="msgCategory == '' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwContact" label="Contactos"
-                                :items="cellContactList[1]" :item-value="cellContactList[0]"
-                                prepend-inner-icon="mdi-account"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0"
-                              v-if="msgCategory == 'SMS' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwSms" label="Contactos"
-                                :items="cellContactList" :item-value="cellContactList[0]"
-                                prepend-inner-icon="mdi-account"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0"
-                              v-if="msgCategory == 'Telefone' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwContact" label="Telefone"
-                                :items="cellContactList" :item-value="cellContactListID"
-                                prepend-inner-icon="mdi-phone"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0"
-                              v-if="msgCategory == 'WhatsApp' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwWhatsApp" label="WhatsApp"
-                                :items="cellContactList" :item-value="cellContactListID"
-                                prepend-inner-icon="mdi-whatsapp"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0"
-                              v-if="msgCategory == 'E-mail' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwEmail" label="E-mail"
-                                prepend-inner-icon="mdi-email-fast-outline"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-text-field :disabled="!isEditing" label="Data de Envio" type="date" v-model="dwDate"
-                                prepend-inner-icon="mdi-calendar" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-text-field :disabled="!isEditing" label="Hora" type="time" v-model="dwTime"
-                                prepend-inner-icon="mdi-calendar" required></v-text-field>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="6" class="pa-0" v-if="dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwTitle" :items="cellMessageList"
-                                :change="CUSTOMER_MESSAGE1_GET(dwTitle)" :menu-props="{ closeOnContentClick: true }"
-                                label="Mensagem" append-icon-inner="mdi-comment-search"
-                                prepend-inner-icon="mdi-set-center"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="6" class="pa-0">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwStat"
-                                :items="['Novo', 'Em Espera', 'Cancelado', 'Concluído']" label="Estado"
-                                prepend-inner-icon="mdi-state-machine"></v-autocomplete>
-                            </v-col>
-                            <v-col cols="12" sm="6" md="6" class="pa-0">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwCampaign"
-                                v-if="dWingsMode == 'Múltiplos'" :items="cellCampaignList"
-                                :change="CUSTOMER_CAMPAIGN1_GET(dwCampaign)" label="Campanha"
-                                prepend-inner-icon="mdi-forum"></v-autocomplete>
-                            </v-col>
-
-                            <v-col cols="12" sm="12" md="12" class="pa-0 ma-0">
-                              <v-textarea :disabled="!isEditing" label="Descrição*" v-model="dwMessage" :counter="200"
-                                :rules="lastNameRules" prepend-inner-icon="mdi-message-text-outline"
-                                required></v-textarea>
-                            </v-col>
-                          </v-row>
-                          <!-- </v-container> -->
-                          <!-- <small>*indicates required field</small> -->
-                        </v-card-text>
-
-                        <!-- </v-card> -->
-                      </v-window-item>
-                      <v-window-item v-model="options">
-                        <v-card-text>
-                          <!-- <v-container> -->
-                          <v-row>
-                            <v-data-table :headers="headers" :items="serverItems1" :search="search" show-select
-                              return-object :loading="loading" v-model="selected" height="500px" fixed-header
-                              :sort-by="[{ key: 'name', order: 'asc' }]">
-                              <template v-slot:top>
-                                <v-toolbar flat style="border-bottom:solid #0277BD 5px;">
-                                  <v-toolbar-title>
-                                    <v-text-field v-model="search" label="Procurar" prepend-inner-icon="mdi-magnify"
-                                      clearable density="compact" variant="outlined" hide-details
-                                      single-line></v-text-field>
-                                  </v-toolbar-title>
-                                  <v-divider class="mx-4" inset vertical></v-divider>
-
-
-                                  <!-- <v-spacer></v-spacer> -->
-
-                                  <span id="totalr"><b>Escolha:</b>&nbsp;{{ selected.length }}</span>
-
-                                  <v-divider class="mx-4" inset vertical></v-divider>
-
-                                  <v-btn class="mb-2" color="primary" size="large" prepend-icon="mdi-plus-thick" dark
-                                    @click="editModal = !editModal; CustomerNew();">
-
-                                  </v-btn>
-
-                                  <v-btn class="mb-2" color="danger" size="large" prepend-icon="mdi-content-copy" dark
-                                    @click="editModal = !editModal; ACCOUNT_DUPLICATE();">
-                                  </v-btn>
-
-                                  <v-btn class="mb-2" color="primary" size="large" prepend-icon="mdi-cloud-refresh" dark
-                                    @click="CUSTOMER_MESSAGE_HISTORY_GET_ALL();">
-                                  </v-btn>
-
-                                  <v-btn class="mb-2" color="primary" size="large" prepend-icon="mdi-upload" dark
-                                    @click="editModal = !editModal; CustomerNew();">
-
-                                  </v-btn>
-                                  <v-btn class="mb-2" color="primary" size="large" prepend-icon="mdi-download" dark
-                                    @click="showSelected">
-
-                                  </v-btn>
-                                  <v-dialog v-model="dialogDelete" max-width="500px" width="auto">
-                                    <v-card title="Remover Cliente" text="Tem a certeza que deseja remover este
-                                cliente?" prepend-icon="mdi-close-thick" max-width="450">
-                                      <v-card-title class="text-h5"></v-card-title>
-                                      <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn color="red-darken-1" variant="text" @click="closeDelete">Não</v-btn>
-                                        <v-btn color="blue-darken-1" variant="text"
-                                          @click="CUSTOMER_DELETE(this.deleteValue.id)">Sim</v-btn>
-                                        <v-spacer></v-spacer>
-                                      </v-card-actions>
-                                    </v-card>
-                                  </v-dialog>
-                                </v-toolbar>
-                              </template>
-                              <template v-slot:item.actions="{ item }">
-                                <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline"
-                                  density="compact"
-                                  @click="editModal = !editModal; this.isEditing = false; CUSTOMER_GET(item);"></v-btn>
-
-                                <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
-                                  density="compact"
-                                  @click="editModal = !editModal; this.isEditing = true; CUSTOMER_GET(item);"></v-btn>
-
-                                <v-btn color="danger" variant="text" icon="mdi-delete-outline" density="compact"
-                                  @click="deleteItem(item);"></v-btn>
-
-                                <!-- <v-btn color="primary" @click="initialize">
-                          Reset
-                        </v-btn> -->
-
-                              </template>
-
-                              <template v-slot:no-data>
-
-                              </template>
-
-                            </v-data-table>
-
-                          </v-row>
-                          <!-- </v-container> -->
-                          <small>*indicates required field</small>
-                        </v-card-text>
-                      </v-window-item>
-                    </v-window>
-                  </v-card-text>
-                  <!--
-                      <v-window v-model="tab">
-                        <v-window-item
-                          v-for="                                                                                         item in items                                                                                         "
-                          :key="item" :value="item">
-                          {{ text }}
-                        </v-window-item>
-                      </v-window> -->
-
 
                   <v-card-text v-if="useModule.dialog == 'Settings'">
 
@@ -3944,6 +3741,12 @@ Save
                     </template>
                   </v-toolbar>
 
+
+                  <v-alert type="info" v-if="dwGroup != '' & dWingsMode == 'Múltiplos'" transition="slide-y-transition"
+                    border="start" variant="tonal" closable>Esta mensagem será enviada para {{
+                    this.groupMembersList.length
+                    }} contactos! </v-alert>
+
                   <v-alert type="error" title="Sucesso" v-model="noMsgCredit" transition="slide-y-transition"
                     border="start" variant="tonal" closable
                     text="Não tens crédito disponível para enviar mensagens!"></v-alert>
@@ -3993,8 +3796,8 @@ Save
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0" v-show="dWingsMode == 'Múltiplos'">
                               <v-autocomplete :disabled="!isEditing" v-model="dwGroup" :items="cellGroupList"
-                                :item-value="cellGroupListID" label="Grupo"
-                                prepend-inner-icon="mdi-account-multiple"></v-autocomplete>
+                                :change="CUSTOMER_GROUP_MEMBERS_GET_ALL(dwGroup)" :item-value="cellGroupListID"
+                                label="Grupo" prepend-inner-icon="mdi-account-multiple"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == '' & dWingsMode == 'Singular'">
@@ -4159,7 +3962,7 @@ Save
                       prepend-icon="mdi-close-circle">Fechar</v-btn>
 
                     <v-btn variant="flat" color="success" type="submit"
-                      @click="validate(); checkInput();  SMS_SEND(); if (isOkToSubmit != '') { handleSubmit(), alert = !alert; loading = !loading; dialog = !dialog; }"
+                      @click="validate(); checkInput(); SMS_SEND(); CUSTOMER_MESSAGE_HISTORY_SAVE(); if (isOkToSubmit != '') { handleSubmit(), alert = !alert; loading = !loading; dialog = !dialog; }"
                       :ripple="true" :disabled="loading" :loading="loading" prepend-icon="mdi-content-save-outline">
                       Submeter
                       <template v-slot:loader>
@@ -4473,6 +4276,7 @@ const useModule = useModuleStore()
 
 export default {
   data: () => ({
+    multipleSendDW: true,
     msgCounter: '0',
     hrefGoTo: '#',
     noMsgCredit: false,
@@ -4609,7 +4413,7 @@ export default {
     ],
     headers: [
       { title: 'ID', align: 'start', key: 'id', width: '50px' },
-      { title: 'Nome Completo', align: 'start', key: 'fullname'},
+      { title: 'Nome Completo', align: 'start', key: 'fullname' },
       { title: 'Telemóvel', align: 'start', key: 'cell' },
       { title: 'E-mail', align: 'start', key: 'email' },
       { title: 'Acções', align: 'end', key: 'actions', width: '200px' },
@@ -4655,6 +4459,8 @@ export default {
     ],
     serverItems: [],
     serverItems1: [],
+    groupMembers: [],
+    groupMembersList: [],
     topKPI: [],
     allSMS: [],
     allPhone: [],
@@ -4779,7 +4585,7 @@ export default {
     ],
     tabMenus: [
       // { text: 'Dashboard', icon: 'mdi-view-dashboard', to: '/', descr: 'Secção de Gráficos', dialog: 'isDialogOpen' },
-      { text: 'D-Wings', icon: 'mdi-send', to: 'd-Wings', descr: 'Envio de Mensagensd', dialog: 'dWings', size: '400px' },
+      //{ text: 'D-Wings', icon: 'mdi-send', to: 'd-Wings', descr: 'Envio de Mensagensd', dialog: 'dWings', size: '400px' },
       { text: 'Contactos', icon: 'mdi-account', to: 'contacts', descr: 'Directório de Contactos', dialog: 'Contacts', size: '400px' },
       { text: 'Grupos', icon: 'mdi-account-group', to: 'groups', descr: 'Directório de Grupos de Contactos', dialog: 'Groups', size: '400px' },
       { text: 'Campanhas', icon: 'mdi-account-voice', to: 'campaigns', descr: 'Campanhas', dialog: 'Campaigns' },
@@ -5246,6 +5052,38 @@ export default {
         .catch(err => console.error(err));
     },
 
+    ACCOUNT_MEMBERS_GET_LIST: async function () {
+
+      this.overlayON();
+
+      var PID = window.localStorage.getItem('PID')
+      var BID = window.localStorage.getItem('BID')
+
+      this.cellGroupList = []
+      this.cellGroupListID = []
+
+      let config = {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
+        }
+      }
+
+      const customersGroups = await axios.get('CustomerGroup/' + PID + ',' + BID, config)
+        .then(response => {
+          var LST = response.data['$values']
+          var json = JSON.stringify(this.cellGroupList)
+
+          for (let i in LST) {
+            this.cellGroupList.push(LST[i].name)
+            this.cellGroupListID.push(LST[i].groupId)
+
+          }
+          this.overlayOFF();
+        })
+        .catch(err => console.error(err));
+    },
+
     CUSTOMER_GROUP_GET_LIST_ALL: async function () {
 
       this.overlayON();
@@ -5301,7 +5139,7 @@ export default {
           var json = JSON.stringify(this.cellContactList)
 
           for (let i in LST) {
-            this.cellContactList.push([LST[i].fullname, LST[i].countrycode + LST[i].cell])
+            this.cellContactList.push([LST[i].fullname, '+' + LST[i].countrycode + LST[i].cell])
             // this.cellContactListID.push(LST[i].Id)
 
           }
@@ -5401,6 +5239,13 @@ export default {
 
     CUSTOMER_GROUP_MEMBERS_GET_ALL: async function (groupID) {
 
+      if (groupID == '') {
+        return;
+      }
+      this.groupMembers = []
+      this.groupMembersList = []
+      // alert(groupID)
+
       this.overlayON();
 
       var PID = window.localStorage.getItem('PID')
@@ -5416,11 +5261,16 @@ export default {
       // var gname = decodeURI(groupID)
       // alert(gname)
 
-      const customersGroups = await axios.get('CustomerMembers/' + decodeURI(groupID), config)
+      const customersGroups = await axios.get('CustomerMembers/' + groupID, config)
         .then(response => {
           this.serverItems1 = response.data['$values']
+          this.groupMembers = response.data['$values']
 
-          // console.log(response.data['$values'])
+          for (let i in this.groupMembers) {
+            this.groupMembersList.push('+' + this.groupMembers[i].countrycode + this.groupMembers[i].sms)
+
+          }
+          // console.log(this.groupMembers)
 
           this.overlayOFF();
         })
@@ -5522,7 +5372,7 @@ export default {
       this.CUSTOMER_GROUP_GET_LIST_ALL();
       // this.CUSTOMER_CAMPAIGN_GET_LIST_ALL();
       this.CUSTOMER_MESSAGE_GET_LIST_ALL();
-      this.CUSTOMER_GET_LIST_ALL();
+      // this.CUSTOMER_GET_LIST_ALL();
 
       // this.CUSTOMER_LOG_GET(this.customerID)
 
@@ -5982,6 +5832,9 @@ export default {
 
     CUSTOMER_MESSAGE1_GET: async function (item) {
 
+
+      this.overlayON();
+
       let config = {
         headers: {
           'Accept': 'application/json',
@@ -5990,9 +5843,8 @@ export default {
       }
       // this.hide_alert();
 
-      
-      if (item == '')
-      {
+
+      if (item == '') {
         return;
       }
 
@@ -6007,6 +5859,8 @@ export default {
 
             }
             if (response.request.status == '200') {
+
+              this.overlayOFF();
 
               this.msgText = json[0]["descr"]
               this.dwMessage = json[0]["descr"]
@@ -6060,7 +5914,7 @@ export default {
     },
 
     CUSTOMER_MESSAGE_SAVE: async function () {
-    
+
       var msg = parseInt(window.localStorage.getItem('MSC'))
       if (msg <= 0) {
         this.alertSuccess = false;
@@ -6121,8 +5975,7 @@ export default {
 
     SMS_SEND: async function () {
       var msg = parseInt(window.localStorage.getItem('MSC'))
-      if (msg <= 0)
-      {
+      if (msg <= 0) {
         this.alertSuccess = false;
         this.noMsgCredit = true;
         return;
@@ -6143,18 +5996,25 @@ export default {
       var NOW = year + '' + month + '' + day + '' + time
       // var DATE_TIME = year + '-' + month + '-' + day + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 
-      if(this.dwSms != null)
-      {
-        this.dwContact = this.dwSms
+      let ADDRESS;
+
+      if (this.dWingsMode == 'Singular') {
+        if (this.dwSms != null) {
+          this.dwContact = this.dwSms
+        }
+        if (this.dwWhatsApp != null) {
+          this.dwContact = this.dwWhatsApp
+        }
+
+        if (this.dwSms[1] == undefined | this.dwMessage == '') {
+          return;
+        }
+
+        ADDRESS = this.dwSms[1];
       }
-      if(this.dwWhatsApp != null)
-      {
-        this.dwContact = this.dwWhatsApp
-      }
-      
-      if (this.dwSms[1] == undefined | this.dwMessage == '')
-      {
-        return;
+      else if (this.dWingsMode == 'Múltiplos') {
+
+        ADDRESS = this.groupMembersList.toString();
       }
 
       await axios.post('Twilio',
@@ -6162,7 +6022,7 @@ export default {
           partnerID: window.localStorage.getItem('PID'),
           branch: window.localStorage.getItem('BID'),
           ID: this.dwID,
-          Dest: this.dwSms[1],
+          Dest: ADDRESS,
           message1: this.dwMessage,
           IP: this.dwCategory,
           crdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt'),
@@ -6176,19 +6036,19 @@ export default {
 
             }
             if (response.request.status == '200') {
-              
+
               if (msg > 0) {
-                let x = parseInt(window.localStorage.getItem('MSC')) - 1;                
+                let x = parseInt(window.localStorage.getItem('MSC')) - 1;
                 window.localStorage.setItem('MSC', x)
               }
               this.alertSuccess = true,
-              this.msgCounter = response.data,
-              this.messageCounter = response.data,
+                this.msgCounter = response.data,
+                this.messageCounter = response.data,
 
-              CUSTOMER_MESSAGE_HISTORY_SAVE(); 
+                this.CUSTOMER_MESSAGE_HISTORY_SAVE();
 
               location.reload();
-            
+
             }
           }
         )
@@ -6221,11 +6081,35 @@ export default {
       var NOW = year + '' + month + '' + day + '' + time
       // var DATE_TIME = year + '-' + month + '-' + day + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 
-      // alert(this.dwSms[1])
+      alert(this.dwSms)
 
-      if (this.dwSms[1] == undefined | this.dwMessage == '') {
-        return;
+      let ADDRESS;
+      let MESSAGE;
+
+      if (this.dWingsMode == 'Singular') {
+        if (this.dwSms != null) {
+          this.dwContact = this.dwSms
+        }
+        if (this.dwWhatsApp != null) {
+          this.dwContact = this.dwWhatsApp
+        }
+
+        if (this.dwSms[1] == undefined | this.dwMessage == '') {
+          return;
+        }
+
+        ADDRESS = this.dwSms[1];
+        MESSAGE = this.dwMessage;
       }
+      else if (this.dWingsMode == 'Múltiplos') {
+
+        ADDRESS = this.groupMembersList.toString();
+        MESSAGE = this.dwCampaign;
+      }
+
+      // if (this.dwSms[1] == undefined | this.dwMessage == '') {
+      //   return;
+      // }
 
       await axios.post('CustomerMessageHistory',
         {
@@ -6233,8 +6117,8 @@ export default {
           branch: window.localStorage.getItem('BID'),
           ID: this.dwID,
           name: this.dwTitle,
-          descr: this.dwMessage,
-          dest: this.dwSms[1],
+          descr: MESSAGE,
+          dest: ADDRESS,
           crdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt'),
           mdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt'),
           sdate: this.dwDate,
@@ -6305,6 +6189,7 @@ export default {
 
     KPI_GET_ALL: async function () {
 
+      this.overlayON();
       useModule.dialog = 'dWings'
 
       let config = {
@@ -6324,6 +6209,8 @@ export default {
           // = response.data
           this.loading = true
           this.topKPI = response.data['$values']
+
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
@@ -6341,7 +6228,7 @@ export default {
       this.CUSTOMER_GROUP_GET_LIST_ALL();
       this.CUSTOMER_CAMPAIGN_GET_LIST_ALL();
       this.CUSTOMER_MESSAGE_GET_LIST_ALL();
-      this.CUSTOMER_GET_LIST_ALL();
+      // this.CUSTOMER_GET_LIST_ALL();
 
       this.alertDelete = false
       this.dwID = item.id,
@@ -6607,9 +6494,7 @@ export default {
       var day = today.getDate()
       var time = today.getHours() + today.getMinutes() + today.getSeconds();
       var NOW = year + '' + month + '' + day + '' + time
-      this.dwID = NOW
-
-;
+      this.dwID = NOW;
       this.CUSTOMER_GROUP_GET_LIST_ALL();
       this.CUSTOMER_CAMPAIGN_GET_LIST_ALL();
       this.CUSTOMER_MESSAGE_GET_LIST_ALL();
@@ -6672,7 +6557,7 @@ export default {
 
       // this.CUSTOMER_GROUP_GET_LIST_ALL();
       // this.CUSTOMER_CAMPAIGN_GET_LIST_ALL();
-      this.CUSTOMER_GET_LIST_ALL();
+      // this.CUSTOMER_GET_LIST_ALL();
     },
 
     GroupNew() {
@@ -6758,7 +6643,7 @@ export default {
         this.btnEdit = false
         this.btnDelete = false
       }
-      this.CUSTOMER_GROUP_GET_LIST_ALL();
+      // this.CUSTOMER_GROUP_GET_LIST_ALL();
     },
 
     handleSubmit() {
@@ -7020,10 +6905,10 @@ export default {
       if (item.dialog == 'Campaigns') {
         this.CUSTOMER_CAMPAIGN_GET_ALL();
 
-        this.CUSTOMER_GROUP_GET_LIST_ALL();
+        // this.CUSTOMER_GROUP_GET_LIST_ALL();
         this.CUSTOMER_CAMPAIGN_GET_LIST_ALL();
         this.CUSTOMER_MESSAGE_GET_LIST_ALL();
-        this.CUSTOMER_GET_LIST_ALL();
+        // this.CUSTOMER_GET_LIST_ALL();
       }
       if (item.dialog == 'Messages' | item.dialog == 'Chamadas' | item.dialog == 'WhatsApp' | item.dialog == 'E-mail') {
         this.CUSTOMER_MESSAGE_GET_ALL(item.dialog);
@@ -7077,7 +6962,7 @@ export default {
         // this.CUSTOMER_GROUP_GET_LIST_ALL();
         // this.CUSTOMER_CAMPAIGN_GET_LIST_ALL();
         // this.CUSTOMER_MESSAGE_GET_LIST_ALL();
-        this.CUSTOMER_GET_LIST_ALL();
+        // this.CUSTOMER_GET_LIST_ALL();
       }
       if (item.dialog == 'Messages' | item.dialog == 'Chamadas' | item.dialog == 'WhatsApp' | item.dialog == 'E-mail') {
         this.CUSTOMER_MESSAGE_GET_ALL(item.dialog);
@@ -7112,7 +6997,7 @@ export default {
         this.CUSTOMER_GROUP_GET_LIST_ALL();
         this.CUSTOMER_CAMPAIGN_GET_LIST_ALL();
         this.CUSTOMER_MESSAGE_GET_LIST_ALL();
-        this.CUSTOMER_GET_LIST_ALL();
+        // this.CUSTOMER_GET_LIST_ALL();
       }
     },
   },
