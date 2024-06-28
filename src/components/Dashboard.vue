@@ -397,11 +397,11 @@
                             <td>
 
                               <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
-                                @click="editModal = !editModal; this.isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
+                                @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
 
                               <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline"
                                 density="compact"
-                                @click="editModal = !editModal; this.isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
+                                @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
 
                               <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                                 density="compact"
@@ -425,7 +425,7 @@
                         </template>
                         <template v-slot:item.actions="{ item }">
                           <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                            @click="editModal = !editModal; this.isEditing = false; CUSTOMER_GET(item);"></v-btn>
+                            @click="editModal = !editModal; isEditing = false; CUSTOMER_GET(item);"></v-btn>
 
                           <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                             density="compact"
@@ -1368,7 +1368,7 @@
                           </template>
                           <template v-slot:item.actions="{ item }">
                             <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                              @click="editModal = !editModal; this.isEditing = false; CUSTOMER_GET(item);"></v-btn>
+                              @click="editModal = !editModal; isEditing = false; CUSTOMER_GET(item);"></v-btn>
 
                             <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                               density="compact"
@@ -2784,10 +2784,10 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
 
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
@@ -3003,7 +3003,7 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_GROUP_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_GROUP_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
@@ -3111,10 +3111,10 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
 
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
@@ -3224,10 +3224,10 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_MESSAGE_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_GET(item);"></v-btn>
 
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_MESSAGE_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
@@ -3335,7 +3335,7 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
@@ -3443,7 +3443,7 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
@@ -3551,7 +3551,7 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
+                          @click="editModal = !editModal; isEditing = false; CUSTOMER_CAMPAIGN_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
@@ -3927,7 +3927,7 @@ Save
                               <template v-slot:item.actions="{ item }">
                                 <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline"
                                   density="compact"
-                                  @click="editModal = !editModal; this.isEditing = false; CUSTOMER_GET(item);"></v-btn>
+                                  @click="editModal = !editModal; isEditing = false; CUSTOMER_GET(item);"></v-btn>
 
                                 <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                                   density="compact"
@@ -4125,10 +4125,10 @@ Save
                     <td>
 
                       <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
-                        @click="useModule.dialog = 'Contacts'; useModule.title = 'Contacto'; editModal = !editModal; this.isEditing = false; CUSTOMER_GET(item);"></v-btn>
+                        @click="useModule.dialog = 'Contacts'; useModule.title = 'Contacto'; editModal = !editModal; isEditing = false; CUSTOMER_GET(item);"></v-btn>
 
                       <!-- <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                        @click="useModule.dialog = 'Contacts'; useModule.title = 'Contacto'; editModal = !editModal; this.isEditing = false;  CUSTOMER_GET(item);"></v-btn>
+                        @click="useModule.dialog = 'Contacts'; useModule.title = 'Contacto'; editModal = !editModal; isEditing = false;  CUSTOMER_GET(item);"></v-btn>
 
                       <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                         density="compact" openEditDialog
