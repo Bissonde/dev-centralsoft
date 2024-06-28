@@ -2895,11 +2895,11 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="editModal = !editModal; this.isEditing = false; CUSTOMER_GET(item);"></v-btn>
+                          @click="this.isEditing = false; editModal = !editModal; CUSTOMER_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
-                          @click="editModal = !editModal; this.isEditing = true; CUSTOMER_GET(item);"></v-btn>
+                          @click="this.isEditing = true; editModal = !editModal; CUSTOMER_GET(item);"></v-btn>
 
                         <v-btn color="danger" variant="text" icon="mdi-delete-outline" density="compact"
                           @click="deleteItem(item);"></v-btn>
@@ -4872,6 +4872,8 @@ export default {
     },
 
     CUSTOMER_GET: async function (item) {
+
+      alert( this.isEditing)
 
       this.alertDelete = false
       this.customerID = item.ID
