@@ -4873,12 +4873,8 @@ export default {
 
     CUSTOMER_GET: async function (item) {
 
-      alert( this.isEditing)
-
       this.alertDelete = false
       this.customerID = item.ID
-
-      // console.log(item.ID)
 
       this.customerID = item.id
       this.firstName = item.name
