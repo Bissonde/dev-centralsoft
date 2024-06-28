@@ -2895,11 +2895,11 @@ Save
                       </template>
                       <template v-slot:item.actions="{ item }">
                         <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                          @click="this.isEditing = false; editModal = !editModal; CUSTOMER_GET(item);"></v-btn>
+                          @click="isEditing = false; editModal = !editModal; CUSTOMER_GET(item);"></v-btn>
 
                         <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                           density="compact"
-                          @click="this.isEditing = true; editModal = !editModal; CUSTOMER_GET(item);"></v-btn>
+                          @click="isEditing = true; editModal = !editModal; CUSTOMER_GET(item);"></v-btn>
 
                         <v-btn color="danger" variant="text" icon="mdi-delete-outline" density="compact"
                           @click="deleteItem(item);"></v-btn>
