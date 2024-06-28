@@ -5028,6 +5028,8 @@ export default {
     },
 
     CUSTOMER_GROUP_GET_ALL: async function (id) {
+      
+          this.overlayON();
 
       var PID = window.localStorage.getItem('PID')
       var BID = window.localStorage.getItem('BID')
@@ -5046,6 +5048,7 @@ export default {
           this.serverItems = response.data['$values']
 
           // console.log(response.data['$values'])
+          this.overlayOFF();
         })
         .catch(err => console.error(err));
     },
@@ -5635,6 +5638,7 @@ export default {
     },
 
     SMS_GET_ALL: async function (item) {
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5653,6 +5657,7 @@ export default {
           // = response.data
           this.loading = true
           this.allSMS = response.data['$values']
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
@@ -5671,6 +5676,7 @@ export default {
     },
 
     PHONE_GET_ALL: async function () {
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5689,6 +5695,7 @@ export default {
           // = response.data
           this.loading = true
           this.allPhone = response.data['$values']
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
@@ -5708,6 +5715,7 @@ export default {
     },
 
     WHATSAPP_GET_ALL: async function () {
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5726,6 +5734,7 @@ export default {
           // = response.data
           this.loading = true
           this.allWhatsApp = response.data['$values']
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
@@ -5746,6 +5755,7 @@ export default {
     },
 
     EMAIL_GET_ALL: async function () {
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5764,6 +5774,7 @@ export default {
           // = response.data
           this.loading = true
           this.allEmail = response.data['$values']
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
@@ -5783,6 +5794,7 @@ export default {
     },
 
     CONTACTS_GET_ALL: async function () {
+      this.overlayON();
 
       let config = {
         headers: {
@@ -5801,6 +5813,7 @@ export default {
           // = response.data
           this.loading = true
           this.allContacts = response.data['$values']
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
@@ -5811,6 +5824,7 @@ export default {
     },
 
     CUSTOMER_MESSAGE_GET: async function (item) {
+      this.overlayON();
 
       // console.log(item)
 
@@ -5825,6 +5839,8 @@ export default {
 
       // this.CUSTOMER_LOG_GET(this.customerID)
       this.CUSTOMER_GROUP_GET_LIST_ALL();
+
+      this.overlayOFF();
 
     },
 
@@ -5873,6 +5889,7 @@ export default {
     },
 
     CUSTOMER_MESSAGE_DELETE: async function (item) {
+      this.overlayON();
 
       // console.log(this.deleteValue)
 
@@ -5904,6 +5921,8 @@ export default {
               this.closeDelete();
               this.editModal = false;
             }
+
+            this.overlayOFF();
           }
         )
         .catch((err) => {
@@ -5912,6 +5931,7 @@ export default {
     },
 
     CUSTOMER_MESSAGE_SAVE: async function () {
+      this.overlayON();
 
       var msg = parseInt(window.localStorage.getItem('MSC'))
       if (msg <= 0) {
@@ -5964,6 +5984,7 @@ export default {
 
               // this.CUSTOMER_LOG_GET(this.customerID);
             }
+            this.overlayOFF();
           }
         )
         .catch((err) => {
@@ -5972,6 +5993,7 @@ export default {
     },
 
     SMS_SEND: async function () {
+      this.overlayON();
       var msg = parseInt(window.localStorage.getItem('MSC'))
       if (msg <= 0) {
         this.alertSuccess = false;
@@ -6046,6 +6068,7 @@ export default {
                 this.CUSTOMER_MESSAGE_HISTORY_SAVE();
 
               location.reload();
+              this.overlayOFF();
 
             }
           }
@@ -6079,7 +6102,7 @@ export default {
       var NOW = year + '' + month + '' + day + '' + time
       // var DATE_TIME = year + '-' + month + '-' + day + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 
-      alert(this.dwSms)
+      // alert(this.dwSms)
 
       let ADDRESS;
       let MESSAGE;
@@ -6156,6 +6179,7 @@ export default {
 
 
     CUSTOMER_MESSAGE_HISTORY_GET_ALL: async function () {
+      this.overlayON();
 
       let config = {
         headers: {
@@ -6174,6 +6198,7 @@ export default {
           // = response.data
           this.loading = true
           this.serverItems = response.data['$values']
+          this.overlayOFF();
         })
         // .then(data => console.log(data))
         .catch(err => console.error(err));
