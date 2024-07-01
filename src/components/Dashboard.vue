@@ -22,8 +22,10 @@
         <v-spacer></v-spacer>
         <v-divider vertical class="mx-1"></v-divider>
         <v-toolbar-items>
-          <v-btn>Dashboard</v-btn>
-          <v-btn>Settings</v-btn>
+          <v-btn v-if="devType == 'Desktop'">Dashboard</v-btn>
+          <v-btn v-if="devType == 'Desktop'">Settings</v-btn>
+          <v-btn v-if="devType != 'Desktop'" icon="mdi-chart"></v-btn>
+          <v-btn v-if="devType != 'Desktop'" icon="mdi-cog"></v-btn>
         </v-toolbar-items>
         <!-- <v-text-field hide-details label="Procurar..." single-line></v-text-field> -->
 
@@ -46,7 +48,7 @@
                 <v-tooltip location="top">
                   <template v-slot:activator="{ props: tooltip }">
 
-                    <v-img id="myImg" class="circular" cover
+                    <v-img id="myImg" class="circular" width="50" height="50" cover
                       v-bind:style="{ backgroundImage: 'url(' + myPicture + ')', backgroundPosition: 'center center', backgroundSize: 'cover' }"
                       v-bind="mergeProps(menu, tooltip)"></v-img>
 
