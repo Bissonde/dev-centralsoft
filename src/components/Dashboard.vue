@@ -156,7 +156,7 @@
               </v-col>
             </v-row> -->
 
-            <v-row class="pt-8">
+            <v-row class="mt-0 pt-0">
               <v-col cols="8" v-if="devType == 'Desktop'">
                 <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
                 <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
