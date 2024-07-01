@@ -4853,9 +4853,7 @@ export default {
   },
 
   mounted: async function () {
-    devType = window.localStorage.getItem('MOB')
-    // alert(devType)
-
+    this.devType = window.localStorage.getItem('MOB')
     this.msgCounter = this.messageCounter
 
     this.overlayOFF();
