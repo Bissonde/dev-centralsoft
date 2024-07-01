@@ -156,7 +156,7 @@
               </v-col>
             </v-row> -->
 
-            <v-row>
+            <v-row class="pt-8">
               <v-col cols="8" v-if="devType == 'Desktop'">
                 <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
                 <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
@@ -181,7 +181,7 @@
                   &nbsp;Configurações
                 </v-btn>
               </v-col>
-              <v-col cols="12" v-if="devType == 'Mobile'">
+              <v-col cols="12" v-if="devType != 'Desktop'">
                 <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
                 <v-btn variant="text" density="compact" style="min-width:0"
                   v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
@@ -457,7 +457,7 @@
                           </tr>
                         </tbody>
                       </v-table>
-                      <v-table density="compact" class="mr-5" v-if="devType == 'Mobile'"
+                      <v-table density="compact" class="mr-5" v-if="devType != 'Desktop'"
                         style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px; max-width:255px;">
                         <thead>
                           <tr>
@@ -4206,11 +4206,11 @@ Save
                   </tr>
                 </tbody>
               </v-table>
-              <v-table density="compact" v-if="devType == 'Mobile'"
+              <v-table density="compact" v-if="devType != 'Desktop'"
                 style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px; max-width:255px;">
                 <thead>
                   <tr>
-                   
+
                     <th class="text-left">
                       Nome Completo
                     </th>
