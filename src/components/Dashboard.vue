@@ -15,13 +15,13 @@
           <v-app-bar-nav-icon variant="text" class="text-h5" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </template>
 
-        <v-app-bar-title>
+        <v-app-bar-title v-if="devType == 'Desktop'">
           <v-icon icon="mdi-view-grid" size="large" start />
           <b>Central Soft</b></v-app-bar-title>
 
         <v-spacer></v-spacer>
-        <v-divider vertical class="mx-1"></v-divider>
-        <v-toolbar-items>
+        <v-divider v-if="devType == 'Desktop'" vertical class="mx-1"></v-divider>
+        <v-toolbar-items fixed>
           <v-btn v-if="devType == 'Desktop'">Dashboard</v-btn>
           <v-btn v-if="devType == 'Desktop'">Settings</v-btn>
           <v-btn v-if="devType != 'Desktop'" icon="mdi-chart"></v-btn>
@@ -43,12 +43,12 @@
 
           <v-menu>
             <template #activator="{ props }">
-              <v-avatar v-bind="props">
+              <v-avatar v-bind="props" size="x-small" style="border: 2px solid blue;">
 
-                <v-tooltip location="top">
+                <v-tooltip location="top" border="warning lg">
                   <template v-slot:activator="{ props: tooltip }">
 
-                    <v-img id="myImg" class="circular" width="50" height="50" cover
+                    <v-img id="myImg" class="circular" cover
                       v-bind:style="{ backgroundImage: 'url(' + myPicture + ')', backgroundPosition: 'center center', backgroundSize: 'cover' }"
                       v-bind="mergeProps(menu, tooltip)"></v-img>
 
@@ -114,7 +114,7 @@
 
       <v-main style="background-color: #fff;">
         <!-- <v-container style="background-color: white;"> -->
-        <v-container class="mx-auto mb-0 py-0" elevation="12" fluid style="width: 97%">
+        <v-container class="mx-auto mb-0 py-0" elevation="12" fluid style="width: 100%">
 
 
           <!-- <br> -->
@@ -129,7 +129,7 @@
 
           <!-- <v-divider class="mb-2"></v-divider> -->
 
-          <v-sheet class="pa-1 mt-1 pb-1 mb-1" elevation="12" height="auto" width="100%">
+          <v-sheet class="pa-0 mt-1 pb-1 mb-1" elevation="10" height="auto" width="100%">
             <!-- <template v-slot:prepend>
               <v-icon color="primary">
                 mdi-dots-grid
@@ -258,12 +258,12 @@
 
           <v-sheet class="pa-4 pb-10" elevation="12" height="auto" width="100%">
 
-            <v-row>
+            <v-row v-if="devType == 'Desktop'">
               <v-col cols="9">
                 <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
                     class="text-h3">mdi-chart-bubble</v-icon>&nbsp;Dashboard
                 </h1>
-                <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;Última actualização:
+                <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;
                   22/05/2023</i>
               </v-col>
               <v-col>
@@ -287,6 +287,49 @@
                   </v-icon>&nbsp;D-Wings
                   &nbsp;
                 </v-btn>
+                <!-- <v-btn color="purple-darken-4" variant="tonal" class="float-sm-right"
+                  @click="goPlayModal = !goPlayModal; GoPlayNew();">
+                  <v-icon>
+                    mdi-plus-circle
+                  </v-icon>
+                  &nbsp;
+                </v-btn> -->
+                <!-- <v-btn color="purple-darken-4" variant="tonal" class="float-sm-right"
+                  @click="goPlayModal = !goPlayModal" @click.stop="GoPlayNew()">
+                  <v-icon>
+                    mdi-plus-circle
+                  </v-icon>&nbsp;D-Wings
+                  &nbsp;
+                </v-btn> -->
+                &nbsp;
+              </v-col>
+            </v-row>
+            <v-row v-if="devType != 'Desktop'">
+              <v-col cols="9">
+                <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
+                    class="text-h3">mdi-chart-bubble</v-icon>&nbsp;Dashboard
+                </h1>
+                <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;
+                  22/05/2023</i>
+              </v-col>
+              <v-col>
+                <!-- <v-btn variant="text" class="float-sm-right pa-0 ma-0 w-0" @click="viewModal = !viewModal">
+                  <v-icon color="primary">
+                    mdi-open-in-new
+                  </v-icon>
+                  &nbsp;
+                </v-btn>
+                &nbsp;
+                <v-btn variant="text" class="float-sm-right pa-0 ma-0 w-0" @click="filterModal = !filterModal">
+                  <v-icon color="primary">
+                    mdi-filter
+                  </v-icon>
+                  &nbsp;
+                </v-btn> -->
+                <v-btn color="purple-darken-4" variant="text" class="float-sm-center pr-0" density="default"
+                  @click="goPlayModal = !goPlayModal; GoPlayNew();" icon="mdi-plus-circle">
+                </v-btn>
+                <!-- <v-btn icon="mdi-open-in-new"></v-btn> -->
                 <!-- <v-btn color="purple-darken-4" variant="tonal" class="float-sm-right"
                   @click="goPlayModal = !goPlayModal" @click.stop="GoPlayNew()">
                   <v-icon>
@@ -356,15 +399,22 @@
 
           <br>
           <v-sheet class="pa-4 pb-0" elevation="12" height="auto" width="100%">
-            <v-row cols="12" sm="12" md="12" lg="12">
-              <v-col cols="9">
+            <v-row v-if="devType == 'Desktop'" cols="12" sm="12" md="12" lg="12">
+              <v-col cols="11">
                 <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
                     class="text-h3">mdi-chart-bar</v-icon>&nbsp;Gráficos</h1>
                 <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;Última actualização:
-                  22/05/2023</i>
+                </i>
               </v-col>
               <v-col>
-                <v-btn variant="text" class="float-sm-right" @click="viewModal = !viewModal">
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                </v-btn>&nbsp;
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-filter">
+                </v-btn>
+
+                 <!-- <v-btn variant="text" class="float-sm-right" @click="viewModal = !viewModal">
                   <v-icon color="primary">
                     mdi-open-in-new
                   </v-icon>
@@ -376,6 +426,23 @@
                     mdi-filter
                   </v-icon>
                   &nbsp;
+                </v-btn> -->
+              </v-col>
+            </v-row>
+
+            <v-row v-if="devType != 'Desktop'" cols="12" sm="12" md="12" lg="12">
+              <v-col cols="8">
+                <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
+                    class="text-h3">mdi-chart-bar</v-icon>&nbsp;Gráficos</h1>
+                <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;Última actualização:
+                </i>
+              </v-col>
+              <v-col>
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                </v-btn>&nbsp;
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-filter">
                 </v-btn>
               </v-col>
             </v-row>
@@ -595,8 +662,8 @@
 
           <br>
           <v-sheet class="pa-4" elevation="12" height="auto" width="auto">
-            <v-row>
-              <v-col cols="9">
+            <v-row v-if="devType == 'Desktop'" cols="12" sm="12" md="12" lg="12">
+              <v-col cols="11">
                 <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
                     class="text-h3">mdi-finance</v-icon>&nbsp;Estatísticas
                 </h1>
@@ -605,18 +672,29 @@
                   22/05/2023</i>
               </v-col>
               <v-col>
-                <v-btn variant="text" class="float-sm-right" @click="viewModal = !viewModal">
-                  <v-icon color="primary">
-                    mdi-open-in-new
-                  </v-icon>
-                  &nbsp;
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                </v-btn>&nbsp;
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-filter">
                 </v-btn>
-                &nbsp;
-                <v-btn variant="text" class="float-sm-right" @click="filterModal = !filterModal">
-                  <v-icon color="primary">
-                    mdi-filter
-                  </v-icon>
-                  &nbsp;
+              </v-col>
+            </v-row>
+            <v-row v-if="devType != 'Desktop'" cols="12" sm="12" md="12" lg="12">
+              <v-col cols="8">
+                <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
+                    class="text-h3">mdi-finance</v-icon>&nbsp;Estatísticas
+                </h1>
+                <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;Última
+                  actualização:
+                  22/05/2023</i>
+              </v-col>
+              <v-col>
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                </v-btn>&nbsp;
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-filter">
                 </v-btn>
               </v-col>
             </v-row>
@@ -660,7 +738,7 @@
         </div> -->
 
           <v-sheet class="pa-4 pb-10" elevation="12" height="400px" width="100%">
-            <v-row>
+            <v-row v-if="devType == 'Desktop'" cols="12" sm="12" md="12" lg="12">
               <v-col cols="9">
                 <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
                     class="text-h3">mdi-history</v-icon>&nbsp;Recentes</h1>
@@ -682,6 +760,22 @@
                   </v-icon>
                   &nbsp;
                 </v-btn>
+              </v-col>
+            </v-row>
+            <v-row v-if="devType != 'Desktop'" cols="12" sm="12" md="12" lg="12">
+              <v-col cols="8">
+                <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
+                    class="text-h3">mdi-history</v-icon>&nbsp;Recentes</h1>
+                <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;Última
+                  actualização:
+                  22/052023</i>
+              </v-col>
+              <v-col>
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                </v-btn>&nbsp;
+                <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
+                   @click="viewModal = !viewModal" icon="mdi-filter"></v-btn>
               </v-col>
             </v-row>
 
@@ -3845,84 +3939,171 @@ Save
 
                         <v-card-text>
                           <!-- <v-container> -->
-                          <v-row>
+                          <v-row v-if="devType == 'Desktop'">
                             <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-text-field :disabled="false" label="ID" id="CID" v-model="dwID"
+                              <v-text-field variant="solo" :disabled="false" label="ID" id="CID" v-model="dwID"
                                 prepend-inner-icon="mdi-key" hint="example of helper text only on focus"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-autocomplete :disabled="!isEditing" id="cellFlex" v-model="dWingsMode"
-                                :items="['Singular', 'Múltiplos']" label="Modo de envio"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" id="cellFlex"
+                                v-model="dWingsMode" :items="['Singular', 'Múltiplos']" label="Modo de envio"
                                 prepend-inner-icon="mdi-shuffle"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwCategory"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwCategory"
                                 :items="['SMS', 'Telefone', 'WhatsApp', 'E-mail']" :item-value="'SMS'" label="Categoria"
                                 prepend-inner-icon="mdi-cube-send"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0" v-show="dWingsMode == 'Múltiplos'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwGroup" :items="cellGroupList"
-                                :change="CUSTOMER_GROUP_MEMBERS_GET_ALL(dwGroup)" :item-value="cellGroupListID"
-                                label="Grupo" prepend-inner-icon="mdi-account-multiple"></v-autocomplete>
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwGroup"
+                                :items="cellGroupList" :change="CUSTOMER_GROUP_MEMBERS_GET_ALL(dwGroup)"
+                                :item-value="cellGroupListID" label="Grupo"
+                                prepend-inner-icon="mdi-account-multiple"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == '' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwContact" label="Contactos"
-                                :items="cellContactList[1]" :item-value="cellContactList[0]"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwContact"
+                                label="Contactos" :items="cellContactList[1]" :item-value="cellContactList[0]"
                                 prepend-inner-icon="mdi-account"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'SMS' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwSms" label="Contactos"
-                                :items="cellContactList" :item-value="cellContactList[0]"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwSms"
+                                label="Contactos" :items="cellContactList" :item-value="cellContactList[0]"
                                 prepend-inner-icon="mdi-account"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'Telefone' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwPhone" label="Telefone"
-                                :items="cellContactList" :item-value="cellContactListID"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwPhone"
+                                label="Telefone" :items="cellContactList" :item-value="cellContactListID"
                                 prepend-inner-icon="mdi-phone"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'WhatsApp' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwWhatsApp" label="WhatsApp"
-                                :items="cellContactList" :item-value="cellContactListID"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwWhatsApp"
+                                label="WhatsApp" :items="cellContactList" :item-value="cellContactListID"
                                 prepend-inner-icon="mdi-whatsapp"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'E-mail' & dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwEmail" label="E-mail"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwEmail" label="E-mail"
                                 prepend-inner-icon="mdi-email-fast-outline"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-text-field :disabled="!isEditing" label="Data de Envio" type="date" v-model="dwDate"
-                                prepend-inner-icon="mdi-calendar" required></v-text-field>
+                              <v-text-field variant="solo" :disabled="!isEditing" label="Data de Envio" type="date"
+                                v-model="dwDate" prepend-inner-icon="mdi-calendar" required></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-text-field :disabled="!isEditing" label="Hora" type="time" v-model="dwTime"
-                                prepend-inner-icon="mdi-calendar" required></v-text-field>
+                              <v-text-field variant="solo" :disabled="!isEditing" label="Hora" type="time"
+                                v-model="dwTime" prepend-inner-icon="mdi-calendar" required></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0" v-if="dWingsMode == 'Singular'">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwTitle" :items="cellMessageList"
-                                :change="CUSTOMER_MESSAGE1_GET(dwTitle)" :menu-props="{ closeOnContentClick: true }"
-                                label="Mensagem" append-icon-inner="mdi-comment-search"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwTitle"
+                                :items="cellMessageList" :change="CUSTOMER_MESSAGE1_GET(dwTitle)"
+                                :menu-props="{ closeOnContentClick: true }" label="Mensagem"
+                                append-icon-inner="mdi-comment-search"
                                 prepend-inner-icon="mdi-set-center"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0">
-                              <v-autocomplete v-model="dwStat" :items="['Novo', 'Em Espera', 'Cancelado', 'Concluído']"
-                                label="Estado" prepend-inner-icon="mdi-state-machine"></v-autocomplete>
+                              <v-autocomplete variant="solo" v-model="dwStat"
+                                :items="['Novo', 'Em Espera', 'Cancelado', 'Concluído']" label="Estado"
+                                prepend-inner-icon="mdi-state-machine"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="6" class="pa-0">
-                              <v-autocomplete :disabled="!isEditing" v-model="dwCampaign"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwCampaign"
                                 v-if="dWingsMode == 'Múltiplos'" :items="cellCampaignList"
                                 :change="CUSTOMER_CAMPAIGN1_GET(dwCampaign)" label="Campanha"
                                 prepend-inner-icon="mdi-forum"></v-autocomplete>
                             </v-col>
 
                             <v-col cols="12" sm="12" md="12" class="pa-0 ma-0">
-                              <v-textarea :disabled="!isEditing" label="Descrição*" v-model="dwMessage" :counter="200"
-                                :readonly="true" :rules="lastNameRules" prepend-inner-icon="mdi-message-text-outline"
-                                required></v-textarea>
+                              <v-textarea variant="solo" :disabled="!isEditing" label="Descrição*"
+                                v-model="dwMessage" :counter="200" :readonly="true" :rules="lastNameRules"
+                                prepend-inner-icon="mdi-message-text-outline" required></v-textarea>
+                            </v-col>
+                          </v-row>
+
+                          <v-row v-if="devType != 'Desktop'">
+                            <v-col cols="12" sm="6" md="4" class="pa-0">
+                              <v-text-field density="compact" :disabled="false" label="ID" id="CID" v-model="dwID"
+                                prepend-inner-icon="mdi-key" hint="example of helper text only on focus"></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0">
+                              <v-autocomplete density="compact" :disabled="!isEditing" id="cellFlex"
+                                v-model="dWingsMode" :items="['Singular', 'Múltiplos']" label="Modo de envio"
+                                prepend-inner-icon="mdi-shuffle"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0">
+                              <v-autocomplete density="compact" :disabled="!isEditing" v-model="dwCategory"
+                                :items="['SMS', 'Telefone', 'WhatsApp', 'E-mail']" :item-value="'SMS'" label="Categoria"
+                                prepend-inner-icon="mdi-cube-send"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0" v-show="dWingsMode == 'Múltiplos'">
+                              <v-autocomplete variant="underlined" :disabled="!isEditing" v-model="dwGroup"
+                                :items="cellGroupList" :change="CUSTOMER_GROUP_MEMBERS_GET_ALL(dwGroup)"
+                                :item-value="cellGroupListID" label="Grupo"
+                                prepend-inner-icon="mdi-account-multiple"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0"
+                              v-if="msgCategory == '' & dWingsMode == 'Singular'">
+                              <v-autocomplete variant="underlined" :disabled="!isEditing" v-model="dwContact"
+                                label="Contactos" :items="cellContactList[1]" :item-value="cellContactList[0]"
+                                prepend-inner-icon="mdi-account"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0"
+                              v-if="msgCategory == 'SMS' & dWingsMode == 'Singular'">
+                              <v-autocomplete variant="underlined" :disabled="!isEditing" v-model="dwSms"
+                                label="Contactos" :items="cellContactList" :item-value="cellContactList[0]"
+                                prepend-inner-icon="mdi-account"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0"
+                              v-if="msgCategory == 'Telefone' & dWingsMode == 'Singular'">
+                              <v-autocomplete variant="underlined" :disabled="!isEditing" v-model="dwPhone"
+                                label="Telefone" :items="cellContactList" :item-value="cellContactListID"
+                                prepend-inner-icon="mdi-phone"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0"
+                              v-if="msgCategory == 'WhatsApp' & dWingsMode == 'Singular'">
+                              <v-autocomplete variant="underlined" :disabled="!isEditing" v-model="dwWhatsApp"
+                                label="WhatsApp" :items="cellContactList" :item-value="cellContactListID"
+                                prepend-inner-icon="mdi-whatsapp"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0"
+                              v-if="msgCategory == 'E-mail' & dWingsMode == 'Singular'">
+                              <v-autocomplete variant="underlined" :disabled="!isEditing" v-model="dwEmail"
+                                label="E-mail" prepend-inner-icon="mdi-email-fast-outline"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0">
+                              <v-text-field variant="underlined" :disabled="!isEditing" label="Data de Envio"
+                                type="date" v-model="dwDate" prepend-inner-icon="mdi-calendar" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="4" class="pa-0">
+                              <v-text-field variant="underlined" :disabled="!isEditing" label="Hora" type="time"
+                                v-model="dwTime" prepend-inner-icon="mdi-calendar" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6" class="pa-0" v-if="dWingsMode == 'Singular'">
+                              <v-autocomplete variant="underlined" :disabled="!isEditing" v-model="dwTitle"
+                                :items="cellMessageList" :change="CUSTOMER_MESSAGE1_GET(dwTitle)"
+                                :menu-props="{ closeOnContentClick: true }" label="Mensagem"
+                                append-icon-inner="mdi-comment-search"
+                                prepend-inner-icon="mdi-set-center"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6" class="pa-0">
+                              <v-autocomplete variant="underlined" v-model="dwStat"
+                                :items="['Novo', 'Em Espera', 'Cancelado', 'Concluído']" label="Estado"
+                                prepend-inner-icon="mdi-state-machine"></v-autocomplete>
+                            </v-col>
+                            <v-col cols="12" sm="6" md="6" class="pa-0">
+                              <v-autocomplete variant="underlined" :disabled="!isEditing" v-model="dwCampaign"
+                                v-if="dWingsMode == 'Múltiplos'" :items="cellCampaignList"
+                                :change="CUSTOMER_CAMPAIGN1_GET(dwCampaign)" label="Campanha"
+                                prepend-inner-icon="mdi-forum"></v-autocomplete>
+                            </v-col>
+
+                            <v-col cols="12" sm="12" md="12" class="pa-0 ma-0">
+                              <v-textarea variant="outlined" :disabled="!isEditing" label="Descrição*"
+                                v-model="dwMessage" :counter="200" :readonly="true" :rules="lastNameRules"
+                                prepend-inner-icon="mdi-message-text-outline" required></v-textarea>
                             </v-col>
                           </v-row>
                           <!-- </v-container> -->
@@ -4209,7 +4390,7 @@ Save
                 </tbody>
               </v-table>
               <v-table density="compact" v-if="devType != 'Desktop'"
-                style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px; max-width:255px;">
+                style="font-size: 10pt; width: 200%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px; max-width:265px;">
                 <thead>
                   <tr>
 
@@ -4855,7 +5036,13 @@ export default {
   },
 
   mounted: async function () {
-    this.devType = window.localStorage.getItem('MOB')
+    let DEV = document.createElement('script')
+    DEV.setAttribute('src', '/src/Detect/detect.js')
+    document.head.appendChild(DEV)
+    var user = detect.parse(navigator.userAgent)    
+    this.devType = user.device.type
+
+    // this.devType = window.localStorage.getItem('MOB')
     this.msgCounter = this.messageCounter
 
     this.overlayOFF();
