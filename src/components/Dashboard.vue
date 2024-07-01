@@ -157,7 +157,7 @@
             </v-row> -->
 
             <v-row>
-              <v-col cols="8" v-if="this.devType == 'Desktop'">
+              <v-col cols="8" v-if="devType == 'Desktop'">
                 <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
                 <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
                   @click="openDialog(n); viewModal = !viewModal">
@@ -181,7 +181,7 @@
                   &nbsp;Configurações
                 </v-btn>
               </v-col>
-              <v-col cols="12" v-if="this.devType == 'Mobile'">
+              <v-col cols="12" v-if="devType == 'Mobile'">
                 <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
                 <v-btn variant="text" density="compact" style="min-width:0"
                   v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
@@ -227,7 +227,7 @@
                 </v-btn>
               </v-col>
               <v-spacer></v-spacer>
-              <v-col v-if="this.devType == 'Desktop'">
+              <v-col v-if="devType == 'Desktop'">
                 <v-btn variant="text" @click="isDark();">
                   <!-- <v-icon color="orange-darken" end>
                       mdi-plus-circle
@@ -405,7 +405,7 @@
                       style="height:20px;  max-height: auto; width: 100%">
                       <!-- <ChartComponent style="width:auto; max-width:auto;"></ChartComponent> -->
 
-                      <v-table density="compact" class="mr-5" v-if="this.devType == 'Desktop'"
+                      <v-table density="compact" class="mr-5" v-if="devType == 'Desktop'"
                         style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px;">
                         <thead>
                           <tr>
@@ -457,7 +457,7 @@
                           </tr>
                         </tbody>
                       </v-table>
-                      <v-table density="compact" class="mr-5" v-if="this.devType == 'Mobile'"
+                      <v-table density="compact" class="mr-5" v-if="devType == 'Mobile'"
                         style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px; max-width:255px;">
                         <thead>
                           <tr>
@@ -4152,7 +4152,7 @@ Save
             <v-sheet class="pa-4 pb-0" elevation="0" height="auto" width="100%">
 
 
-              <v-table density="compact" class="mr-5" v-if="this.devType == 'Desktop'"
+              <v-table density="compact" class="mr-5" v-if="devType == 'Desktop'"
                 style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 245px;">
                 <thead>
                   <tr>
@@ -4206,7 +4206,7 @@ Save
                   </tr>
                 </tbody>
               </v-table>
-              <v-table density="compact" v-if="this.devType == 'Mobile'"
+              <v-table density="compact" v-if="devType == 'Mobile'"
                 style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px; max-width:255px;">
                 <thead>
                   <tr>
@@ -4853,8 +4853,8 @@ export default {
   },
 
   mounted: async function () {
-    this.devType = window.localStorage.getItem('MOB')
-    // alert(this.devType)
+    devType = window.localStorage.getItem('MOB')
+    // alert(devType)
 
     this.msgCounter = this.messageCounter
 
