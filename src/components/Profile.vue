@@ -576,11 +576,29 @@ var myEmail = '';
 onMounted(() => {
     // alert(TokenStore.tokenID) 
     // if (window.localStorage.getItem('JwtToken') != null) {
-    var MyUserName = localStorage.getItem('username')
-    JwtToken = localStorage.getItem('JwtToken')
-    MyUserName = localStorage.getItem('username')
-    myPicture = localStorage.getItem('myPicture')
-    myEmail = localStorage.getItem('myEmail')
+
+    if (window.localStorage.getItem('JwtToken') != null) {
+        PID = window.localStorage.getItem('PID')
+        BID = window.localStorage.getItem('BID')
+
+        JwtToken = localStorage.getItem('JwtToken')
+        MyUserName = localStorage.getItem('username')
+        myPicture = localStorage.getItem('myPicture')
+        myEmail = localStorage.getItem('myEmail')
+        document.getElementById("myImg").src = myPicture;
+        window.localStorage.removeItem('PWE')
+        window.localStorage.removeItem('PWD')
+        // document["myImg"].src = myPicture;
+        // var tok = JSON.parse(localStorage.getItem('token'))
+
+    }
+    else {
+        window.location = '/signin?returnUrl=profile'
+
+
+        // this.returnURL('signin')
+        // this.$router.push({ path: `/login` })
+    }
 
     //     // window.location = '/dashboard'
 
@@ -682,6 +700,17 @@ export default {
 
     }),
     methods: {
+
+        logOff: function () {
+            localStorage.removeItem("token");
+            localStorage.removeItem("JwtToken");
+            localStorage.removeItem("module");
+            localStorage.removeItem("username");
+            localStorage.removeItem("myPicture");
+            const off = 'off';
+            // window.location = '/login'
+            this.$router.push({ path: `/signin` })
+        },
         checkInput: function () {
             // window.localStorage.setItem('JwtToken', newToken);
             //  alert(TokenStore.tokenID);

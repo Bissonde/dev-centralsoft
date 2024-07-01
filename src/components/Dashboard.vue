@@ -157,7 +157,7 @@
             </v-row> -->
 
             <v-row>
-              <v-col cols="8">
+              <v-col cols="8" v-if="this.devType == 'Desktop'">
                 <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
                 <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
                   @click="openDialog(n); viewModal = !viewModal">
@@ -181,8 +181,53 @@
                   &nbsp;Configurações
                 </v-btn>
               </v-col>
+              <v-col cols="12" v-if="this.devType == 'Mobile'">
+                <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
+                <v-btn variant="text" density="compact" style="min-width:0"
+                  v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
+                  @click="openDialog(n); viewModal = !viewModal">
+                  <v-icon color="primary">
+                    mdi-chart-box-outline
+                  </v-icon>
+                </v-btn>
+                <v-btn variant="text" density="compact" style="min-width:0"
+                  v-on:click="moduleStore.setModule(topMenus[1]);" v-model="useModule.name"
+                  @click="openDialog(n); viewModal = !viewModal">
+                  <v-icon color="primary">
+                    mdi-account-switch
+                  </v-icon>
+                </v-btn>
+                <v-btn variant="text" density="compact" style="min-width:0"
+                  v-on:click="moduleStore.setModule(topMenus[2]);" v-model="useModule.name"
+                  @click="openDialog(n); viewModal = !viewModal">
+                  <v-icon color="primary">
+                    mdi-cog
+                  </v-icon>
+                </v-btn>
+                <v-btn variant="text" density="compact" style="min-width:0" @click="isDark();">
+                  <!-- <v-icon color="orange-darken" end>
+                      mdi-plus-circle
+                    </v-icon> -->
+                  <v-icon color="primary">
+                    mdi-weather-night
+                  </v-icon>
+                </v-btn>
+                <v-btn variant="text" density="compact" style="min-width:0"
+                  @click="openDialog(n); viewModal = !viewModal">
+                  <v-icon color="primary">
+                    mdi-translate
+                  </v-icon>
+                </v-btn>
+                <v-btn variant="text" density="compact" style="min-width:0" class="pr-0 pl-0"
+                  @click="openDialog(n); viewModal = !viewModal">
+                  <v-icon color="primary">
+                    mdi-battery-charging-90
+                  </v-icon>
+                  &nbsp;{{ messageCounter }}
+                </v-btn>
+              </v-col>
               <v-spacer></v-spacer>
-              <v-col>
+              <v-col v-if="this.devType == 'Desktop'">
                 <v-btn variant="text" @click="isDark();">
                   <!-- <v-icon color="orange-darken" end>
                       mdi-plus-circle
@@ -335,13 +380,10 @@
 
             <v-divider class="mb-5"></v-divider>
 
-            <v-sheet class="d-flex d-lg-flex flex-wrap pb-3">
-              <v-sheet class="flex-1-0 " style="height: auto; width: auto">
-
-                <!-- <v-hover v-slot="{ isHovering, props }"> -->
-                <!-- class="pa-1 mt-2 pr-1 mr-1 mb-10 mx-auto transition-swing">  border-bottom:solid #0277BD 5px;-->
+            <div class="row">
+              <v-col>
                 <div v-bind="props" :class="`elevation-${isHovering ? 6 : 2}`" style="height: 200px;"
-                  class="ma-1 pa-1 mx-auto transition-swing mr-0">
+                  class="mx-auto transition-swing mr-0">
                   <!-- 0000000000 -->
                   <!-- <v-card align-center> -->
                   <v-row>
@@ -358,18 +400,19 @@
                       </v-btn>
                     </v-col>
                   </v-row>
-                  <v-row cols="10" sm="6" md="6" lg="3">
-                    <v-sheet cols="9" class="mx-auto ml-5 mr-4 mb-8" height="250" width="98%" style="height:20px; ">
+                  <v-row cols="10" sm="3" md="3" lg="3">
+                    <v-sheet cols="10" class="mx-auto ml-5 mr-8" height="250"
+                      style="height:20px;  max-height: auto; width: 100%">
                       <!-- <ChartComponent style="width:auto; max-width:auto;"></ChartComponent> -->
 
-                      <v-table class="mx-auto pa-1" density="compact"
-                        style="display: block; overflow: auto; white-space: nowrap; max-height:140px;">
+                      <v-table density="compact" class="mr-5" v-if="this.devType == 'Desktop'"
+                        style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px;">
                         <thead>
                           <tr>
-                            <th class="text-left">
+                            <th class="text-left" style="width:25%; position: sticky;">
                               Data
                             </th>
-                            <th class="text-left">
+                            <th class="text-left" style="width:40%;">
                               Mensagem
                             </th>
                             <!-- <th class="text-left">
@@ -378,7 +421,7 @@
                             <th class="text-left">
                               Contacto
                             </th>
-                            <th class="text-left">
+                            <th class="text-left" style="width:25%;">
                               Autor
                             </th>
                             <th class="text-left">
@@ -396,135 +439,156 @@
                             <td>{{ item.admin }}</td>
                             <td>
 
-                              <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
-                                @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
+                              <!-- <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
+                                @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn> -->
 
                               <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline"
                                 density="compact"
                                 @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
 
-                              <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
+                              <!-- <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
                                 density="compact"
                                 @click="editModal = !editModal; this.isEditing = true; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
 
                               <v-btn color="danger" variant="text" icon="mdi-delete-outline" density="compact"
-                                @click="deleteItem(item);"></v-btn>
+                                @click="deleteItem(item);"></v-btn> -->
 
                             </td>
                           </tr>
                         </tbody>
                       </v-table>
+                      <v-table density="compact" class="mr-5" v-if="this.devType == 'Mobile'"
+                        style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px; max-width:255px;">
+                        <thead>
+                          <tr>
+                            <th class="text-left" style="width:25%; position: sticky;">
+                              Data
+                            </th>
+                            <th class="text-left" style="width:40%;">
+                              Mensagem
+                            </th>
+                            <!-- <th class="text-left">
+                              Quant.
+                            </th> -->
+                            <th class="text-left">
+                              Contacto
+                            </th>
+                            <th class="text-left" style="width:25%;">
+                              Autor
+                            </th>
+                            <th class="text-left">
+                              Acções
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="item in topKPI" :key="item.id">
+                            <!-- <td>{{ item.id }}</td> -->
+                            <td>{{ item.crdate }}</td>
+                            <td>{{ item.name }}</td>
+                            <!-- <td>1</td> -->
+                            <td>{{ item.dest }}</td>
+                            <td>{{ item.admin }}</td>
+                            <td>
 
-                      <!--
-                      <v-data-table :headers="headers" :items="topKPI" :search="search" show-select return-object
-                        :loading="loading" v-model="selected" density="compact"
-                        style="width:600px; max-height:140px; overflow-y:hidden;" fixed-header
-                        :sort-by="[{ key: 'name', order: 'asc' }]">
-                        <template v-slot:top>
+                              <!-- <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
+                                @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn> -->
 
-                        </template>
-                        <template v-slot:item.actions="{ item }">
-                          <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
-                            @click="editModal = !editModal; isEditing = false; CUSTOMER_GET(item);"></v-btn>
+                              <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline"
+                                density="compact"
+                                @click="editModal = !editModal; isEditing = false; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
 
-                          <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
-                            density="compact"
-                            @click="editModal = !editModal; this.isEditing = true; CUSTOMER_GET(item);"></v-btn>
+                              <!-- <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
+                                density="compact"
+                                @click="editModal = !editModal; this.isEditing = true; CUSTOMER_MESSAGE_HISTORY_GET(item);"></v-btn>
 
-                          <v-btn color="danger" variant="text" icon="mdi-delete-outline" density="compact"
-                            @click="deleteItem(item);"></v-btn>
+                              <v-btn color="danger" variant="text" icon="mdi-delete-outline" density="compact"
+                                @click="deleteItem(item);"></v-btn> -->
 
-                          <v-btn color="primary" @click="initialize">
-                          Reset
-                        </v-btn>
-
-                        </template>
-
-                        <template v-slot:no-data>
-
-                        </template>
-
-                      </v-data-table> -->
+                            </td>
+                          </tr>
+                        </tbody>
+                      </v-table>
                     </v-sheet>
                   </v-row>
                   <!-- </v-sheet>
                         </v-sheet>
                       </v-sheet> -->
                 </div>
-                <!-- </v-hover> -->
-              </v-sheet>
+              </v-col>
+              <v-col>
 
+                <v-sheet height="auto" width="auto" class=" mx-auto transition-swing pb-0"
+                  :class="`elevation-${isHovering ? 6 : 2}`">
 
+                  <v-row cols="12" sm="12" md="12" lg="12">
+                    <v-col cols="7">
+                      <h4>Resumo</h4>
 
-              <v-sheet height="auto" width="auto" class="pl-2 ml-2 mx-auto transition-swing ma-1 pa-1 pb-0"
-                :class="`elevation-${isHovering ? 6 : 2}`">
-
-                <v-row cols="12" sm="12" md="12" lg="12">
-                  <v-col cols="7">
-                    <h4>Resumo</h4>
-
-                    <!-- <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;Última
+                      <!-- <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;Última
                       actualização:
                       22/05/2023</i> -->
-                  </v-col>
-                  <v-col cols="5">
-                    <v-btn variant="text" class="float-sm-right" @click="viewModal = !viewModal">
-                      <v-icon color="primary">
-                        mdi-open-in-new
-                      </v-icon>
+                    </v-col>
+                    <v-col cols="5">
+                      <v-btn variant="text" class="float-sm-right" @click="viewModal = !viewModal">
+                        <v-icon color="primary">
+                          mdi-open-in-new
+                        </v-icon>
+                        &nbsp;
+                      </v-btn>
                       &nbsp;
-                    </v-btn>
-                    &nbsp;
-                    <v-btn variant="text" class="float-sm-right" @click="filterModal = !filterModal">
-                      <v-icon color="primary">
-                        mdi-filter
-                      </v-icon>
-                      &nbsp;
-                    </v-btn>
-                  </v-col>
-                </v-row>
-                <v-sheet class="d-flex flex-wrap">
-                  <v-sheet class="flex-1-1">
-                    <!-- <div>1</div> -->
+                      <v-btn variant="text" class="float-sm-right" @click="filterModal = !filterModal">
+                        <v-icon color="primary">
+                          mdi-filter
+                        </v-icon>
+                        &nbsp;
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                  <v-sheet class="d-flex flex-wrap">
+                    <v-sheet class="flex-1-1">
+                      <!-- <div>1</div> -->
 
 
 
-                    <v-row cols="12" sm="3" md="3" lg="3" class="ma-2 pa-2 pb-0" style="background-color: white;">
-                      <v-col v-for="n in statsMenuC" :key="n" class="ma-0 pa-0">
-                        <v-hover v-slot="{ isHovering, props }">
-                          <div v-bind="props" :class="`elevation-${isHovering ? 6 : 2}`"
-                            class="mx-auto transition-swing"
-                            style="border-bottom:solid #0277BD 5px; width: 100%; border-bottom-left-radius: 10px 10px; border-bottom-right-radius: 10px 10px;">
-                            <v-hover v-slot="{ isHovering, props }">
-                              <v-card v-bind="props" :class="n.class">
+                      <v-row cols="12" sm="3" md="3" lg="3" class="ma-2 pa-2 pb-0" style="background-color: white;">
+                        <v-col v-for="n in statsMenuC" :key="n" class="ma-0 pa-0">
+                          <v-hover v-slot="{ isHovering, props }">
+                            <div v-bind="props" :class="`elevation-${isHovering ? 6 : 2}`"
+                              class="mx-auto transition-swing"
+                              style="border-bottom:solid #0277BD 5px; width: 100%; border-bottom-left-radius: 10px 10px; border-bottom-right-radius: 10px 10px;">
+                              <v-hover v-slot="{ isHovering, props }">
+                                <v-card v-bind="props" :class="n.class">
 
-                                <v-icon class="text-h5">{{ n.icon }}</v-icon>&nbsp;{{ n.nr }}
-                                <br><b class="text-body-2">{{ n.text }}</b>
+                                  <v-icon class="text-h5">{{ n.icon }}</v-icon>&nbsp;{{ n.nr }}
+                                  <br><b class="text-body-2">{{ n.text }}</b>
 
-                                <v-overlay :model-value="isHovering" contained scrim="#036358"
-                                  class="align-center justify-center">
-                                  <v-btn variant="flat" color="bg-secondary" v
-                                    @click.stop="openViewDialog(n); moduleStore.setModule(n.dialog); viewModal = !viewModal;"
-                                    v-on:click="moduleStore.setModule(n);"
-                                    v-model="useModule.name"><v-icon>mdi-information-outline</v-icon>&nbsp;Detalhes</v-btn>
-                                </v-overlay>
-                              </v-card>
-                            </v-hover>
-                          </div>
-                        </v-hover>
-                      </v-col>
-                    </v-row>
+                                  <v-overlay :model-value="isHovering" contained scrim="#036358"
+                                    class="align-center justify-center">
+                                    <v-btn variant="flat" color="bg-secondary" v
+                                      @click.stop="openViewDialog(n); moduleStore.setModule(n.dialog); viewModal = !viewModal;"
+                                      v-on:click="moduleStore.setModule(n);"
+                                      v-model="useModule.name"><v-icon>mdi-information-outline</v-icon>&nbsp;Detalhes</v-btn>
+                                  </v-overlay>
+                                </v-card>
+                              </v-hover>
+                            </div>
+                          </v-hover>
+                        </v-col>
+                      </v-row>
+                    </v-sheet>
+
                   </v-sheet>
 
+
+                  <br>
+
                 </v-sheet>
+              </v-col>
 
 
-                <br>
+            </div>
 
-              </v-sheet>
-
-              <br>
-            </v-sheet>
           </v-sheet>
 
           <br>
@@ -593,7 +657,7 @@
           <v-img cover src="https://media.istockphoto.com/id/1311598658/photo/businessman-trading-online-stock-market-on-teblet-screen-digital-investment-concept.jpg?b=1&s=612x612&w=0&k=20&c=bpQMsH07ziELXla0SZJt84-w0JkxsVXs05c7T2Iygks="></v-img>
         </div> -->
 
-          <v-sheet class="pa-4 pb-10" elevation="12" height="300px" width="100%">
+          <v-sheet class="pa-4 pb-10" elevation="12" height="400px" width="100%">
             <v-row>
               <v-col cols="9">
                 <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
@@ -4084,16 +4148,17 @@ Save
             </div>
 
 
-            <v-sheet cols="9" class="mx-auto ml-5 mr-4 mb-8" height="250" width="98%" style="height:20px; ">
+
+            <v-sheet class="pa-4 pb-0" elevation="0" height="auto" width="100%">
 
 
-              <v-table class="mx-auto pa-1" density="compact"
-                style="display: block; overflow: auto; white-space: nowrap; max-height:140px;">
+              <v-table density="compact" class="mr-5" v-if="this.devType == 'Desktop'"
+                style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 245px;">
                 <thead>
                   <tr>
-                    <th class="text-left">
+                    <!-- <th class="text-left">
                       ID
-                    </th>
+                    </th> -->
                     <th class="text-left">
                       Nome Completo
                     </th>
@@ -4116,7 +4181,59 @@ Save
                 </thead>
                 <tbody>
                   <tr v-for="item in allContacts" :key="item.id">
-                    <td>{{ item.id }}</td>
+                    <!-- <td>{{ item.id }}</td> -->
+                    <td>{{ item.fullname }}</td>
+                    <td>{{ item.home }}</td>
+                    <!-- <td>1</td> -->
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.admin }}</td>
+                    <td>
+
+                      <v-btn color="primary" class="me-2" variant="tonal" icon="mdi-play" density="compact"
+                        @click="useModule.dialog = 'Contacts'; useModule.title = 'Contacto'; editModal = !editModal; isEditing = false; CUSTOMER_GET(item);"></v-btn>
+
+                      <!-- <v-btn color="primary" class="me-2" variant="text" icon="mdi-eye-outline" density="compact"
+                        @click="useModule.dialog = 'Contacts'; useModule.title = 'Contacto'; editModal = !editModal; isEditing = false;  CUSTOMER_GET(item);"></v-btn>
+
+                      <v-btn color="bg-orange-darken-4" class="me-2" variant="text" icon="mdi-pencil-outline"
+                        density="compact" openEditDialog
+                        @click="useModule.dialog = 'Contacts'; useModule.title = 'Contacto'; editModal = !editModal; this.isEditing = true; CUSTOMER_GET(item);"></v-btn>
+
+                      <v-btn color="danger" variant="text" icon="mdi-delete-outline" density="compact"
+                        @click="deleteItem(item);"></v-btn> -->
+
+                    </td>
+                  </tr>
+                </tbody>
+              </v-table>
+              <v-table density="compact" v-if="this.devType == 'Mobile'"
+                style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 135px; max-width:255px;">
+                <thead>
+                  <tr>
+                   
+                    <th class="text-left">
+                      Nome Completo
+                    </th>
+                    <th class="text-left">
+                      Contacto
+                    </th>
+                    <!-- <th class="text-left">
+                              Quant.
+                            </th> -->
+                    <th class="text-left">
+                      Email
+                    </th>
+                    <th class="text-left">
+                      Autor
+                    </th>
+                    <th class="text-left">
+                      Acções
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in allContacts" :key="item.id">
+                    <!-- <td>{{ item.id }}</td> -->
                     <td>{{ item.fullname }}</td>
                     <td>{{ item.home }}</td>
                     <!-- <td>1</td> -->
@@ -4278,6 +4395,7 @@ export default {
   data: () => ({
     multipleSendDW: true,
     msgCounter: '0',
+    devType: '',
     hrefGoTo: '#',
     noMsgCredit: false,
     countrycode: '244',
@@ -4735,6 +4853,9 @@ export default {
   },
 
   mounted: async function () {
+    this.devType = window.localStorage.getItem('MOB')
+    // alert(this.devType)
+
     this.msgCounter = this.messageCounter
 
     this.overlayOFF();
@@ -7039,6 +7160,7 @@ export default {
 </style>
 
 <style>
+
 /* .activateBtn {} */
 
 .v-label {
