@@ -2166,7 +2166,8 @@ export default {
                                         window.localStorage.setItem('BID', PayLoad.bid),
                                         window.localStorage.setItem('AID', PayLoad.aid),
                                         window.localStorage.setItem('AFN', PayLoad.afn),
-                                        window.localStorage.setItem('MSC', PayLoad.msc)
+                                        window.localStorage.setItem('MSC', PayLoad.msc),
+                                        window.localStorage.setItem('MOB', 'Desktop')
 
                                     // window.localStorage.setItem('JwtToken', response.data.token)
 
