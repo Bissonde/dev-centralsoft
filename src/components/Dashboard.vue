@@ -5036,17 +5036,18 @@ export default {
   },
 
   mounted: async function () {
-    let DEV = document.createElement('script')
-    DEV.setAttribute('src', '/src/Detect/detect.js')
-    document.head.appendChild(DEV)
+    // let DEV = document.createElement('script')
+    // DEV.setAttribute('src', '/src/Detect/detect.js')
+    // document.head.appendChild(DEV)
     
-    var user = detect.parse(navigator.userAgent)  
-    window.localStorage.setItem('MOB', user.device.type);
+    // var user = detect.parse(navigator.userAgent)  
+    // window.localStorage.setItem('MOB', user.device.type);
     
     // this.devType = user.device.type
 
     this.devType = window.localStorage.getItem('MOB')
     this.msgCounter = this.messageCounter
+    // alert(this.devType)
 
     this.overlayOFF();
 
