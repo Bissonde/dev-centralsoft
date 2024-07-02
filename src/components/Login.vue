@@ -2146,7 +2146,7 @@ export default {
                                 if (response.data.token != undefined) {
 
 
-                                    var user = detect.parse(navigator.userAgent)
+                                    // var user = detect.parse(navigator.userAgent)
                                     // window.localStorage.setItem('GEO', geoplugin_city() + ', ' +
                                     //     geoplugin_countryName());
 
@@ -2166,9 +2166,7 @@ export default {
                                         window.localStorage.setItem('BID', PayLoad.bid),
                                         window.localStorage.setItem('AID', PayLoad.aid),
                                         window.localStorage.setItem('AFN', PayLoad.afn),
-                                        window.localStorage.setItem('MSC', PayLoad.msc),
-                                        window.localStorage.setItem('DEV', user.browser.family + ' ' + user.device.type + ' (' + user.os.name + ')'),
-                                        window.localStorage.setItem('MOB', user.device.type);
+                                        window.localStorage.setItem('MSC', PayLoad.msc)
 
                                     // window.localStorage.setItem('JwtToken', response.data.token)
 
