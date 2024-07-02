@@ -2689,7 +2689,7 @@ export default {
                 this.loading = false
                 this.loaded = true
                 this.AuthLogin()
-            }, 500)
+            }, 0)
             // }
 
         },
