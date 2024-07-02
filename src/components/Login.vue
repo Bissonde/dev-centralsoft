@@ -2209,7 +2209,7 @@ export default {
                         this.ActExist = true
                         this.emptyFields = false
                         this.requestPwdChg = false
-                        this.isFormValid = true
+                        this.isFormValid = false
                         // this.loginError = true
 
                         this.overlay = false

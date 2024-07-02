@@ -4578,7 +4578,7 @@ export default {
   data: () => ({
     multipleSendDW: true,
     msgCounter: '0',
-    devType: '',
+    devType: 'Desktop',
     hrefGoTo: '#',
     noMsgCredit: false,
     countrycode: '244',
