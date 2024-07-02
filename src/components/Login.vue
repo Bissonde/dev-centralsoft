@@ -2063,6 +2063,10 @@ export default {
             const timeout = this.startCountDown(null)
             clearTimeout(timeout);
         },
+
+        getIP: function (json) {
+            window.localStorage.setItem('IP', json.ip);
+        },
         AuthLogin: async function () {
 
             this.overlay = true;
@@ -2142,9 +2146,6 @@ export default {
                                     GEO.setAttribute('src', 'https://ssl.geoplugin.net/javascript.gp?k=UyvK2k3e7jxtEXJszin1l8hL4qgOC5')
                                     document.head.appendChild(GEO)
 
-                                    function getIP(json) {
-                                        window.localStorage.setItem('IP', json.ip);
-                                    }
 
                                     var user = detect.parse(navigator.userAgent)
                                     // window.localStorage.setItem('GEO', geoplugin_city() + ', ' +
@@ -2170,16 +2171,16 @@ export default {
                                         window.localStorage.setItem('DEV', user.browser.family + ' ' + user.device.type + ' (' + user.os.name + ')'),
                                         window.localStorage.setItem('MOB', user.device.type);
 
-                                        // window.localStorage.setItem('JwtToken', response.data.token)
+                                    // window.localStorage.setItem('JwtToken', response.data.token)
 
-                                        // window.localStorage.setItem('username', response.data.name)
-                                        // window.localStorage.setItem('family_name', response.data.family_name)
-                                        // window.localStorage.setItem('given_name', response.data.given_name)
-                                        // window.localStorage.setItem('email', response.data.email)
+                                    // window.localStorage.setItem('username', response.data.name)
+                                    // window.localStorage.setItem('family_name', response.data.family_name)
+                                    // window.localStorage.setItem('given_name', response.data.given_name)
+                                    // window.localStorage.setItem('email', response.data.email)
 
-                                        // if (response.data.picture == null) {
-                                        // if(response.data.sex == '0'){
-                                        window.localStorage.setItem('myPicture', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1GaU7tqt_-bim0aECTgQsrSxg9EO-iUgofD9Pu4dSowq7I0q9TRzbGZ8ytiZDPJucccM&usqp=CAU"),
+                                    // if (response.data.picture == null) {
+                                    // if(response.data.sex == '0'){
+                                    window.localStorage.setItem('myPicture', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1GaU7tqt_-bim0aECTgQsrSxg9EO-iUgofD9Pu4dSowq7I0q9TRzbGZ8ytiZDPJucccM&usqp=CAU"),
                                         // }
                                         // else{
                                         // window.localStorage.setItem('myPicture', "https://media.istockphoto.com/id/512044369/pt/vetorial/homem-com-cabe%C3%A7a-de-silhueta-isolado.jpg?s=612x612&w=0&k=20&c=TG1sJNJBrNox7bCG4-jlrCgzG2uR4ZV-tOtwWBPzZaI=")

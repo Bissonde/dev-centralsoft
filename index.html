@@ -22,25 +22,25 @@
 
 <script type="application/javascript">
 
-  // let DEV = document.createElement('script')
-  // DEV.setAttribute('src', '/src/Detect/detect.js')
-  // document.head.appendChild(DEV)
+  let DEV = document.createElement('script')
+  DEV.setAttribute('src', '/src/Detect/detect.js')
+  document.head.appendChild(DEV)
 
-  // let IP = document.createElement('script')
-  // IP.setAttribute('type', 'application/javascript')
-  // IP.setAttribute('src', 'https://api.ipify.org?format=jsonp&callback=getIP')
-  // document.head.appendChild(IP)
+  let IP = document.createElement('script')
+  IP.setAttribute('type', 'application/javascript')
+  IP.setAttribute('src', 'https://api.ipify.org?format=jsonp&callback=getIP')
+  document.head.appendChild(IP)
 
-  // function getIP(json) {
-  //   window.localStorage.setItem('IP', json.ip);
-  // }
+  function getIP(json) {
+    window.localStorage.setItem('IP', json.ip);
+  }
 
-  // // window.onload = function () {
-  //   var user = detect.parse(navigator.userAgent)
-  //   window.localStorage.setItem('GEO', geoplugin_city() + ', ' + geoplugin_countryName());
-  //   // window.localStorage.setItem('GEO', "GEO");
-  //   window.localStorage.setItem('DEV', user.browser.family + ' ' + user.device.type + ' (' + user.os.name + ')');
-  //   window.localStorage.setItem('MOB', user.device.type);
+  // window.onload = function () {
+    var user = detect.parse(navigator.userAgent)
+    window.localStorage.setItem('GEO', geoplugin_city() + ', ' + geoplugin_countryName());
+    // window.localStorage.setItem('GEO', "GEO");
+    window.localStorage.setItem('DEV', user.browser.family + ' ' + user.device.type + ' (' + user.os.name + ')');
+    window.localStorage.setItem('MOB', user.device.type);
     // console.log(user.device.type)
   // }
 
