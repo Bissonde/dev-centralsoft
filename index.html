@@ -31,23 +31,18 @@
   IP.setAttribute('src', 'https://api.ipify.org?format=jsonp&callback=getIP')
   document.head.appendChild(IP)
 
-  // let GEO = document.createElement('script')
-  // GEO.setAttribute('type', 'text/javascript')
-  // GEO.setAttribute('src', 'http://www.geoplugin.net/javascript.gp')
-  // document.head.appendChild(GEO)
-
   function getIP(json) {
     window.localStorage.setItem('IP', json.ip);
   }
 
-  window.onload = function () {
+  // window.onload = function () {
     var user = detect.parse(navigator.userAgent)
-    // window.localStorage.setItem('GEO', geoplugin_city() + ', ' + geoplugin_countryName());
-    window.localStorage.setItem('GEO', "GEO");
+    window.localStorage.setItem('GEO', geoplugin_city() + ', ' + geoplugin_countryName());
+    // window.localStorage.setItem('GEO', "GEO");
     window.localStorage.setItem('DEV', user.browser.family + ' ' + user.device.type + ' (' + user.os.name + ')');
     window.localStorage.setItem('MOB', user.device.type);
     // console.log(user.device.type)
-  }
+  // }
 
 </script>
 
