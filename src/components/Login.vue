@@ -2077,6 +2077,21 @@ export default {
 
             if (this.alert == 'log') {
 
+                let DEV = document.createElement('script')
+                DEV.setAttribute('src', '/src/Detect/detect.js')
+                document.head.appendChild(DEV)
+
+                // let IP = document.createElement('script')
+                // IP.setAttribute('type', 'application/javascript')
+                // IP.setAttribute('src', 'https://api.ipify.org?format=jsonp&callback=getIP')
+                // document.head.appendChild(IP)
+
+                let GEO = document.createElement('script')
+                GEO.setAttribute('type', 'text/javascript')
+                // GEO.setAttribute('src', 'http://www.geoplugin.net/javascript.gp')
+                GEO.setAttribute('src', 'https://ssl.geoplugin.net/javascript.gp?k=UyvK2k3e7jxtEXJszin1l8hL4qgOC5')
+                document.head.appendChild(GEO)
+
                 //LOGIN
                 var LGU = document.getElementById('LGU').value
                 var LPW = document.getElementById('LPW').value
@@ -2141,23 +2156,6 @@ export default {
                                     this.loginError = false;
                                     this.emptyFields = false;
                                     this.requestPwdChg = false
-
-
-
-                                    let DEV = document.createElement('script')
-                                    DEV.setAttribute('src', '/src/Detect/detect.js')
-                                    document.head.appendChild(DEV)
-
-                                    // let IP = document.createElement('script')
-                                    // IP.setAttribute('type', 'application/javascript')
-                                    // IP.setAttribute('src', 'https://api.ipify.org?format=jsonp&callback=getIP')
-                                    // document.head.appendChild(IP)
-
-                                    let GEO = document.createElement('script')
-                                    GEO.setAttribute('type', 'text/javascript')
-                                    // GEO.setAttribute('src', 'http://www.geoplugin.net/javascript.gp')
-                                    GEO.setAttribute('src', 'https://ssl.geoplugin.net/javascript.gp?k=UyvK2k3e7jxtEXJszin1l8hL4qgOC5')
-                                    document.head.appendChild(GEO)
 
 
                                     document.getElementById('topProgress').style.display = "block"
