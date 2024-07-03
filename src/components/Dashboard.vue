@@ -5043,9 +5043,11 @@ export default {
     // // var user = detect.parse(navigator.userAgent)  
     // // window.localStorage.setItem('MOB', user.device.type);
     
-    // this.devType = user.device.type
+    var isMobile = window.orientation > -1;
+    // alert(isMobile ? 'Mobile' : 'Desktop');
+    this.devType = (isMobile ? 'Mobile' : 'Desktop')
 
-    this.devType = window.localStorage.getItem('MOB')
+    // this.devType = window.localStorage.getItem('MOB')
     // this.msgCounter = this.messageCounter
     // // alert(this.devType)
 
