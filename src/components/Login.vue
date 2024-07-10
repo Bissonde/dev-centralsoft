@@ -117,9 +117,9 @@
                     </v-btn>
                 </v-toolbar>
 
-                <v-img class="mx-auto my-6" max-width="228"
-                    src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img>
-
+                <!-- <v-img class="mx-auto my-6" max-width="228"
+                    src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
+                <v-container class="d-flex flex-column flex-nowrap"></v-container>
 
                 <v-alert v-model="emptyFields" class="mb-5 mt-5" border="start" variant="tonal" closable
                     close-label="Close Alert" color="warning" title="Atenção!" type="warning">
@@ -138,7 +138,7 @@
                 </v-alert>
 
                 <v-alert v-model="ActWrong" class="mb-5 mt-5" border="start" variant="tonal" closable
-                    close-label="Close Alert" color="error" title="Conta errada!" type="error">
+                    close-label="Close Alert" color="error" title="Conta incorrecta!" type="error">
                     Utilizador / password estão incorrectos
                 </v-alert>
 
@@ -1560,6 +1560,7 @@ onMounted(() => {
 </script>
 
 <script>
+
 const TokenStore = useTokenStore();
 const EmailStore = useEmailStore();
 const newToken = ['ljahsdfq697e69qwerq', 'Vasco Gungui', 'Administrator']
@@ -2132,6 +2133,7 @@ export default {
                                 }
                                 if (response.request.response == "username or password incorrect") {
                                     this.ActWrong = true
+                                    this.overlay = false
                                 }
                                 this.isFormValid = false
                             }
@@ -2749,6 +2751,21 @@ export default {
 
 
 <style lang="css" scoped>
+.theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.38);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    &:before {
+        display: none;
+    }
+}
+
+.v-input--is-focused .v-input__slot {
+    border: 2px solid #005fcc !important;
+    border-bottom-color: rgba(0, 0, 0, 0.38) !important;
+}
 .circular {
     width: 100%;
     height: 100%;

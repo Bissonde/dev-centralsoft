@@ -78,24 +78,49 @@
 
       </v-app-bar>
 
-      <v-navigation-drawer v-model="drawer" location="left" temporary transition="fade-transition">
-        <v-list><v-list-subheader>Menu</v-list-subheader>
-          <v-list-item prepend-icon="mdi-home" class="text-subtitle-1" to="/posts">Inicio</v-list-item>
-          <!-- <v-list :items="items"></v-list> -->
+ 
 
-          <v-list-item prepend-icon="mdi-account" class="text-subtitle-1" to="/accounts">Accounts</v-list-item>
-          <v-list-item prepend-icon="mdi-account-group" class="text-subtitle-1" to="/groups">Groups</v-list-item>
+      <v-navigation-drawer v-model="drawer">
+        <!--  -->
+        <!-- <v-list-subheader>&nbsp;&nbsp;&nbsp;MENU</v-list-subheader>
+        <v-list-item-subtitle>&nbsp;&nbsp;&nbsp;Escolha uma opção</v-list-item-subtitle> -->
+        <v-card>
+          <v-layout>
+            <v-navigation-drawer floating permanent>
+              <v-list density="compact" nav>
+                <!-- <v-list-subheader>REPORTS</v-list-subheader> -->
+                <!-- <v-tabs v-model="tab" direction="vertical" color="primary"> -->
+                <v-list-item v-for="(item, i) in leftMenuItems" :key="i" :value="item" :to="item.to" color="primary"
+                  rounded="sm">
 
-          <v-list-group value="Users" class="text-subtitle-1">
-            <template #activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-account" title="Clients"></v-list-item>
-            </template>
-            <v-list-item prepend-icon="mdi-chart-bar" class="text-subtitle-1" to="/reports">Report</v-list-item>
-            <v-list-item prepend-icon="mdi-currency-usd" class="text-subtitle-1" to="/cashflow">Cashflow</v-list-item>
-            <!-- </v-list-group> v-for="n in items" :key="n" v-slot="{}"> -->
+                  <template v-slot:prepend>
+                    <v-icon :icon="item.icon"></v-icon>
+                  </template>
 
-          </v-list-group>
-        </v-list>
+                  <v-list-item-title v-text="item.text"></v-list-item-title>
+
+                </v-list-item>
+                <!-- {{ item }} -->
+                <!-- </v-tabs> -->
+              </v-list>
+
+              <!-- <v-list v-model="tab" density="compact" nav>
+              <v-list-item prepend-icon="mdi-view-dashboard" title="Home" value="home"></v-list-item>
+              <v-list-item prepend-icon="mdi-account" title="Contactos" value="cnt"></v-list-item>
+              <v-list-item prepend-icon="mdi-account-group" title="Grupos" value="grp"></v-list-item>
+              <v-list-item prepend-icon="mdi-account-voice" title="Campanhas" value="cmp"></v-list-item>
+              <v-list-item prepend-icon="mdi-account-clock" title="Agendamento" value="cnl"></v-list-item>
+              <v-list-item prepend-icon="mdi-message-plus" title="Mensagem" value="msg"></v-list-item>
+              <v-list-item prepend-icon="mdi-forum" title="About" value="about"></v-list-item>
+              <v-list-item prepend-icon="mdi-phone-settings" title="Chamadas" value="cal"></v-list-item>
+              <v-list-item prepend-icon="mdi-whatsapp" title="WhatsApp" value="wht"></v-list-item>
+              <v-list-item prepend-icon="mdi-email-fast-outline" title="E-mail" value="eml"></v-list-item>
+              <v-list-item prepend-icon="mdi-cog" title="Configurações" value="set"></v-list-item>
+            </v-list> -->
+            </v-navigation-drawer>
+            <v-main style="height: 750px"></v-main>
+          </v-layout>
+        </v-card>
       </v-navigation-drawer>
       <!--
     <v-slide-group-item v-for="n in items" :key="n" v-slot="{ isSelected, toggle }">
@@ -185,7 +210,7 @@
               </v-col>
               <v-col cols="12" v-if="devType != 'Desktop'">
                 <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
-                <v-btn variant="text" density="compact" style="min-width:0"
+                <v-btn variant="text" density="compact" style="min-width:0" class="pr-0 pl-0"
                   v-on:click="moduleStore.setModule(topMenus[0]);" v-model="useModule.name"
                   @click="openDialog(n); viewModal = !viewModal">
                   <v-icon color="primary">
@@ -229,8 +254,8 @@
                 </v-btn>
               </v-col>
               <v-spacer></v-spacer>
-              <v-col v-if="devType == 'Desktop'">
-                <v-btn variant="text" @click="isDark();">
+              <v-col v-if="devType == 'Desktop'" class="float-sm-right">
+                <v-btn variant="text" @click="isDark();" style="min-width:0" class="pr-2 pl-2">
                   <!-- <v-icon color="orange-darken" end>
                       mdi-plus-circle
                     </v-icon> -->
@@ -238,12 +263,14 @@
                     mdi-weather-night
                   </v-icon>
                 </v-btn>
-                <v-btn variant="text" @click="openDialog(n); viewModal = !viewModal">
+                <v-btn variant="text" @click="openDialog(n); viewModal = !viewModal" style="min-width:0"
+                  class="pr-2 pl-2">
                   <v-icon color="primary">
                     mdi-translate
                   </v-icon>
                 </v-btn>
-                <v-btn variant="text" @click="openDialog(n); viewModal = !viewModal">
+                <v-btn variant="text" @click="openDialog(n); viewModal = !viewModal" style="min-width:0"
+                  class="pr-2 pl-2">
                   <v-icon color="primary">
                     mdi-battery-charging-90
                   </v-icon>
@@ -408,13 +435,13 @@
               </v-col>
               <v-col>
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                  @click="viewModal = !viewModal" icon="mdi-open-in-new">
                 </v-btn>&nbsp;
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-filter">
+                  @click="viewModal = !viewModal" icon="mdi-filter">
                 </v-btn>
 
-                 <!-- <v-btn variant="text" class="float-sm-right" @click="viewModal = !viewModal">
+                <!-- <v-btn variant="text" class="float-sm-right" @click="viewModal = !viewModal">
                   <v-icon color="primary">
                     mdi-open-in-new
                   </v-icon>
@@ -439,10 +466,10 @@
               </v-col>
               <v-col>
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                  @click="viewModal = !viewModal" icon="mdi-open-in-new">
                 </v-btn>&nbsp;
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-filter">
+                  @click="viewModal = !viewModal" icon="mdi-filter">
                 </v-btn>
               </v-col>
             </v-row>
@@ -450,7 +477,7 @@
             <v-divider class="mb-5"></v-divider>
 
             <div class="row">
-              <v-col>
+              <v-col cols="12" sm="12" md="6" lg="6">
                 <div v-bind="props" :class="`elevation-${isHovering ? 6 : 2}`" style="height: 200px;"
                   class="mx-auto transition-swing mr-0">
                   <!-- 0000000000 -->
@@ -585,7 +612,7 @@
                       </v-sheet> -->
                 </div>
               </v-col>
-              <v-col>
+              <v-col cols="12" sm="12" md="6" lg="6">
 
                 <v-sheet height="auto" width="auto" class=" mx-auto transition-swing pb-0"
                   :class="`elevation-${isHovering ? 6 : 2}`">
@@ -673,10 +700,10 @@
               </v-col>
               <v-col>
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                  @click="viewModal = !viewModal" icon="mdi-open-in-new">
                 </v-btn>&nbsp;
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-filter">
+                  @click="viewModal = !viewModal" icon="mdi-filter">
                 </v-btn>
               </v-col>
             </v-row>
@@ -691,18 +718,42 @@
               </v-col>
               <v-col>
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                  @click="viewModal = !viewModal" icon="mdi-open-in-new">
                 </v-btn>&nbsp;
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-filter">
+                  @click="viewModal = !viewModal" icon="mdi-filter">
                 </v-btn>
               </v-col>
             </v-row>
 
             <v-divider class="mb-6"></v-divider>
 
+
             <v-row cols="12" sm="3" md="3" lg="3" class="ma-0 pa-0 ml-0" style="background-color: white;">
+              <v-col cols="12" sm="12" md="6" lg="6">
+                <div v-bind="props" :class="`elevation-${isHovering ? 6 : 2}`" style="height: 200px;"
+                  class="mx-auto transition-swing mr-0">
+                  <!-- 0000000000 -->
+                  <!-- <v-card align-center> -->
+                  <v-row>
+                    <v-col cols="6">
+                      <h4>Top KPIs</h4>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-btn variant="plain" density="compact" class="float-sm-right text-caption"
+                        @click="openDialog(n); viewModal = !viewModal">
+                        <v-icon color="primary">
+                          mdi-open-in-new
+                        </v-icon>
+                        &nbsp;
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </div>
+              </v-col>
+
               <v-col class="pr-0 pt-0 ma-0" v-for="n in statsMenuC" :key="n">
+
                 <v-hover v-slot="{ isHovering, props }">
                   <div v-bind="props" :class="`elevation-${isHovering ? 6 : 2}`" class="mx-auto transition-swing"
                     style="border-bottom:solid #0277BD 5px; border-bottom-left-radius: 10px 10px; border-bottom-right-radius: 10px 10px;">
@@ -772,10 +823,10 @@
               </v-col>
               <v-col>
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-open-in-new">
+                  @click="viewModal = !viewModal" icon="mdi-open-in-new">
                 </v-btn>&nbsp;
                 <v-btn color="primary" variant="text" density="compact" class="float-sm-center pr-0"
-                   @click="viewModal = !viewModal" icon="mdi-filter"></v-btn>
+                  @click="viewModal = !viewModal" icon="mdi-filter"></v-btn>
               </v-col>
             </v-row>
 
@@ -3945,8 +3996,8 @@ Save
                                 prepend-inner-icon="mdi-key" hint="example of helper text only on focus"></v-text-field>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0">
-                              <v-autocomplete variant="solo" :disabled="!isEditing" id="cellFlex"
-                                v-model="dWingsMode" :items="['Singular', 'Múltiplos']" label="Modo de envio"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" id="cellFlex" v-model="dWingsMode"
+                                :items="['Singular', 'Múltiplos']" label="Modo de envio"
                                 prepend-inner-icon="mdi-shuffle"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0">
@@ -3968,14 +4019,14 @@ Save
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'SMS' & dWingsMode == 'Singular'">
-                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwSms"
-                                label="Contactos" :items="cellContactList" :item-value="cellContactList[0]"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwSms" label="Contactos"
+                                :items="cellContactList" :item-value="cellContactList[0]"
                                 prepend-inner-icon="mdi-account"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
                               v-if="msgCategory == 'Telefone' & dWingsMode == 'Singular'">
-                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwPhone"
-                                label="Telefone" :items="cellContactList" :item-value="cellContactListID"
+                              <v-autocomplete variant="solo" :disabled="!isEditing" v-model="dwPhone" label="Telefone"
+                                :items="cellContactList" :item-value="cellContactListID"
                                 prepend-inner-icon="mdi-phone"></v-autocomplete>
                             </v-col>
                             <v-col cols="12" sm="6" md="4" class="pa-0"
@@ -4017,8 +4068,8 @@ Save
                             </v-col>
 
                             <v-col cols="12" sm="12" md="12" class="pa-0 ma-0">
-                              <v-textarea variant="solo" :disabled="!isEditing" label="Descrição*"
-                                v-model="dwMessage" :counter="200" :readonly="true" :rules="lastNameRules"
+                              <v-textarea variant="solo" :disabled="!isEditing" label="Descrição*" v-model="dwMessage"
+                                :counter="200" :readonly="true" :rules="lastNameRules"
                                 prepend-inner-icon="mdi-message-text-outline" required></v-textarea>
                             </v-col>
                           </v-row>
@@ -4334,9 +4385,10 @@ Save
 
             <v-sheet class="pa-4 pb-0" elevation="0" height="auto" width="100%">
 
-
+              <!-- <div v-bind="props" :class="`elevation-${isHovering ? 6 : 2}`" style="height: 200px;"
+                class="mx-auto transition-swing mr-0 ma-0"> -->
               <v-table density="compact" class="mr-5" v-if="devType == 'Desktop'"
-                style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 245px;">
+                style="font-size: 10pt; width: 180%; table-layout: fixed; overflow-x:hidden; display: inline-block; height: 240px;">
                 <thead>
                   <tr>
                     <!-- <th class="text-left">
@@ -4441,6 +4493,7 @@ Save
                   </tr>
                 </tbody>
               </v-table>
+              <!-- </div> -->
             </v-sheet>
 
           </v-sheet>
@@ -4697,6 +4750,19 @@ export default {
     text: '',
     modalText: '',
     drawer: false,
+    leftMenuItems: [
+      { text: 'Home', icon: 'mdi-view-dashboard', to: '/' },
+      { text: 'Contactos', icon: 'mdi-account', to: 'dashboard/contacts' },
+      { text: 'Grupos', icon: 'mdi-account-group', to: 'dashboard/groups' },
+      { text: 'Campanhas', icon: 'mdi-account-voice', to: 'dashboard/campaigns' },
+      { text: 'Agendamento', icon: 'mdi-account-clock', to: 'dashboard/calendar' },
+      { text: 'Mensagem', icon: 'mdi-message-plus', to: 'dashboard/message' },
+      { text: 'Chamadas', icon: 'mdi-phone-settings', to: 'dashboard/calls' },
+      { text: 'WhatsApp', icon: 'mdi-whatsapp', to: 'dashboard/whatsapp' },
+      { text: 'E-mail', icon: 'mdi-email-fast-outline', to: 'dashboard/email' },
+      { text: 'Histórico', icon: 'mdi-history', to: 'dashboard/history' },
+      { text: 'Configuarções', icon: 'mdi-cog', to: 'dashboard/settings' },
+    ],
     group: null,
     customerLogs: [
       {

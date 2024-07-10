@@ -12,6 +12,22 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
   <!-- <script type="text/javascript" src="https://www.turnjs.com/lib/turn.min.js "></script>  -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+      /* Import font family to use from Google Fonts */
+body, h1, h2, h3, h4, h5, h6  {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: .85em;
+}
+
+h1{
+  font-size: .85em;
+}
+
+.v-icon{
+  font-size: 10vw;
+}
+    </style>
   <title></title>
 </head>
 
@@ -37,10 +53,10 @@
   }
 
   window.onload = function () {
-    // var user = detect.parse(navigator.userAgent)
-    // window.localStorage.setItem('GEO', geoplugin_city() + ', ' + geoplugin_countryName());
-    window.localStorage.setItem('GEO', "GEO");
-    // window.localStorage.setItem('DEV', user.browser.family + ' ' + user.device.type + ' (' + user.os.name + ')');
+    var user = detect.parse(navigator.userAgent)
+    window.localStorage.setItem('GEO', geoplugin_city() + ', ' + geoplugin_countryName());
+    // window.localStorage.setItem('GEO', "GEO");
+    window.localStorage.setItem('DEV', user.browser.family + ' ' + user.device.type + ' (' + user.os.name + ')');
     // window.localStorage.setItem('MOB', user.device.type);
     // console.log(user.device.type)
   }

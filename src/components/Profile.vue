@@ -45,9 +45,9 @@
 
                     <v-menu>
                         <template #activator="{ props }">
-                            <v-avatar v-bind="props">
+                            <v-avatar v-bind="props" size="x-small" style="border: 2px solid blue;">
 
-                                <v-tooltip location="top">
+                                <v-tooltip location="top" border="warning lg">
                                     <template v-slot:activator="{ props: tooltip }">
 
                                         <v-img id="myImg" class="circular" cover
@@ -417,7 +417,7 @@
                     <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
                         Tema
 
-                        <v-autocomplete  v-model="cellLikes"
+                        <v-autocomplete v-model="cellLikes"
                             :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
                             label="Interesses" prepend-inner-icon="mdi-set-center" multiple></v-autocomplete>
                     </div>
