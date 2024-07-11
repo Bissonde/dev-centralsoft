@@ -1,6 +1,6 @@
 <template>
     <v-overlay :model-value="overlay" class="align-center justify-center">
-        <v-progress-circular color="primary" indeterminate size="64"></v-progress-circular>
+        <v-progress-circular color="#008D44 #red" indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
     <v-form ref="form" fast-fail @submit.prevent="SUBMIT_DATA">
@@ -74,27 +74,30 @@
 
             </v-app-bar>
 
-            <v-navigation-drawer v-model="drawer">
-                <v-card>
-                    <v-layout>
-                        <v-navigation-drawer floating permanent>
-                            <v-list density="compact" nav>
-                                <v-list-item v-for="(item, i) in myHomePage" :key="i" :value="item" :to="item.to"
-                                    color="primary" rounded="sm">
 
-                                    <template v-slot:prepend>
-                                        <v-icon :icon="item.icon"></v-icon>
-                                    </template>
 
-                                    <v-list-item-title v-text="item.text"></v-list-item-title>
+            <v-navigation-drawer v-model="drawer" floating permanent>
+                <v-layout>
+                    <v-card elevation="0" width="100%">
 
-                                </v-list-item>
-                            </v-list>
-                        </v-navigation-drawer>
-                        <!-- <v-main style="height: 750px"></v-main> -->
-                    </v-layout>
-                </v-card>
+                        <v-list density="compact" nav>
+                            <v-list-item v-for="(item, i) in leftMenuItems" :key="item.i" :to="item.to" color="primary"
+                                rounded="sm">
+
+                                <template v-slot:prepend>
+                                    <v-icon :icon="item.icon"></v-icon>
+                                </template>
+
+                                <v-list-item-title v-text="item.text"></v-list-item-title>
+
+                            </v-list-item>
+                        </v-list>
+                    </v-card>
+                </v-layout>
             </v-navigation-drawer>
+            <!-- <v-main style="height: 750px"></v-main> -->
+
+
 
 
             <v-main style="background-color: #fff;">
@@ -102,7 +105,7 @@
                 <v-container class="mx-auto mb-0 py-0" elevation="12" fluid style="width: 100%">
 
 
-                    <v-sheet class="pa-0 mt-1 pb-1 mb-1" elevation="10" height="auto" width="100%">
+                    <v-sheet class="pa-0 mt-1 pb-1 mb-0" elevation="0" height="auto" width="100%">
 
 
 
@@ -112,21 +115,21 @@
                         <v-row class="mt-0 pt-0">
                             <v-col cols="8" v-if="devType == 'Desktop'">
                                 <!-- <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon>mdi-finance</v-icon>&nbsp;Estatísticas</h1> -->
-                                <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[0]);"
+                                <v-btn variant="tonal" v-on:click="moduleStore.setModule(topMenus[0]);" color="#B71C1C"
                                     v-model="useModule.name" @click="openDialog(n); viewModal = !viewModal">
-                                    <v-icon color="primary">
+                                    <v-icon color="red">
                                         mdi-chart-box-outline
                                     </v-icon>
                                     &nbsp;Ver Relatórios
                                 </v-btn>
-                                <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[1]);"
+                                <v-btn variant="tonal" v-on:click="moduleStore.setModule(topMenus[1]);" color="#4527A0"
                                     v-model="useModule.name" @click="openDialog(n); viewModal = !viewModal">
                                     <v-icon color="primary">
                                         mdi-account-switch
                                     </v-icon>
                                     &nbsp;Sessões
                                 </v-btn>
-                                <v-btn variant="text" v-on:click="moduleStore.setModule(topMenus[2]);"
+                                <v-btn variant="tonal" v-on:click="moduleStore.setModule(topMenus[2]);" color="#4E342E"
                                     v-model="useModule.name" @click="openDialog(n); viewModal = !viewModal">
                                     <v-icon color="primary">
                                         mdi-cog
@@ -210,17 +213,17 @@
                     </v-sheet>
 
 
-                    <v-sheet v-if="devType == 'Desktop'" class="pa-3 pt-4 mb-1 bg-orange" elevation="12" height="50"
+                    <v-sheet v-if="devType == 'Desktop'" class="pa-3 pt-4 mb-1 bg-orange" elevation="1" height="50"
                         width="100%">
                         <i class="float-sm-left text-caption text-sm"><v-icon icon="mdi-information"></v-icon>&nbsp;
-                            <b>Informação:</b>&nbsp;Se tiver alguma dúvida ou questão relacionada com o portal Bissonde
+                            <b>Informação:</b>&nbsp;Se tiver alguma dúvida ou questão relacionada com o portal
                             ou com a sua
-                            encomenda, utilize os seguintes contactos: bissonde.direct-pt@bissonde.ao ou o
+                            encomenda, utilize os contactos: bissonde.direct-pt@bissonde.ao ou o
                             Número Suporte Bissonde: +351 932 641 788</i>
                     </v-sheet>
 
-                    <v-sheet v-if="devType != 'Desktop'" class="pa-4 pt-1 pb-9 mb-1 bg-orange" elevation="12" height="120"
-                        width="100%">
+                    <v-sheet v-if="devType != 'Desktop'" class="pa-4 pt-1 pb-9 mb-1 bg-orange" elevation="12"
+                        height="120" width="100%">
                         <i class="float-sm-left text-caption text-sm"><v-icon icon="mdi-information"></v-icon>&nbsp;
                             <b>Informação:</b>&nbsp;Se tiver alguma dúvida ou questão relacionada com o portal Bissonde
                             ou com a sua
@@ -229,12 +232,12 @@
                     </v-sheet>
 
                     <v-row cols="12" sm="6" md="6" lg="6">
-                        <v-col cols="12" sm="12" md="12" lg="9" v-if="devType == 'Desktop'" height="120"
+                        <v-col cols="12" sm="12" md="12" lg="9" class="pr-1" v-if="devType == 'Desktop'" height="120"
                             max-height="120">
-                            <v-sheet class="pa-4 pb-1 mb-2" elevation="2" width="100%">
+                            <v-sheet class="pa-4 pb-1 mb-2" elevation="4" width="100%">
 
                                 <v-row v-if="devType == 'Desktop'">
-                                    <v-col cols="12" class="pb-0 mb-0 pl-8">
+                                    <v-col cols="12" class="pb-0 mb-0 pt-0 pl-8">
                                         <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
                                                 class="text-h">mdi-view-dashboard</v-icon>&nbsp;A sua página
                                             inicial<v-btn color="black" variant="text" class="text-h6 pr-0"
@@ -264,17 +267,17 @@
                                 <!-- <v-divider class="mb-6"></v-divider> -->
 
 
-                                <v-row cols="12" sm="6" md="6" lg="6" class="pb-5 mb-3" v-if="devType == 'Desktop'">
-                                    <v-sheet class="d-flex flex-wrap pl-3 pr-1 ma-6 pt-0 mt-0 pb-0 mb-0"
-                                        style="align-items: center;">
+                                <v-row cols="12" sm="12" md="12" lg="12" class="pb-5 mb-3" v-if="devType == 'Desktop'">
+                                    <v-sheet class="d-flex flex-wrap pl-3 pr-1 ma-6 pt-0 mt-0 pb-0 mb-0" height="127"
+                                        max-height="127" style="align-items: center;">
                                         <div v-for="(n, index) in myHomePage " :key="n">
                                             <v-row align="center" justify="center" dense>
-
                                                 <!-- <v-col cols="12" md="12"> -->
                                                 <v-hover v-slot="{ isHovering, props }">
                                                     <v-card :href="'dashboard/' + n.to" :color="n.bgcolor"
-                                                        class="mx-auto pa-2 mt-5 mr-4 mb-0 rounded-0" width="500px"
-                                                        border="start" variant="flat" hover>
+                                                        class="mx-auto justify-center pa-2 mr-4 mb-4 rounded-0"
+                                                        width="312" max-width="312" height="142" border="start"
+                                                        variant="flat" hover>
                                                         <!-- <v-img :aspect-ratio="16 / 9"
                                                     src="https://cdn.vuetifyjs.com/images/cards/kitchen.png" cover>
                                                     <v-expand-transition>
@@ -297,8 +300,7 @@
                                                         </v-card-item>
 
                                                         <v-card-text>
-                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                                            do.
+                                                            Para aceder a este menu clique aqui
                                                         </v-card-text>
                                                     </v-card>
                                                 </v-hover>
@@ -498,68 +500,102 @@
                                 <v-row cols="12" sm="6" md="6" lg="6" class="pt-0 mt-0" v-if="devType != 'Desktop'">
                                     <v-sheet class="d-flex flex-wrap ml-0 ma-3 pa-1 pt-0 mt-4 justify-center"
                                         style="align-items: center;">
-                                        <div v-for="(n, index) in myHomePage " :key="n">
-                                            <v-row align="center" justify="center" dense>
 
-                                                <!-- <v-col cols="12" md="12"> -->
-                                                <v-hover v-slot="{ isHovering, props }">
-                                                    <v-card :href="'dashboard/' + n.to" :color="n.bgcolor"
-                                                        class="mx-auto pl-6 ml-3 mb-1 mt-0 pt-0 rounded-0" width="146"
-                                                        border="start" variant="flat" hover>
-                                                        <!-- <v-img :aspect-ratio="16 / 9"
-                                                    src="https://cdn.vuetifyjs.com/images/cards/kitchen.png" cover>
-                                                    <v-expand-transition>
-                                                        <div v-if="isHovering"
-                                                            class="d-flex transition-fast-in-fast-out bg-orange-darken-2 v-card--reveal text-h2"
-                                                            style="height: 100%;">
-                                                            $14.99
-                                                        </div>
-                                                    </v-expand-transition>
-                                                </v-img> -->
-                                                        <v-card-item>
-                                                            <v-card-title>
-                                                                <v-icon class="text-h3 align-center">{{ n.icon
-                                                                    }}</v-icon>
+                                        <v-card class="rounded-0 pa-0 ma-0 pl-0 pb-1" elevation="0" width="300px">
+                                            <v-card-title class="text-overline">
+                                                <!-- Progress -->
 
-                                                            </v-card-title>
+                                                <div class="text-green-darken-3 text-h4 font-weight-bold">90%</div>
 
-                                                            <v-card-subtitle>
-                                                                {{ n.text }}
-                                                            </v-card-subtitle>
-                                                        </v-card-item>
-                                                    </v-card>
-                                                </v-hover>
-                                                <!-- </v-col> -->
-                                            </v-row>
-                                            <!-- {{ n.icon }} -->
-                                        </div>
+                                                <div class="text-h6 text-medium-emphasis font-weight-regular">
+                                                    $2,938.00 remaining
+                                                </div>
+                                            </v-card-title>
+                                            <br>
+                                            <v-card-text>
+                                                <div :style="`right: calc(${review} - 32px)`"
+                                                    class="position-absolute mt-n8 text-caption text-green-darken-3">
+                                                    Eligibility review
+                                                </div>
+                                                <v-progress-linear color="green-darken-3" height="22" model-value="90"
+                                                    rounded="lg">
+                                                    <v-badge :style="`right: ${review}`" class="position-absolute"
+                                                        color="white" dot inline></v-badge>
+                                                </v-progress-linear>
+
+                                                <div class="d-flex justify-space-between py-3">
+                                                    <span class="text-green-darken-3 font-weight-medium">
+                                                        $26,442.00 remitted
+                                                    </span>
+
+                                                    <span class="text-medium-emphasis"> $29,380.00 total </span>
+                                                </div>
+                                            </v-card-text>
+
+
+                                        </v-card>
                                     </v-sheet>
                                 </v-row>
                             </v-sheet>
                         </v-col>
-                        <v-col cols="12" sm="12" md="12" lg="3" v-if="devType == 'Desktop'">
-                            <v-sheet class=" pa-4 pb-1 mb-2" elevation="2" height="auto" width="100%">
+                        <v-col cols="12" sm="12" md="12" lg="3" class="pl-0" v-if=" devType=='Desktop'">
+                            <v-sheet class=" pa-4 pb-1 mb-2 pb-0 mt-0 pl-0" elevation="4" height="auto" max-height="229"
+                                width="100%">
 
-                                <v-row v-if="devType == 'Desktop'">
-                                    <v-col cols="12" class="pb-0 mb-0 pl-8">
-                                        <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
+
+                                <!-- <v-col cols="12" class="pl-8"> -->
+                                <h1 class="text-h6 text-md-h5 font-weight-bold mb-1 mt-0 " style="position:absolute; z-index: 1; right:20px; top: 170px;"><v-icon
                                                 class="text-h3">mdi-progress-clock</v-icon>&nbsp;Stats<v-btn
                                                 color="black" variant="text" class="text-h6 pr-0" density="default"
                                                 @click="goPlayModal = !goPlayModal; GoPlayNew();" icon="mdi-pencil">
                                             </v-btn>
                                         </h1>
-                                    </v-col>
-                                </v-row>
+
+                                <v-card class="rounded-0 pa-0 ma-0 pl-3 pb-1" elevation="0">
+                                    <v-card-title class="text-overline">
+                                        <!-- Progress -->
+
+                                        <div class="text-green-darken-3 text-h4 font-weight-bold">90%</div>
+
+                                        <div class="text-h6 text-medium-emphasis font-weight-regular">
+                                            $2,938.00 remaining
+                                        </div>
+                                    </v-card-title>
+                                    <br>
+                                    <v-card-text>
+                                        <div :style="`right: calc(${review} - 32px)`"
+                                            class="position-absolute mt-n8 text-caption text-green-darken-3">
+                                            Eligibility review
+                                        </div>
+                                        <v-progress-linear color="green-darken-3" height="22" model-value="90"
+                                            rounded="lg">
+                                            <v-badge :style="`right: ${review}`" class="position-absolute" color="white"
+                                                dot inline></v-badge>
+                                        </v-progress-linear>
+
+                                        <div class="d-flex justify-space-between py-3">
+                                            <span class="text-green-darken-3 font-weight-medium">
+                                                $26,442.00 remitted
+                                            </span>
+
+                                            <span class="text-medium-emphasis"> $29,380.00 total </span>
+                                        </div>
+                                    </v-card-text>
+
+
+                                </v-card>
+                                <!-- </v-col> -->
+
 
                                 <!-- <v-divider class="mb-6"></v-divider> -->
 
 
-                                <v-row cols="12" sm="6" md="6" lg="6" class="pb-5 mb-2" v-if="devType == 'Desktop'">
-                                    <v-sheet class="d-flex flex-wrap pl-3 pr-3 ma-6 pt-0 mt-0" height="120"
-                                        max-height="120" style="align-items: center;">
+                                <!-- <v-row cols="12" sm="6" md="6" lg="6" class="pb-10 mb-2" v-if="devType == 'Desktop'">
+                                    <v-sheet class="d-flex flex-wrap pl-3 pr-3 ma-6 " height="70" max-height="115"
+                                        style="align-items: center;">
 
                                     </v-sheet>
-                                </v-row>
+                                </v-row> -->
                             </v-sheet>
                         </v-col>
                     </v-row>
@@ -567,10 +603,10 @@
                     <v-sheet class="pa-4 pb-0 " elevation="12" height="auto" width="100%">
 
                         <v-row v-if="devType == 'Desktop'">
-                            <v-col cols="12" class="pb-5 mb-0 pl-8">
+                            <v-col cols="12" class="pb-5 mb-0 pl-8 pt-0">
                                 <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
-                                        class="text-h3">mdi-chart-bubble</v-icon>&nbsp;Os meus acessos<v-btn
-                                        color="black" variant="text" class="text-h6 pr-0" density="default"
+                                        class="text-h3">mdi-chart-bubble</v-icon>&nbsp;Acesso rápido<v-btn color="black"
+                                        variant="text" class="text-h6 pr-0" density="default"
                                         @click="goPlayModal = !goPlayModal; GoPlayNew();" icon="mdi-pencil">
                                     </v-btn>
                                 </h1>
@@ -584,7 +620,7 @@
                         <v-row v-if="devType != 'Desktop'">
                             <v-col cols="9">
                                 <h1 class="text-h6 text-md-h5 font-weight-bold mb-1"><v-icon
-                                        class="text-h6">mdi-chart-bubble</v-icon>&nbsp;Os meus acessos
+                                        class="text-h6">mdi-chart-bubble</v-icon>&nbsp;Acesso rápido
                                 </h1>
                                 <i class="float-sm-left text-body-2"><v-icon icon="mdi-clock-fast"></v-icon>&nbsp;
                                     22/05/2023</i>
@@ -933,6 +969,7 @@ const useModule = useModuleStore()
 
 export default {
     data: () => ({
+        review: '30%',
         tab: '',
         multipleSendDW: true,
         msgCounter: '0',
@@ -1055,6 +1092,11 @@ export default {
         text: '',
         modalText: '',
         drawer: false,
+        statItems: [
+            { text: 'Real-Time', icon: 'mdi-clock' },
+            { text: 'Audience', icon: 'mdi-account' },
+            { text: 'Conversions', icon: 'mdi-flag' },
+        ],
         leftMenuItems: [
             { text: 'Home', icon: 'mdi-view-dashboard', to: '/' },
             { text: 'Contactos', icon: 'mdi-account', to: 'dashboard/contacts', bgcolor: 'red' },
@@ -1276,9 +1318,9 @@ export default {
         ],
 
         topMenus: [
-            { text: 'Ver Relatórios', icon: 'mdi-chart-box-outline', to: 'contacts', descr: 'Ver Relatórios', dialog: 'Doente', size: '400px' },
-            { text: 'Sessões', icon: 'mdi-account-switch', to: 'contacts', descr: 'Sessões', dialog: 'Doente', size: '400px' },
-            { text: 'Configurações', icon: 'mdi-cog', to: 'contacts', descr: 'Configurações', dialog: 'Doente', size: '400px' }
+            { text: 'Ver Relatórios', icon: 'mdi-chart-box-outline', to: 'contacts', descr: 'Ver Relatórios', dialog: 'Doente', size: '400px', bgcolor: 'red' },
+            { text: 'Sessões', icon: 'mdi-account-switch', to: 'contacts', descr: 'Sessões', dialog: 'Doente', size: '400px', bgcolor: '#001D40' },
+            { text: 'Configurações', icon: 'mdi-cog', to: 'contacts', descr: 'Configurações', dialog: 'Doente', size: '400px', bgcolor: '#001D40' }
         ],
 
         playModal: [
