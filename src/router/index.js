@@ -24,6 +24,11 @@ const routes = [
     component: () => import('@/views/DashboardModules.vue')
   },  
   {
+    path: '/dashboard?nav=contacts',
+    name: 'Contactos',
+    component: () => import('@/views/DashboardModules.vue')
+  }, 
+  {
     path: '/about',
     name: 'Sobre',
     component: () => import('@/views/About.vue')

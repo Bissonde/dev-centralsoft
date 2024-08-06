@@ -13,6 +13,20 @@
   <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
   <!-- <script type="text/javascript" src="https://www.turnjs.com/lib/turn.min.js "></script>  -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+  <script>
+    document-addEventListener("DOMContentLoaded", function(){
+      const url = new URL(window.location.href);
+      const params = new URLSearchParams(url.search);
+      const title = params.get('nav')
+      if(title){
+        document.title = title.charAt(0).toUpperCase() + title.slice(1);;
+      }
+    })
+  </script>
+
+  
     <style>
       /* Import font family to use from Google Fonts */
 body, h1, h2, h3, h4, h5, h6  {

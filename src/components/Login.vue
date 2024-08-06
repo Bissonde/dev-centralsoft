@@ -142,29 +142,32 @@
                     Utilizador / password estão incorrectos
                 </v-alert>
 
-                <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
+                <div class="text-subtitle-1 text-medium-emphasis text-button text-caption">E-mail</div>
 
                 <v-text-field density="compact" id="LGU" v-model="logUser.value.value" v-bind="$attrs" clearable
-                    :error-messages="logUser.errorMessage.value" placeholder="Introduza e-mail" required
-                    prepend-inner-icon="mdi-email-outline" variant="outlined"></v-text-field>
+                    class="text-button text-caption" :error-messages="logUser.errorMessage.value"
+                    placeholder="Introduza e-mail" required prepend-inner-icon="mdi-email-outline"
+                    variant="outlined"></v-text-field>
 
-                <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+                <div
+                    class="text-subtitle-1 text-medium-emphasis text-button text-caption d-flex align-center justify-space-between">
                     Palavra-passe
 
-                    <v-btn class="text-caption text-decoration-none text-blue" variant="text"
+                    <v-btn class="text-caption text-decoration-none text-button text-caption text-blue" variant="text"
                         @click="ActExist = false, isFormValid = false, alert = 'pwd'; loginError = false;">
                         <v-icon icon="mdi-help-circle"></v-icon>&nbsp;Esqueceu a palavra-passe?</v-btn>
                 </div>
 
                 <v-text-field id="LPW" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                    :type="visible ? 'text' : 'password'" density="compact" placeholder="Introduza palavra-passe"
-                    v-model="logPwd.value.value" clearable :error-messages="logPwd.errorMessage.value"
-                    prepend-inner-icon="mdi-lock-outline" variant="outlined" @click:append-inner="visible = !visible"
-                    required></v-text-field>
+                    class="text-button text-caption" :type="visible ? 'text' : 'password'" density="compact"
+                    placeholder="Introduza palavra-passe" v-model="logPwd.value.value" clearable
+                    :error-messages="logPwd.errorMessage.value" prepend-inner-icon="mdi-lock-outline" variant="outlined"
+                    @click:append-inner="visible = !visible" required></v-text-field>
 
                 <!-- <v-card-text class="text-center pt-0"> -->
                 <!-- Warning: After 3 consecutive failed login attempts, you account will be temporarily locked for three hours. If you must login now, you can also click "Forgot login password?" below to reset the login password. -->
-                <v-alert v-if="loginError" rounded="0" class="text-caption font-weight-regular" text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
+                <v-alert v-if="loginError" rounded="0" class="text-caption font-weight-regular text-button text-caption"
+                    text="Após 3 tentativas consecutivas de login malsucedidas, sua conta será temporariamente
                             bloqueada por três horas." type="warning" variant="tonal">
                     <!-- <hr/> Se precisar fazer login agora, você também pode clicar em Esqueceu a senha de -->
                     <!-- login? abaixo para redefinir a senha de login. -->
@@ -180,7 +183,7 @@
                 <!-- </v-card> -->
 
                 <!-- LOGIN BUTTONS -->
-                <v-card-text class="text-center pt-0">
+                <v-card-text class="text-center pt-0 ">
 
                     <v-row>
                         <v-col cols="md-6">
@@ -2078,6 +2081,14 @@ export default {
 
             if (this.alert == 'log') {
 
+                var today = new Date();
+                var year = today.getFullYear();
+                var month = (today.getMonth() + 1)
+                var day = today.getDate()
+                var time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+                var NOW = today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt')
+                var PRT = new Date().getFullYear().toString().substr(-2) + '' + month + '' + day + '' + time
+
                 let DEV = document.createElement('script')
                 DEV.setAttribute('src', '/src/Detect/detect.js')
                 document.head.appendChild(DEV)
@@ -2122,7 +2133,7 @@ export default {
 
                 var acc = JSON.stringify(auth);
 
-                const joke = await axios.post('auth?username=' + LGU + '&password=' + LPW, config, acc)
+                const joke = await axios.post('auth?username=' + LGU + '&password=' + LPW + '&logindate=' + NOW, config, acc)
 
                     .then(
                         (response) => {
@@ -2163,6 +2174,8 @@ export default {
                                     document.getElementById('topProgress').style.display = "block"
                                     TokenStore.setToken(response.data, true),
                                         window.localStorage.setItem('username', LGU),
+
+                                        // alert(PayLoad.pid)
 
                                         window.localStorage.setItem('PID', PayLoad.pid),
                                         window.localStorage.setItem('BID', PayLoad.bid),
