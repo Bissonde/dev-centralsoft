@@ -1585,7 +1585,7 @@ const getDeviceType = () => {
 
 export default {
     data: () => ({
-        overlay: false,
+        overlay: true,
         ActWrong: false,
         ActDisabled: false,
         ResendToken: false,
@@ -1680,8 +1680,23 @@ export default {
         // }       
 
     },
+    mounted: async function () {
+        this.overlayOFF();
+    },
 
     methods: {
+        overlayOFF: function (event) {
+            setTimeout(() => {
+                this.overlay = false,
+                    this.viewMainForm = true
+            }, (500));
+        },
+        overlayON: function (event) {
+            setTimeout(() => {
+                this.overlay = true,
+                    this.viewMainForm = true
+            }, (500));
+        },
 
         returnURL: function (page) {
             var returnUrl = window.location.href
