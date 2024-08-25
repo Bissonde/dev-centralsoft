@@ -108,123 +108,152 @@
             <v-progress-linear :active="loading" :indeterminate="loading" color="blue-lighten-3" id="topProgress"
                 style="display: none;" indeterminate></v-progress-linear>
 
-            <v-sheet class="pt-12 pl-0 container">
+            <!-- 
+            <v-sheet class="pt-0 mt-5 text-center h2 container">
+                O meu perfil
+            </v-sheet> -->
+
+            <v-sheet class="pa-10 pt-12 pb-0  text-button text-caption">
                 <v-breadcrumbs :items="topItems">
                     <template v-slot:divider>
                         <v-icon icon="mdi-chevron-right"></v-icon>
                     </template>
                 </v-breadcrumbs>
             </v-sheet>
-            <!-- 
-            <v-sheet class="pt-0 mt-5 text-center h2 container">
-                O meu perfil
-            </v-sheet> -->
-
-            <v-sheet elevation="0" cols="12" sm="3" md="3" lg="3" style="background-color: white;">
+            <v-sheet class="pb-0" elevation="0" cols="12" sm="3" md="3" lg="3" style="background-color: white;">
                 <!-- DEFAULT -->
-                <v-sheet elevation="5" class="pt-0 container text-button text-caption text-small" style="font: 18px">
-                    <v-row style="background-color: #EEEEEE;">
-                        <v-col cols="12" sm="12" md="3" lg="3" class="pa-0 ma-0 rounded-0 border-thin border-black"
-                            style="background-color: #EEEEEE;">
-                            <p class="h5 pa-5 pb-6">My Bissonde</p>
+                <v-sheet elevation="2" class="pa-10 ma-10 pt-0 pl-3 pr-3 mt-0 mb-0 pb-0 text-caption "
+                    style="font: 18px">
 
-                            <v-expansion-panels v-model="panel" multiple elevation="0" class="pa-0 pr-0 pt-3 ">
-                                <v-expansion-panel class="pa-0 ma-0 rounded-0  border-t-lg">
+                    <v-row cols="3" sm="3" md="3" lg="3">
+                        <v-col cols="12" sm="3" md="3" lg="2" class="pa-0 ma-0 rounded-0 "
+                            style="background-color: #E3F2FD;">
+
+                            <v-expansion-panels v-model="panel" multiple elevation="0" class="pa-0 pr-0 pt-3 pl-0">
+                                <p class="h5 pa-5 pb-0">My Bissonde</p>
+                                <v-expansion-panel class="pa-0 ma-0 rounded-0  border-t-sm"
+                                    style="color: darkgreen; font-size:11pt; font-weight: 500;">
                                     <v-expansion-panel-title color="font-xl"
-                                        style="background-color: #EEEEEE;">Informação &
+                                        style="background-color: #E3F2FD; font-size:12pt"><v-icon>mdi-information</v-icon>&nbsp;Informação
+                                        &
                                         Contacto</v-expansion-panel-title>
                                     <v-expansion-panel-text>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="profile">A minha página
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="profile"
+                                            class="text-decoration-none">A minha página
                                             inicial</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="?nav=contact">Contacto</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Licenças e contratos</a>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="?nav=contact"
+                                            class="text-decoration-none">Contacto</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="?nav=license"
+                                            class="text-decoration-none">Licenças e
+                                            contratos</a>
                                     </v-expansion-panel-text>
                                 </v-expansion-panel>
 
-                                <v-expansion-panel class="pa-0 ma-0 rounded-0">
-                                    <v-expansion-panel-title color="" style="background-color: #EEEEEE;">Produtos e
+                                <v-expansion-panel class="pa-0 ma-0 rounded-0 "
+                                    style="color: darkgreen; font-size:11pt; font-weight: 500;">
+                                    <v-expansion-panel-title color=""
+                                        style="background-color: #E3F2FD; font-size:12pt"><v-icon>mdi-checkbox-multiple-marked-circle</v-icon>&nbsp;Produtos
+                                        e
                                         Compras</v-expansion-panel-title>
                                     <v-expansion-panel-text>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Propostas</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">As minhas aprovações</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Lista de compras</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Encomendas em
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="?nav=proposals"
+                                            class="text-decoration-none">Propostas</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">As minhas aprovações</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">Lista de compras</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">Encomendas em
                                             reservas</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Encomendas</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Guias de remessa</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Facturas</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Notas de crédito</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">Encomendas</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">Guias de remessa</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">Facturas</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">Notas de crédito</a><br>
                                     </v-expansion-panel-text>
                                 </v-expansion-panel>
 
-                                <v-expansion-panel class="pa-0 ma-0 rounded-0">
-                                    <v-expansion-panel-title color="" style="background-color: #EEEEEE;">Utilizador &
+                                <v-expansion-panel class="pa-0 ma-0 rounded-0"
+                                    style="color: darkgreen; font-size:11pt; font-weight: 500;">
+                                    <v-expansion-panel-title color=""
+                                        style="background-color: #E3F2FD; font-size:12pt"><v-icon>mdi-account-cog</v-icon>&nbsp;Utilizador
+                                        &
                                         Definições</v-expansion-panel-title>
                                     <v-expansion-panel-text>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">O meu utilizador</a><br>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Avatar & Logótipo</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">O meu utilizador</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">Avatar & Logótipo</a><br>
                                     </v-expansion-panel-text>
                                 </v-expansion-panel>
 
-                                <v-expansion-panel class="pa-0 ma-0 rounded-0">
-                                    <v-expansion-panel-title color="" style="background-color: #EEEEEE;">Endereço &
+                                <v-expansion-panel class="pa-0 ma-0 rounded-0"
+                                    style="color: darkgreen; font-size:11pt; font-weight: 500;">
+                                    <v-expansion-panel-title color=""
+                                        style="background-color: #E3F2FD; font-size:12pt; font-weight:500"><v-icon>mdi-map-marker</v-icon>&nbsp;Endereço
+                                        &
                                         Dados</v-expansion-panel-title>
                                     <v-expansion-panel-text>
-                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#">Endereços de entrega</a><br>
+                                        <v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                                            class="text-decoration-none">Endereços de entrega</a><br>
                                     </v-expansion-panel-text>
                                 </v-expansion-panel>
                             </v-expansion-panels>
                         </v-col>
-                        <v-col cols="12" sm="12" md="9" lg="9" v-if="this.navGoToPage == undefined"
-                            class="pa-0 pl-0 ma-0 border-thin border-black">
+                        <v-col cols="12" sm="9" md="9" lg="10" v-if="this.navGoToPage == undefined"
+                            class="pa-0 pl-0 ma-0 " style="background-color:  #E3F2FD;">
                             <p class="h5 pa-5 pb-0">O meu perfil - {{ MyUserName }}</p>
                             <p class="pl-5 text-caption">Edite o utilizador tendo em consideração os campos
                                 obrigadtórios (*). Um
                                 endereço de
                                 e-mail só
                                 pode ser utlizado para um utilizador.</p>
-                            <div class="ma-3 pb-1 mb-0 pt-0 border-t-lg" style="background-color: white;">
-                                <v-row style="font-size: 8pt; color: darkgreen;">
+                            <v-sheet class="ma-1 pb-1 mb-0 pt-1" style="background-color: #FAFAFA;" elevation="2">
+                                <v-row class="ma-1 pb-0 border-lg border-b-lg"
+                                    style="font-size: 8pt; background-color: #E3F2FD;">
 
-                                    <v-col cols="12" sm="11" md="11" lg="11" class="pt-6 pl-8 ma-0 ">
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-3 pl-8 ma-0 ">
                                         <v-label><b><v-icon>mdi-account</v-icon>&nbsp;Dados pessoais</b></v-label>
                                     </v-col>
 
-                                    <v-col cols="12" sm="1" md="1" lg="1" class="pt-6 pl-8 ma-0 ">
+                                    <v-col cols="12" sm="2" md="2" lg="1" class="pt-3 pr-5 ma-0 text-right">
                                         <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
                                     </v-col>
 
                                 </v-row>
-                                <v-row style="font-size: 8pt;" class="ma-3  border-t-thin" color="red">
+                                <v-row style="font-size: 8pt;" class="ma-3" color="red">
 
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" lg="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field label="Empresa*" v-model="myBranch" variant="underlined"
                                             color="red" prepend-inner-icon="mdi-domain" hint="*campo obrigatório"
                                             :counter="10" readonly required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field :counter="10" prepend-inner-icon="mdi-login" variant="underlined"
                                             v-model="myLastLogin" label="Último login*" required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field label="Nome própio*" id="FN" v-model="myName" variant="underlined"
                                             clearable hint="*campo obrigatório" :counter="10" required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field :counter="10" variant="underlined" v-model="mySurname"
                                             label="Apelido*" required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field label="Domínio" v-model="myDomain" clearable readonly
                                             variant="underlined" prepend-inner-icon="mdi-domain"
                                             hint="*campo obrigatório" :counter="10" required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field :counter="10" prepend-inner-icon="mdi-translate"
                                             variant="underlined" v-model="myLanguage" clearable label="Linguagem*"
                                             required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field label="E-mail" id="FN" v-model="MyEmail" clearable
                                             variant="underlined" prepend-inner-icon="mdi-at" hint="*campo obrigatório"
                                             :counter="10" required></v-text-field>
@@ -234,16 +263,16 @@
                                     variant="underlined" prepend-inner-icon="mdi-domain" hint="*campo obrigatório"
                                     :counter="10" required></v-text-field>
                             </v-col> -->
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field :counter="10" prepend-inner-icon="mdi-phone" variant="underlined"
                                             v-model="myPhone" clearable label="Telefone*" required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field :counter="10" prepend-inner-icon="mdi-slash-forward-box"
                                             variant="underlined" v-model="myDepartment" clearable label="Departamento*"
                                             required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field :counter="10" prepend-inner-icon="mdi-currency-eur"
                                             variant="underlined" v-model="myCostCenter" clearable
                                             label="Centro de Custos*" required></v-text-field>
@@ -262,52 +291,57 @@
                                         variant="flat"><v-icon>mdi-close-thick</v-icon>&nbsp;Eliminar os meus
                                         dados</v-btn>
                                 </v-row>
-                            </div>
+                            </v-sheet>
                             <!-- Autenticação de dois factores -->
-                            <div class="ma-3 pb-1 mb-0 pt-0 border-t-lg" style="background-color: white;">
-                                <v-row style="font-size: 8pt;  color: darkblue;">
+                            <v-sheet class="ma-1 pb-1 mb-0 pt-0 border-t-lg" style="background-color: #FAFAFA;"
+                                elevation="2">
+                                <v-row class="ma-1 pb-0 pt-0 border-lg"
+                                    style="font-size: 8pt; background-color: #E3F2FD;">
 
-                                    <v-col cols="12" sm="11" md="11" lg="11" class="pt-6 pl-8 ma-0 "
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-3 pl-8 ma-0 "
                                         style="font-size: 8pt;">
                                         <v-label><v-icon>mdi-shield-lock</v-icon>&nbsp;<b>Autenticação de dois
                                                 factores</b></v-label>
                                     </v-col>
 
-                                    <v-col cols="12" sm="1" md="1" lg="1" class="pt-6 pl-8 ma-0 ">
+                                    <v-col cols="12" sm="2" md="2" lg="1" class="pt-3 pr-5 ma-0 text-right">
                                         <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
                                     </v-col>
 
                                 </v-row>
                                 <v-row style="font-size: 8pt;" class="ma-3  border-t-thin" color="red">
 
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field label="Empresa*" v-model="myBranch" variant="underlined"
                                             color="red" prepend-inner-icon="mdi-domain" hint="*campo obrigatório"
                                             :counter="10" readonly required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field :counter="10" prepend-inner-icon="mdi-login" variant="underlined"
                                             v-model="myLastLogin" label="Último login*" required></v-text-field>
                                     </v-col>
 
                                 </v-row>
-                            </div>
+                            </v-sheet>
                             <!-- Notificações de e-mail -->
-                            <div class="ma-3 pb-1 mb-3 pt-0 border-t-lg " style="background-color: white;">
-                                <v-row style="font-size: 8pt;  color: darkred;" class="pb-3 ">
+                            <v-sheet class="ma-1 pb-1 mb-2 pt-0 border-t-lg" style="background-color: #FAFAFA;"
+                                elevation="2">
+                                <v-row class="ma-1 pb-0 pt-0 border-lg"
+                                    style="font-size: 8pt; background-color: #E3F2FD;">
 
-                                    <v-col cols="12" sm="11" md="11" lg="11" class="pt-6 pl-8 ma-0 ">
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-3 pl-8 ma-0 ">
                                         <v-label><b><v-icon>mdi-bell-ring</v-icon>&nbsp;Notificações de
                                                 e-mail</b></v-label>
                                     </v-col>
 
-                                    <v-col cols="12" sm="1" md="1" lg="1" class="pt-6 pl-8 ma-0 ">
+                                    <v-col cols="12" sm="2" md="2" lg="1" class="pt-3 pr-5 ma-0 text-right">
                                         <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
                                     </v-col>
 
                                 </v-row>
 
-                                <p class="pl-3  border-t-thin"><br>As seguintes pessoas possue direitos administrativos
+                                <p class="pl-3  border-t-thin"><br>As seguintes pessoas possue direitos
+                                    administrativos
                                     para editar este
                                     utilizador:<br>
                                     <v-icon>mdi-circle-small</v-icon>&nbsp;Gungui, Vasco - <a
@@ -322,50 +356,54 @@
                                         href="mailto:neuza.cabir@bissonde.ao">neuza.cabir@bissonde.ao</a>
                                 </p>
 
-                            </div>
+                            </v-sheet>
                         </v-col>
-                        <v-col v-if="this.navGoToPage == 'contact'" class="pa-0 pl-0 ma-0 border-thin border-black">
+                        <v-col cols="12" sm="9" md="9" lg="10" v-if="this.navGoToPage == 'contact'"
+                            style="background-color: #FAFAFA;" class="pa-0 pl-0 ma-0 ">
                             <!-- <p class="h4">Os meus contactos</p> -->
                             <!-- <p>Edite o utilizdor tendo em consideração os campos obrigadtórios (*). Um endereço de -->
                             <!-- e-mail só -->
                             <!-- pode ser utlizado para um utilizador.</p> -->
-                            <div class="ma-3 pb-1 mb-0 pt-0 border-t-lg" style="background-color: white;">
-                                <v-row style="font-size: 8pt; color: darkgreen;">
+                            <v-sheet class="ma-1 pb-1 mb-0 pt-0" style="background-color: #FAFAFA;" elevation="2">
+                                <v-row class="ma-1 pb-0 pt-0  border-lg"
+                                    style="font-size: 8pt; background-color: #E3F2FD;">
 
-                                    <v-col cols="12" sm="11" md="11" lg="11" class="pt-6 pl-8 ma-0 ">
+
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-3 pl-8 ma-0 ">
                                         <v-label><b><v-icon>mdi-account</v-icon>&nbsp;Contactos</b></v-label>
                                     </v-col>
 
-                                    <v-col cols="12" sm="1" md="1" lg="1" class="pt-6 pl-8 ma-0 ">
+                                    <v-col cols="12" sm="1" md="2" lg="1" class="pt-3 pr-5 ma-0 text-right">
                                         <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
                                     </v-col>
 
                                 </v-row>
-                                <v-row style="font-size: 8pt;" class="pa-4 ">
+                                <v-row style="font-size: 8pt;" class="pa-0 ma-3 ">
                                     <v-col cols="12" sm="12" md="12" class=" pb-0 border-t-thin border-black">
                                         <v-text-field label="Endereço*" v-model="myAddress" clearable
                                             variant="underlined" prepend-inner-icon="mdi-domain"
                                             hint="*campo obrigatório" :counter="10" required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
-                                        <v-text-field :counter="10" prepend-inner-icon="mdi-login" variant="underlined"
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
+                                        <v-text-field :counter="10" prepend-inner-icon="mdi-map" variant="underlined"
                                             v-model="myCity" clearable label="Cidade*" required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field label="Distrito/Província/Estado*" id="FN" v-model="myDistrict"
-                                            variant="underlined" clearable hint="*campo obrigatório" :counter="10"
+                                            prepend-inner-icon="mdi-home-group" variant="underlined" clearable
+                                            hint="*campo obrigatório" :counter="10" required></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
+                                        <v-text-field :counter="10" variant="underlined" v-model="myPostOffice"
+                                            prepend-inner-icon="mdi-email-variant" clearable label="Caixa Postal*"
                                             required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
-                                        <v-text-field :counter="10" variant="underlined" v-model="myPostOffice"
-                                            clearable label="Caixa Postal*" required></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field label="País" v-model="myCountry" clearable variant="underlined"
                                             prepend-inner-icon="mdi-domain" hint="*campo obrigatório" :counter="10"
                                             required></v-text-field>
                                     </v-col>
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field label="E-mail" id="FN" v-model="MyEmail2" clearable
                                             variant="underlined" prepend-inner-icon="mdi-at" hint="*campo obrigatório"
                                             :counter="10" required></v-text-field>
@@ -375,7 +413,7 @@
                                     variant="underlined" prepend-inner-icon="mdi-domain" hint="*campo obrigatório"
                                     :counter="10" required></v-text-field>
                             </v-col> -->
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="6" class="pa-2 pb-0 mb-0">
                                         <v-text-field :counter="10" prepend-inner-icon="mdi-phone" variant="underlined"
                                             v-model="myPhone" clearable label="Telefone*" required></v-text-field>
                                     </v-col>
@@ -383,25 +421,29 @@
 
                                 <v-btn @click="ACCOUNT_SAVE" class="ma-4 rounded-0" variant="flat">GUARDAR
                                     ALTERAÇÕES</v-btn>&nbsp;&nbsp;
-                            </div>
-                            <br>
-                            <div class="ma-3 pb-1 mb-0 pt-0 border-t-lg" style="background-color: white;">
-                                <v-row style="font-size: 8pt; color: darkgreen;">
+                            </v-sheet>
+                            <!-- <br> -->
 
-                                    <v-col cols="12" sm="11" md="11" lg="11" class="pt-6 pl-8 ma-0 ">
-                                        <v-label><b><v-icon>mdi-account</v-icon>&nbsp;Gestor de conta</b></v-label>
+                            <v-sheet class="ma-1 pb-1 mb-2 pt-1" style="background-color: #FAFAFA;" elevation="2">
+                                <v-row class="ma-1 pb-0 pt-0  border-lg"
+                                    style="font-size: 8pt; background-color: #E3F2FD;">
+
+
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-3 pl-8 ma-0 ">
+                                        <v-label><b><v-icon>mdi-account-badge</v-icon>&nbsp;Gestor de
+                                                conta</b></v-label>
                                     </v-col>
 
-                                    <v-col cols="12" sm="1" md="1" lg="1" class="pt-6 pl-8 ma-0 ">
+                                    <v-col cols="12" sm="1" md="2" lg="1" class="pt-3 pr-5 ma-0 text-right">
                                         <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
                                     </v-col>
 
                                 </v-row>
-                                <v-row style="font-size: 8pt;" class="pa-4 ">
+                                <v-row style="font-size: 8pt;" class="pa-0  ma-5 ">
 
-                                    <v-col cols="12" sm="9" md="3" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="4" lg="2" class="pa-0 pt-0 pb-0 mb-0">
 
-                                        <v-img :width="300" aspect-ratio="16/9" cover
+                                        <v-img :width="400" aspect-ratio="16/9" cover
                                             src="https://www.alert-software.com/hubfs/helpdesk-3.jpg"></v-img>
                                     </v-col>
                                     <!-- <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
@@ -409,7 +451,7 @@
                                     variant="underlined" prepend-inner-icon="mdi-domain" hint="*campo obrigatório"
                                     :counter="10" required></v-text-field>
                             </v-col> -->
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="6" md="8" class="pa-5 pt-0 mb-0">
                                         <v-label><b>Vasco Gungui</b></v-label><br>
                                         <v-label><b>E-mail:</b>&nbsp; vasco.gungui@bissonde.ao</v-label><br>
                                         <v-label><b>Contacto:</b>&nbsp;+244923097248</v-label><br>
@@ -421,41 +463,167 @@
                                             variant="flat"><v-icon>mdi-phone</v-icon>&nbsp;Telefonar</v-btn>&nbsp;&nbsp;
                                     </v-col>
                                 </v-row>
-                            </div>
-                            <br>
-                            <div class="ma-3 pb-1 mb-0 pt-0 border-t-lg" style="background-color: white;">
-                                <v-row style="font-size: 8pt; color: darkgreen;">
+                            </v-sheet>
+                            <!-- <br> -->
+                            <v-sheet class="ma-1 pb-0 mb-0 pt-1 mt-0 " style="background-color: white;" elevation="2">
+                                <v-row class="ma-1 pb-0 pt-0  border-lg"
+                                    style="font-size: 8pt; background-color: #E3F2FD;">
 
-                                    <v-col cols="12" sm="11" md="11" lg="11" class="pt-6 pl-8 ma-0 ">
-                                        <v-label><b><v-icon>mdi-account</v-icon>&nbsp;Contacto</b></v-label>
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-3 pl-8 ma-0 ">
+                                        <v-label><b><v-icon>mdi-map-marker</v-icon>&nbsp;Endereços</b></v-label>
                                     </v-col>
 
-                                    <v-col cols="12" sm="1" md="1" lg="1" class="pt-6 pl-8 ma-0 ">
+                                    <v-col cols="12" sm="1" md="2" lg="1" class="pt-3 pr-5 ma-0 text-right">
                                         <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
                                     </v-col>
 
                                 </v-row>
-                                <v-row style="font-size: 8pt;" class="pa-4 ">
+                                <v-row style="font-size: 8pt;" class="pa-0 ma-1">
 
-                                    <v-col cols="12" sm="9" md="3" class="pa-2 pb-0 mb-0">
+                                    <v-col cols="12" sm="5" md="5" class="pa-0 pb-0 ma-3">
 
-                                        <v-img :width="300" aspect-ratio="16/9" cover
-                                            src="https://www.alert-software.com/hubfs/helpdesk-3.jpg"></v-img>
+                                        <v-label><b>Angola</b></v-label><br>
+                                        <v-label><b>Endereço:</b>&nbsp;Casa nº 119 Bairro Azul, Luanda</v-label><br>
+                                        <v-label><b>Telefone:</b>&nbsp;+244923097248</v-label><br>
+                                        <v-label><b>Fax:</b>&nbsp;+244923097248</v-label><br>
+                                        <v-label><b>E-mail:</b>&nbsp;vendas_ao@bissonde.ao</v-label><br>
+
+                                        <v-btn @onclick="window.open('tel:244923097248')" class="mt-1 rounded-0"
+                                            variant="tonal"><v-icon>mdi-phone</v-icon>&nbsp;Contactar
+                                        </v-btn>&nbsp;&nbsp;
+                                        <v-btn href="https://maps.app.goo.gl/83H9wHw1yLnX2XoP6" class="mt-1 rounded-0"
+                                            target="_blank" variant="tonal"><v-icon>mdi-directions</v-icon>&nbsp;Como
+                                            chegar</v-btn>&nbsp;&nbsp;
                                     </v-col>
                                     <!-- <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
                                 <v-text-field label="E-mail CC" id="FN" name="firstNameR" v-model="firstName" clearable
                                     variant="underlined" prepend-inner-icon="mdi-domain" hint="*campo obrigatório"
                                     :counter="10" required></v-text-field>
                             </v-col> -->
-                                    <v-col cols="12" sm="9" md="6" class="pa-2 pb-0 mb-0">
-                                        <v-label><b>Angola</b></v-label><br>
-                                        <v-label><b>Endereço:</b>&nbsp; vasco.gungui@bissonde.ao</v-label><br>
-                                        <v-label><b>Telefone:</b>&nbsp;+244923097248</v-label><br>
-                                        <v-label><b>Fax:</b>&nbsp;+244923097248</v-label><br>
+                                    <v-col cols="12" sm="5" md="5" class="pa-0 pb-0 ma-3">
+                                        <v-label><b>Portugal</b></v-label><br>
+                                        <v-label><b>Endereço:</b>&nbsp;Rua Engenheiro Quartin Graça 58A 1º
+                                            E</v-label><br>
+                                        <v-label><b>Telefone:</b>&nbsp;+351932641788</v-label><br>
+                                        <v-label><b>Fax:</b>&nbsp;+351932641788</v-label><br>
+                                        <v-label><b>E-mail:</b>&nbsp;vendas_pt@bissonde.ao</v-label><br>
 
-                                        <v-btn @click="ACCOUNT_SAVE" class="mt-1 rounded-0"
-                                            variant="flat"><v-icon>mdi-phone</v-icon>&nbsp;Contactar Agora</v-btn>&nbsp;&nbsp;
+                                        <v-btn href="tel:351932641788" class="mt-1 rounded-0"
+                                            variant="tonal"><v-icon>mdi-phone</v-icon>&nbsp;Contactar
+                                        </v-btn>&nbsp;&nbsp; <v-btn href="https://maps.app.goo.gl/S3LSoTYcc4pdHPn57"
+                                            class="mt-1 rounded-0" target="_blank"
+                                            variant="tonal"><v-icon>mdi-directions</v-icon>&nbsp;Como
+                                            chegar</v-btn>&nbsp;&nbsp;
                                     </v-col>
+                                </v-row>
+                            </v-sheet>
+                        </v-col>
+                        <v-col v-if="this.navGoToPage == 'license'" class="pa-0 pl-0 ma-0 ">
+                            <!-- <p class="h4">Os meus contactos</p> -->
+                            <!-- <p>Edite o utilizdor tendo em consideração os campos obrigadtórios (*). Um endereço de -->
+                            <!-- e-mail só -->
+                            <!-- pode ser utlizado para um utilizador.</p> -->
+                            <div class="ma-1 pb-1 mb-0 pt-0" style="background-color: white;">
+
+                                <v-row class="ma-1 pb-0 pt-0  border-lg"
+                                    style="font-size: 8pt; background-color: #E3F2FD;">
+
+
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-3 pl-8 ma-0 ">
+                                        <v-label><b><v-icon>mdi-license</v-icon>&nbsp;Síntese de contratos e
+                                                licenças</b></v-label>
+                                    </v-col>
+
+                                    <v-col cols="12" sm="1" md="2" lg="1" class="pt-3 pr-5 ma-0 text-right">
+                                        <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
+                                    </v-col>
+
+                                </v-row>
+                                <v-row style="font-size: 8pt;" class="pa-4 ma-4 mb-0 pl-0 border-black ">
+                                    <v-col cols="12" sm="12" md="2" lg="1" class="pb-0">
+                                        <v-label>Ordenação:</v-label>
+                                    </v-col>
+                                    <v-col cols="12" sm="9" md="9" class="pt-0 pb-0 mb-0">
+                                        <v-autocomplete v-model="licenseOrd" variant="underlined" density="compact"
+                                            :items="['Cliente', 'Empresa', 'Interno']"></v-autocomplete>
+                                    </v-col>
+
+                                </v-row>
+
+                                <v-btn @click="" class="ml-8 mb-3 pl-0 ml-0 rounded-0 text-caption"
+                                    variant="text"><v-icon>mdi-download</v-icon>&nbsp;Guardar
+                                    a lista como CSV</v-btn>&nbsp;&nbsp;
+                            </div>
+
+                            <div class="ma-1 pb-0 mb-0 pt-0 border-t-lg" style="background-color: white;">
+                                <v-row style="font-size: 8pt; color: black;">
+
+                                    <v-col cols="12" sm="11" md="11" lg="11" class="pt-6 pl-8 ma-0 text-caption">
+                                        <v-label><v-icon>mdi-alert</v-icon>&nbsp;Não existem licenças de
+                                            contracto.</v-label>
+                                    </v-col>
+
+                                    <!-- <v-col class="pt-6 pr-5 ma-0 ">
+                                        <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
+                                    </v-col> -->
+
+                                </v-row>
+                            </div>
+                        </v-col>
+                        <v-col v-if="this.navGoToPage == 'proposals'" class="pa-0 pl-0 ma-0 ">
+                            <!-- <p class="h4">Os meus contactos</p> -->
+                            <!-- <p>Edite o utilizdor tendo em consideração os campos obrigadtórios (*). Um endereço de -->
+                            <!-- e-mail só -->
+                            <!-- pode ser utlizado para um utilizador.</p> -->
+                            <div class="ma-1 pb-1 mb-0 pt-0" style="background-color: white;">
+                                <v-row class="ma-1 pb-0 pt-0  border-lg"
+                                    style="font-size: 8pt; background-color: #E3F2FD;">
+
+
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-3 pl-8 ma-0 ">
+                                        <v-label><b><v-icon>mdi-file-document-multiple-outline</v-icon>&nbsp;Propostas</b></v-label>
+                                    </v-col>
+
+                                    <v-col cols="12" sm="1" md="2" lg="1" class="pt-3 pr-5 ma-0 text-right">
+                                        <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
+                                    </v-col>
+
+                                </v-row>
+
+                                <v-row style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                    <v-col cols="12" sm="12" md="12" class="pb-0">
+                                        <v-row style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                        </v-row>
+                                       
+                                        &nbsp;<v-btn style="display:inline-block;width: 120px"
+                                                @click=" ACCOUNT_SAVE" class="ma-0 rounded-0 mt-0"
+                                            variant="flat"><v-icon>mdi-content-save</v-icon>&nbsp;Pesquiar
+                                        </v-btn>
+                                    </v-col>
+                                    <v-col cols="12" sm="9" md="4" class="pt-0 pb-0 mb-0">
+
+
+                                    </v-col>
+
+                                </v-row>
+
+                                <v-btn @click="" class="ml-8 mb-3 rounded-0 text-caption"
+                                    variant="text"><v-icon>mdi-download</v-icon>&nbsp;Estado da
+                                    Proposta</v-btn>&nbsp;&nbsp;
+                            </div>
+
+                            <div class="ma-1 pb-0 mb-0 pt-0 border-t-lg" style="background-color: white;">
+                                <v-row style="font-size: 8pt; color: black;">
+
+                                    <v-col cols="12" sm="11" md="11" lg="11" class="pt-6 pl-8 ma-0 text-caption">
+                                        <v-label><v-icon>mdi-alert</v-icon>&nbsp;Não existem licenças de
+                                            contracto.</v-label>
+                                    </v-col>
+
+                                    <!-- <v-col class="pt-6 pr-5 ma-0 ">
+                                        <v-label><v-icon>mdi-chevron-right</v-icon></v-label>
+                                    </v-col> -->
+
                                 </v-row>
                             </div>
                         </v-col>
@@ -467,28 +635,28 @@
             </v-sheet>
             <br>
 
-            <v-sheet class="container pa-0 pt-5" elevation="0" v-if="devType != 'Desktop'">
+            <v-sheet class="ma-10 pa-10 pt-0" elevation="0" v-if="devType != 'Desktop'">
 
                 Serviço ao
                 cliente<br>
-                <v-icon>mdi-circle-small</v-icon><a class="text-decoration" href="#">Informações de
+                <v-icon>mdi-circle-small</v-icon><a class="text-decoration-none">Informações de
                     pagamento e
                     envio</a><br>
-                <v-icon>mdi-circle-small</v-icon><a class="text-decoration" href="#">Centro de ajuda</a><br>
+                <v-icon>mdi-circle-small</v-icon><a class="text-decoration-none" href="#">Centro de ajuda</a><br>
                 <v-btn class="mt-5 mb-5 rounded-0">Newsletter</v-btn><br>
                 A nossa oferta é apenas válida para clientes empresariais e entidades públicas.<br>
                 <br>
                 <b>Preços em EUR + IVA à taxa legal em vigor.</b><br>
                 <v-row class="pt-0 pb-0" cols="12" sm="6" md="6" lg="6">
-                    <v-col cols="10"><a class="text-decoration" href="#">Ficha
-                            técnica</a>&nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<a class="text-decoration"
-                            href="#">Política de
-                            privacidade</a>&nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<a class="text-decoration"
-                            href="#">Condições
+                    <v-col cols="10"><a class="text-decoration-none" href="#">Ficha
+                            técnica</a>&nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                            class="text-decoration-none">Política de
+                            privacidade</a>&nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<a href="#"
+                            class="text-decoration-none">Condições
                             Gerais de Venda</a>
-                        &nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<span class="text-decoration-overline">Support
+                        &nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<span class="text-decoration-none-overline">Support
                             ID:</span> f972b8238e</v-col>
-                    <v-col class="text-right text-decoration-overline ">
+                    <v-col class="text-right text-decoration-none-overline ">
                         &copy; 2024 Bissonde SO
                     </v-col>
                 </v-row>
@@ -606,9 +774,9 @@ onMounted(() => {
 const TokenStore = useTokenStore();
 const newToken = { "tokenID": "ljahsdfq697e69qwerq", "user": "Vasco Gungui", "domain": "Administrator" }
 
-// alert(tok[1])
 export default {
     data: () => ({
+        licenseOrd: '',
         myPictureHelpDesk: 'https://www.alert-software.com/hubfs/helpdesk-3.jpg',
         myPostOffice: '',
         myAddress: '',
@@ -629,6 +797,7 @@ export default {
         myEmail2: '',
         myBranch:'',
         panel: [0, 1, 2, 3],
+        // panel: [],
         navGoToPage: '',
         topItems: [
             {
@@ -666,6 +835,7 @@ export default {
         let xp = window.location.href
         this.navGoToPage = xp.split('=')[1] // = goToPage[1]
 
+
         if (window.localStorage.getItem('JwtToken') != null) {
 
             this.JwtToken = localStorage.getItem('JwtToken')
@@ -674,7 +844,7 @@ export default {
             this.MyEmail2 = localStorage.getItem('username')
         }
         else {
-            window.location = '/signin?returnUrl=profile'
+            window.location = '/signin?returnUrl&' + window.location.href.split('/')[3]
         }  
 
         this.ACCOUNT_GET();
@@ -698,7 +868,7 @@ export default {
                 }
                 if (response.request.status == '401') {
 
-                    window.location = '/signin?returnUrl=profile'
+                    window.location = '/signin?returnUrl&' + window.location.href.split('/')[3]
                 }
                 if (response.request.status == '200') {
                     this.myBranch = response.data.branch
@@ -723,10 +893,8 @@ export default {
                     error => {
                         const status = error.response ? error.response.status : null;
 
-                        alert(status)
-
                       if (status === 401) {
-                          window.location = '/signin?returnUrl=profile'
+                          window.location = '/signin?returnUrl&' + window.location.href.split('/')[3]
                             document.getElementById('userD').innerHTML = "Acesso não autorizado"
                         }
                         else if (status === 404) {
@@ -735,13 +903,13 @@ export default {
                         else {
                             // document.getElementById('userD').innerHTML = "Ocorreu um erro:", error
 
-                            window.location = '/signin?returnUrl=profile'
+                          window.location = '/signin?returnUrl&' + window.location.href.split('/')[3]
                         }
                         document.getElementById('userD').innerHTML = error
                         console.log(error)
 
 
-                        window.location = '/signin?returnUrl=profile'
+                      window.location = '/signin?returnUrl&' + window.location.href.split('/')[3]
                     }
                 )
         },
@@ -766,7 +934,6 @@ export default {
             var NOW = year + '' + month + '' + day + '' + time
             // var DATE_TIME = year + '-' + month + '-' + day + ' ' + today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 
-            alert(this.myPostOffice)
             await axios.put('Account',
                 {
                     partnerID: window.localStorage.getItem('PID'),
@@ -823,12 +990,9 @@ export default {
         },
         checkInput: function () {
             // window.localStorage.setItem('JwtToken', newToken);
-            //  alert(TokenStore.tokenID);
-            // alert(useModule.dialog)
             if (TokenStore == 'Contacts') {
                 // this.isOkToSubmit = this.firstName && this.lastName
             }
-            // alert(this.isOkToSubmit)
         },
 
         logOff: function () {

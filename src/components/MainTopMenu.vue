@@ -203,7 +203,7 @@ onMounted(() => {
 
     }
     else {
-        window.location = '/signin?returnUrl=dashboard'
+        window.location = '/signin?returnUrl&dashboard'
 
 
         // this.returnURL('signin')

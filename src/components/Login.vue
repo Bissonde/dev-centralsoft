@@ -1700,7 +1700,8 @@ export default {
 
         returnURL: function (page) {
             var returnUrl = window.location.href
-            var goToPage = returnUrl.split('=')
+            var goToPage = returnUrl.split('&')
+       
             if (window.location.href.includes('returnUrl')) {
                 window.location = goToPage[1]
             }
