@@ -1108,6 +1108,7 @@ var myPicture = '';
 var myEmail = '';
 var PID = '';
 var BID = '';
+// var navGoToPage = 'home';
 // var navGoToPage;
 onMounted(() => {
     // this.$router.go(0)
@@ -1143,7 +1144,7 @@ const useModule = useModuleStore()
 
 export default {
     data: () => ({
-        navGoToPage: 'home',
+        navGoToPage:  'home',
         grValue: [
             423,
             446,
@@ -1645,18 +1646,13 @@ export default {
 
 
         // window.location = goToPage[1]
-        let xp = window.location.href
-        // alert(xp)
-    //     if(xp.includes('='))
-    // {
-        this.navGoToPage = xp.split('=')[1] // = goToPage[1]
-    // }
-    // else{
-            // this.navGoToPage = xp;
-    // }
+        let xp = window.location.href.split('=')[1]
+        
+        
+        this.navGoToPage = xp // = goToPage[1]
+        alert(this.navGoToPage)
 
         // document.title = this.navGoToPage
-        // alert(this.navGoToPage)
 
         // // var user = detect.parse(navigator.userAgent)  
         // // window.localStorage.setItem('MOB', user.device.type);
@@ -1682,7 +1678,7 @@ export default {
         }
 
 
-        if (this.navGoToPage == undefined) {
+        if (this.navGoToPage == undefined | this.navGoToPage == null) {
             this.KPI_GET_ALL();
 
             this.EMAIL_GET_ALL();
