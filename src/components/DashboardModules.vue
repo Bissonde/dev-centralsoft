@@ -1108,7 +1108,7 @@ var myPicture = '';
 var myEmail = '';
 var PID = '';
 var BID = '';
-var navGoToPage;
+// var navGoToPage;
 onMounted(() => {
     // this.$router.go(0)
     // this.overlayON();
@@ -1646,7 +1646,14 @@ export default {
 
         // window.location = goToPage[1]
         let xp = window.location.href
+        // alert(xp)
+    //     if(xp.includes('='))
+    // {
         this.navGoToPage = xp.split('=')[1] // = goToPage[1]
+    // }
+    // else{
+            // this.navGoToPage = xp;
+    // }
 
         // document.title = this.navGoToPage
         // alert(this.navGoToPage)
