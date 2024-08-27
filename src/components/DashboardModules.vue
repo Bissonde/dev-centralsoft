@@ -1108,6 +1108,7 @@ var myPicture = '';
 var myEmail = '';
 var PID = '';
 var BID = '';
+var navGoToPage;
 onMounted(() => {
     // this.$router.go(0)
     // this.overlayON();
