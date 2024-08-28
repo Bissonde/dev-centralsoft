@@ -203,7 +203,7 @@
                                 </v-expansion-panel>
                             </v-expansion-panels>
                         </v-col>
-                        <v-col cols="12" sm="9" md="9" lg="10" v-if="this.navGoToPage == undefined"
+                        <v-col cols="12" sm="9" md="9" lg="10" v-if="navGoToPage.task == undefined"
                             class="pa-0 pl-0 ma-0 " style="background-color:  #E3F2FD;">
                             <p class="h5 pa-5 pb-0">O meu perfil - {{ MyUserName }}</p>
                             <p class="pl-5 text-caption">Edite o utilizador tendo em consideração os campos
@@ -358,7 +358,7 @@
 
                             </v-sheet>
                         </v-col>
-                        <v-col cols="12" sm="9" md="9" lg="10" v-if="this.navGoToPage == 'contact'"
+                        <v-col cols="12" sm="9" md="9" lg="10" v-if="navGoToPage.task == 'contact'"
                             style="background-color: #FAFAFA;" class="pa-0 pl-0 ma-0 ">
                             <!-- <p class="h4">Os meus contactos</p> -->
                             <!-- <p>Edite o utilizdor tendo em consideração os campos obrigadtórios (*). Um endereço de -->
@@ -518,7 +518,7 @@
                                 </v-row>
                             </v-sheet>
                         </v-col>
-                        <v-col v-if="this.navGoToPage == 'license'" class="pa-0 pl-0 ma-0 ">
+                        <v-col v-if="navGoToPage.task == 'license'" class="pa-0 pl-0 ma-0 ">
                             <!-- <p class="h4">Os meus contactos</p> -->
                             <!-- <p>Edite o utilizdor tendo em consideração os campos obrigadtórios (*). Um endereço de -->
                             <!-- e-mail só -->
@@ -570,7 +570,7 @@
                                 </v-row>
                             </div>
                         </v-col>
-                        <v-col v-if="this.navGoToPage == 'proposals'" class="pa-0 pl-0 ma-0 ">
+                        <v-col v-if="navGoToPage.task == 'proposals'" class="pa-0 pl-0 ma-0 ">
                             <!-- <p class="h4">Os meus contactos</p> -->
                             <!-- <p>Edite o utilizdor tendo em consideração os campos obrigadtórios (*). Um endereço de -->
                             <!-- e-mail só -->
@@ -674,6 +674,7 @@
 // useTokenStore
 import { ref, onMounted } from 'vue';
 import { useTokenStore } from '@/store/TokenStore';
+import { useActionStore } from '@/store/ActionStore';
 import axios from 'axios'
 import { mergeProps } from 'vue'
 
@@ -772,6 +773,7 @@ onMounted(() => {
 
 <script>
 const TokenStore = useTokenStore();
+const navGoToPage = useActionStore();
 const newToken = { "tokenID": "ljahsdfq697e69qwerq", "user": "Vasco Gungui", "domain": "Administrator" }
 
 export default {
@@ -833,7 +835,7 @@ export default {
     mounted: async function () {
         // window.location = goToPage[1]
         let xp = window.location.href
-        this.navGoToPage = xp.split('=')[1] // = goToPage[1]
+        navGoToPage.task = xp.split('=')[1] // = goToPage[1]
 
 
         if (window.localStorage.getItem('JwtToken') != null) {

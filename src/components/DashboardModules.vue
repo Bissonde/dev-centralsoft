@@ -14,7 +14,7 @@
                         @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                 </template>
 
-                <v-btn variant="flat" v-if="this.navGoToPage != undefined" href="/dashboard"
+                <v-btn variant="flat" v-if="navGoToPage.task != undefined" href="/dashboard"
                     icon="mdi-arrow-left"></v-btn>
                 <v-app-bar-title v-if="devType == 'Desktop'">
                     <v-icon icon="mdi-view-grid" size="large" start />
@@ -99,7 +99,7 @@
             </v-navigation-drawer>
             <!-- <v-main style="height: 750px"></v-main> -->
 
-            <v-main style="background-color: #fff;" v-if="this.navGoToPage == undefined">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == undefined">
                 <v-container class="mx-auto mb-0 py-0" elevation="12" fluid style="width: 100%">
 
                     <v-sheet class="pa-0 mt-0 pt-0 pb-1 mb-0" justify="right" elevation="0" height="auto" width="100%">
@@ -907,31 +907,31 @@
                 </v-container>
             </v-main>
 
-            <v-main style="background-color: #fff;" v-if="this.navGoToPage == 'contacts'">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == 'contacts'">
                 <Contacts />
             </v-main>
 
-            <v-main style="background-color: #fff;" v-if="this.navGoToPage == 'groups'">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == 'groups'">
                 <Groups />
             </v-main>
 
-            <v-main style="background-color: #fff;" v-if="this.navGoToPage == 'campaigns'">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == 'campaigns'">
                 <Campaigns />
             </v-main>
 
-            <v-main style="background-color: #fff;" v-if="this.navGoToPage == 'message'">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == 'message'">
                 <Messages />
             </v-main>
 
-            <v-main style="background-color: #fff;" v-if="this.navGoToPage == 'calls'">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == 'calls'">
                 <Phone />
             </v-main>
 
-            <v-main style="background-color: #fff;" v-if="this.navGoToPage == 'whatsapp'">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == 'whatsapp'">
                 <WhatsApp />
             </v-main>
 
-            <v-main style="background-color: #fff;" v-if="this.navGoToPage == 'history'">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == 'history'">
                 <History />
             </v-main>
 
@@ -1019,6 +1019,7 @@ import { mergeProps } from 'vue'
 import axios from 'axios'
 import VueApexCharts from 'vue-apexcharts'
 
+import { useActionStore } from '@/store/ActionStore';
 import { useModuleStore } from '@/store/TaskStore';
 import { useTokenStore } from '@/store/TokenStore'
 
@@ -1039,6 +1040,7 @@ import ChartComponent4 from '@/components/ChartComponent4.vue'
 const messageCounter = window.localStorage.getItem('MSC')
 
 
+const ActionStore = useActionStore()
 const moduleStore = useModuleStore()
 
 const TokenStore = useTokenStore()
@@ -1108,7 +1110,6 @@ var myPicture = '';
 var myEmail = '';
 var PID = '';
 var BID = '';
-// var navGoToPage = 'home';
 // var navGoToPage;
 onMounted(() => {
     // this.$router.go(0)
@@ -1140,11 +1141,12 @@ onMounted(() => {
 
 <script>
 const useModule = useModuleStore()
+const navGoToPage = useActionStore();
 // let mc = window.localStorage.getItem('MSC')
 
 export default {
     data: () => ({
-        navGoToPage:  'home',
+        // navGoToPage: 'home',
         grValue: [
             423,
             446,
@@ -1646,13 +1648,20 @@ export default {
 
 
         // window.location = goToPage[1]
-        let xp = window.location.href.split('=')[1]
+        let xp = window.location.href
+        // alert(xp)
         
-        
-        this.navGoToPage = xp // = goToPage[1]
-        alert(this.navGoToPage)
+        navGoToPage.task = xp.split('=')[1] // = goToPage[1]
+    // }
+    // else{
+            // navGoToPage.task = xp;
+    // }
 
-        // document.title = this.navGoToPage
+        // if (navGoToPage.task)
+            // alert(navGoToPage.task)
+
+        // document.title = navGoToPage.task
+        // alert(navGoToPage.task)
 
         // // var user = detect.parse(navigator.userAgent)  
         // // window.localStorage.setItem('MOB', user.device.type);
@@ -1678,7 +1687,7 @@ export default {
         }
 
 
-        if (this.navGoToPage == undefined | this.navGoToPage == null) {
+        if (navGoToPage.task == undefined) {
             this.KPI_GET_ALL();
 
             this.EMAIL_GET_ALL();
