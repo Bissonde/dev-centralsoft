@@ -100,7 +100,7 @@
 
 
             <!-- class="pa-5 pb-8 ma-2" -->
-            <v-card id="dop" class="pa-3 pb-0 ma-4" elevation="8" max-width="448" rounded="sm" margin-left="4"
+            <v-card id="dop" class="pa-3 pb-0 ma-2" elevation="8" max-width="448" rounded="sm" margin-left="4"
                 style="opacity:0.9;">
 
                 <v-toolbar color="deep-blue-accent-4"
@@ -119,26 +119,27 @@
 
                 <!-- <v-img class="mx-auto my-6" max-width="228"
                     src="https://cdn.vuetifyjs.com/docs/images/logos/vuetify-logo-v3-slim-text-light.svg"></v-img> -->
-                <v-container class="d-flex flex-column flex-nowrap"></v-container>
+                <!-- <v-container class="d-flex flex-column flex-nowrap mt-5 mb-5"></v-container> -->
+                <v-container class="mt-1 mb-1"></v-container>
 
-                <v-alert v-model="emptyFields" class="mb-5 mt-5" border="start" variant="tonal" closable
+                <v-alert v-model="emptyFields" class="mb-2 mt-2" border="start" variant="tonal"
                     close-label="Close Alert" color="warning" title="Atenção!" type="warning">
                     Preencha todos os campos abaixo!
                 </v-alert>
 
-                <v-alert v-model="ActExist" class="mb-5 mt-5" border="start" variant="tonal" closable
-                    close-label="Close Alert" color="error" title="Conta inválida!" type="error">
+                <v-alert v-model="ActExist" class="mb-2 mt-2" border="start" variant="tonal" close-label="Close Alert"
+                    color="error" title="Conta inválida!" type="error">
                     Esta conta não existe, tente novamente!
                 </v-alert>
 
-                <v-alert v-model="ActDisabled" class="mb-5 mt-5" border="start" variant="tonal" closable
+                <v-alert v-model="ActDisabled" class="mb-2 mt-2" border="start" variant="tonal"
                     close-label="Close Alert" icon="mdi-block-helper" color="error" title="Conta suspensa!"
                     type="error">
                     Contacte o administrador para resolver!
                 </v-alert>
 
-                <v-alert v-model="ActWrong" class="mb-5 mt-5" border="start" variant="tonal" closable
-                    close-label="Close Alert" color="error" title="Conta incorrecta!" type="error">
+                <v-alert v-model="ActWrong" class="mb-2 mt-2" border="start" variant="tonal" close-label="Close Alert"
+                    color="error" title="Conta incorrecta!" type="error">
                     Utilizador / password estão incorrectos
                 </v-alert>
 
@@ -1472,7 +1473,7 @@ const DOB = useField('DOB')
 const Likes = useField('Likes')
 
 const submit = handleSubmit(values => {
-    alert(JSON.stringify(values, null, 2))
+    // alert(JSON.stringify(values, null, 2))
 })
 
 const callback = (response) => {
@@ -1486,7 +1487,7 @@ const callback = (response) => {
     window.localStorage.setItem('email', PayLoad.email)
     window.localStorage.setItem('myPicture', PayLoad.picture)
     window.localStorage.setItem('JwtToken', response.credential)
-    window.location = '/dashboard'
+    window.location = '/dashboard?nav=dshome'
 }
 
 
@@ -1591,7 +1592,7 @@ export default {
         ResendToken: false,
         ActRsError: false,
         ActCrError: false,
-        returnUrl: '',
+        returl: '',
         createNewAcc: false,
         requestNewAcc: false,
         regDone: false,
@@ -1652,12 +1653,12 @@ export default {
         loading(val) {
             if (!val) return
 
-            setTimeout(() => (this.loading = false), 1000)
+            setTimeout(() => (this.loading = false), 10)
         },
         loadingChg(val) {
             if (!val) return
 
-            setTimeout(() => (this.loadingChg = false), 1000)
+            setTimeout(() => (this.loadingChg = false), 10)
         }
         // loadingPwd(val) {
         //     if (!val) return
@@ -1699,11 +1700,16 @@ export default {
         },
 
         returnURL: function (page) {
-            var returnUrl = window.location.href
-            var goToPage = returnUrl.split('&')
-       
-            if (window.location.href.includes('returnUrl')) {
-                window.location = goToPage[1]
+            // var returnUrl = 
+            var goToPage = window.location.href.split('.')
+
+            if (window.location.href.includes('returl')) {
+                if (goToPage[1] == null) {
+                    goToPage = 'dashboard?nav=dshome'
+                }
+                else {
+                    window.location = goToPage[1]
+                }
             }
             else {
                 window.location = page
@@ -1761,7 +1767,6 @@ export default {
         },
         ValidateToken: async function () {
 
-            alert(true)
 
             let OTPX = this.otp;
 
@@ -2001,7 +2006,7 @@ export default {
         },
         checkInput: function () {
             window.localStorage.setItem('JwtToken', JSON.stringify(newToken));
-            this.$router.push({ path: `/dashboard` })
+            this.$router.push({ path: `/dashboard?nav=dshome` })
             // window.location = '/dashboard'
         },
         handleSubmit() {
@@ -2128,9 +2133,11 @@ export default {
                     this.loginError = false
                     this.emptyFields = true
                     this.isFormValid = false
+                    this.overlay = false;
                     return
                 }
                 else {
+                    this.emptyFields = false
                     this.requestPwdChg = true
                 }
 
@@ -2139,7 +2146,6 @@ export default {
                         'Accept': 'application/json',
                         'Authorization': 'Bearer'
                     }
-
                 }
 
                 let auth = {
@@ -2157,6 +2163,7 @@ export default {
                             if (response.request.status == '400') {
                                 if (response.request.response == "account disabled") {
                                     this.ActDisabled = true
+                                    this.overlay = false;
                                 }
                                 if (response.request.response == "username or password incorrect") {
                                     this.ActWrong = true
@@ -2191,7 +2198,6 @@ export default {
                                     TokenStore.setToken(response.data, true),
                                         window.localStorage.setItem('username', LGU),
 
-                                        // alert(PayLoad.pid)
 
                                         window.localStorage.setItem('PID', PayLoad.pid),
                                         window.localStorage.setItem('BID', PayLoad.bid),
@@ -2226,6 +2232,8 @@ export default {
                                         // {
                                         //     window.localStorage.setItem('JwtToken', response.token)
                                         // }
+
+                                        // alert(PayLoad.url)
 
                                         this.returnURL(PayLoad.url)
 
@@ -2780,7 +2788,7 @@ export default {
 
 
 <style lang="css" scoped>
-.theme--light.v-text-field--filled > .v-input__control > .v-input__slot {
+.theme--light.v-text-field--filled>.v-input__control>.v-input__slot {
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.38);
     border-bottom-left-radius: 4px;
@@ -2795,6 +2803,7 @@ export default {
     border: 2px solid #005fcc !important;
     border-bottom-color: rgba(0, 0, 0, 0.38) !important;
 }
+
 .circular {
     width: 100%;
     height: 100%;

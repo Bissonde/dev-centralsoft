@@ -7,87 +7,9 @@
         <v-progress-circular color="primary" indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
-
-    <vue-particles id="tsparticles" :particlesLoaded="particlesLoaded" :options="{
-        background: {
-            color: {
-                // value: '#0d47a1'
-            }
-        },
-        fullScreen: {
-            enable: true,
-            zIndex: 0
-        },
-        fpsLimit: 120,
-        interactivity: {
-            events: {
-                onClick: {
-                    // enable: true,
-                    mode: 'push'
-                },
-                onHover: {
-                    enable: true,
-                    mode: 'grab'
-                },
-            },
-            modes: {
-                bubble: {
-                    distance: 400,
-                    duration: 2,
-                    opacity: 0.9,
-                    size: 40
-                },
-                push: {
-                    quantity: 4
-                },
-                repulse: {
-                    distance: 200,
-                    duration: 0.4
-                }
-            }
-        },
-        particles: {
-            color: {
-                value: '#ccc'
-            },
-            links: {
-                color: '#ccc',
-                distance: 150,
-                enable: true,
-                opacity: 0.5,
-                width: 2
-            },
-            move: {
-                direction: 'none',
-                enable: true,
-                outModes: 'bounce',
-                random: false,
-                speed: 3,
-                straight: false
-            },
-            number: {
-                density: {
-                    enable: true,
-                },
-                value: 60
-            },
-            opacity: {
-                value: 0.9
-            },
-            shape: {
-                type: 'circle'
-            },
-            size: {
-                value: { min: 1, max: 5 }
-            }
-
-        },
-        detectRetina: true
-    }" />
     <!-- <div v-show="true" bg-color="white"></div> -->
 
-    <v-form fast-fail @submit.prevent v-if="showForm"
-        @click="drawer = false">
+    <v-form fast-fail @submit.prevent v-if="showForm" v-bind:style="{ 'background-image': 'url(' + bgimage + ')' }">
         <v-app theme="light">
             <v-app-bar flat class="border-b" density="compact" style="border-top:5px solid darkorange" absolute dark
                 shrink-on-scroll prominent>
@@ -160,8 +82,8 @@
 
             </v-app-bar>
 
-            <v-navigation-drawer v-model="drawer" location="left" floating transition="fade-transition" elevation="12"
-                class="opacity-100 w-45 border-e-lg border-secondary">
+            <v-navigation-drawer v-model="drawer" location="left" floating permanent transition="fade-transition"
+                elevation="12" class="opacity-100 w-20 border-e-lg border-secondary">
                 <v-list>
                     <!-- <v-list-subheader>Menu</v-list-subheader> -->
                     <v-expansion-panels v-model="panel" multiple elevation="0" class="pa-0 pr-0 pt-2 pl-0"
@@ -293,8 +215,8 @@
                 <v-sheet elevation="2" class="pa-5 ma-5 pt-0 pl-3 pr-3 mt-0 mb-0 pb-0 text-caption rounded-0"
                     style="font: 18px; background-color: #FAFAFA;">
 
-                    <v-row>
-                        <v-col cols="2" sm="3" md="3" lg="2" class="pa-0 ma-0 rounded-0 border-t-lg "
+                    <v-row cols="3" sm="3" md="3" lg="3">
+                        <v-col cols="12" sm="3" md="3" lg="2" class="pa-0 ma-0 rounded-0 border-t-lg "
                             v-if="this.myRoutes.includes('MY_BISSONDE')"
                             style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
 
@@ -323,7 +245,7 @@
                                 </v-expansion-panel>
 
                                 <v-expansion-panel class="pa-0 ma-0 rounded-0 "
-                                    v-if="useRoute.route.toString().includes('PRODUCT')"
+                                    v-if="this.myRoutes.split('/')[0].includes('PRODUCT')"
                                     style="color: #0C2340; font-size:11pt; font-weight: 500;">
                                     <v-expansion-panel-title color=""
                                         style="background-color: #AFDBF5; font-size:12pt"><v-icon>mdi-checkbox-multiple-marked-circle</v-icon>&nbsp;Produtos
@@ -352,7 +274,7 @@
                                 </v-expansion-panel>
 
                                 <v-expansion-panel class="pa-0 ma-0 rounded-0"
-                                    v-if="useRoute.route.toString().includes('SETTING')"
+                                    v-if="this.myRoutes.split('/')[0].includes('SETTINGS')"
                                     style="color: #0C2340; font-size:11pt; font-weight: 500;">
                                     <v-expansion-panel-title color=""
                                         style="background-color: #AFDBF5; font-size:12pt"><v-icon>mdi-account-cog</v-icon>&nbsp;Utilizador
@@ -371,7 +293,7 @@
                                 </v-expansion-panel>
 
                                 <v-expansion-panel class="pa-0 ma-0 rounded-0"
-                                   v-if="useRoute.route.toString().includes('ADR_DATA')"
+                                    v-if="this.myRoutes.split('/')[0].includes('ADR_DATA')"
                                     style="color: #0C2340; font-size:11pt; font-weight: 500;">
                                     <v-expansion-panel-title color=""
                                         style="background-color: #AFDBF5; font-size:12pt; font-weight:500"><v-icon>mdi-map-marker</v-icon>&nbsp;Endereço
@@ -384,86 +306,243 @@
                                 </v-expansion-panel>
                             </v-expansion-panels>
                         </v-col>
-                        <v-col class="pa-0 ma-0">
-                            <v-col v-if="navGoToPage.task == 'myuser'" class=" pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'contact'"
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);"
-                                class="pa-0 pl-0 ma-0">
-                                <ProfileLinks />
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'license'" class="pa-0 pl-0 ma-0"
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'proposals'" class="pa-0 pl-0 ma-0"
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'approvals'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'shoppingList'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'blanket-orders'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-                            </v-col>
-
-                            <v-col v-if="navGoToPage.task == 'orders'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'deliveries'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-                            </v-col>
-
-                            <v-col v-if="navGoToPage.task == 'invoices'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'creditnotes'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
-
-                                <ProfileLinks />
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'modules'" class="pa-0 pl-0 ma-0 "
+                        <v-col v-if="navGoToPage.task == 'myuser' & this.showForm == true" class=" pa-0 pl-0 ma-0 "
                             style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
 
-                            <ProfileLinks />
+                           <ProfileLinks />
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'contact'"
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);"
+                            class="pa-0 pl-0 ma-0">
+                           <ProfileLinks />
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'license'" class="pa-0 pl-0 ma-0"
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'proposals'" class="pa-0 pl-0 ma-0"
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
+
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'approvals'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
+
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'shoppingList'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
+                        </v-col>
+
+                        <v-col v-if="navGoToPage.task == 'blanket-orders'" class="pa-0 pl-0 ma-0 border-t-lg"
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+                            <!-- <p class="h4">Os meus contactos</p> -->
+                            <!-- <p>Edite o utilizdor tendo em consideração os campos obrigadtórios (*). Um endereço de -->
+                            <!-- e-mail só -->
+                            <!-- pode ser utlizado para um utilizador.</p> -->
+                            <div class="ma-0 pb-1 mb-0 pt-0" style="background-color:  #E3F2FD;">
+
+
+
+                                <!-- HEADER -->
+                                <v-row class="ma-0 pb-0 border-s-lg"
+                                    style="font-size: 8pt; background-color: #00428c; height:35px">
+                                    <v-col cols="12" sm="10" md="10" lg="11" class="pt-1 pl-2 ma-0 white">
+                                        <span
+                                            class="text-body-1 text-white"><v-icon>mdi-file-document-multiple-outline</v-icon>&nbsp;Encomendas
+                                            em reserva</span>
+                                    </v-col>
+                                    <v-col cols="12" sm="2" md="2" lg="1" class="pt-0 mb-0 pr-2 ma-0 text-right">
+                                        <span class="text-body-1 text-white"><v-icon>mdi-chevron-right</v-icon></span>
+                                    </v-col>
+                                </v-row>
+
+                                <v-sheet elevation="0" class="pa-0 ma-0 pt-0 pl-3 pr-3 mt-0 mb-0 pb-5 text-caption "
+                                    style="font: 18px; background-color: #FAFAFA;">
+                                    <v-row style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                        <v-col cols="5" sm="12" md="6" lg="5" class="pb-0">
+                                            <v-row cols="12" style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                                <v-col cols="12" sm="9" md="6" lg="9" class="pt-0 pb-0 mb-0">
+                                                    <v-text-field hide-details label="Procurar..." variant="underlined"
+                                                        prepend-inner-icon="mdi-magnify" single-line></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="9" md="6" lg="3" class="pt-0 pb-0 mb-0 pl-0">
+
+                                                    <v-btn style="display:inline-block;width: 100px"
+                                                        @click="ACCOUNT_SAVE"
+                                                        class="ma-0 rounded-0 mt-3 pa-3 text-subtitle-2"
+                                                        variant="flat">&nbsp;Pesquisar
+                                                    </v-btn>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+                                        <v-col cols="2" sm="12" md="6" lg="7" class="pb-0">
+                                            <v-row style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                                <v-col cols="12" sm="9" md="3" lg="2" class="pt-0 pb-0 mb-0 mt-5">
+                                                    <v-label>Período:</v-label>
+                                                </v-col>
+                                                <v-col cols="12" sm="9" md="6" lg="5" class="pt-0 pb-0 mb-0 pl-0">
+                                                    <v-text-field hide-details label="Desde: AAAA-MM-DD"
+                                                        variant="underlined" append-inner-icon="mdi-calendar"
+                                                        single-line></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="9" md="6" lg="5" class="pt-0 pb-0 mb-0 pl-0">
+                                                    <v-text-field hide-details label="Até: AAAA-MM-DD"
+                                                        variant="underlined" append-inner-icon="mdi-calendar"
+                                                        single-line></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+
+
+                                    </v-row>
+
+
+                                    <v-row style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                        <v-col cols="5" sm="12" md="6" lg="5" class="pb-0">
+                                            <v-row cols="12" style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                                <v-col cols="12" sm="9" md="6" lg="5" class="pt-0 pb-0 mb-0 mt-5">
+                                                    <v-label>Estado da encomenda:</v-label>
+                                                </v-col>
+                                                <v-col cols="12" sm="9" md="6" lg="7" class="pt-0 pb-0 mb-0 pl-0">
+
+                                                    <v-autocomplete v-model="OrdersStat" variant="underlined"
+                                                        :items="['Todos', 'Pendente', 'Encerrada', 'Em criação', 'Actual', 'Expirado', 'Encomendado', 'Rejeitado']"></v-autocomplete>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+                                        <v-col cols="2" sm="12" md="6" lg="7" class="pb-0">
+                                            <v-row style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                                <v-col cols="12" sm="9" md="3" lg="7" class="pt-0 pb-0 mb-0 mt-5">
+
+                                                </v-col>
+                                                <v-col cols="12" sm="9" md="6" lg="5"
+                                                    class="pt-0 pb-0 mb-0 pl-0 text-right">
+                                                    <v-btn style="display:inline-block;width: 100px"
+                                                        @click="ACCOUNT_SAVE"
+                                                        class="ma-0 rounded-0 mt-3  text-subtitle-2"
+                                                        variant="outlined">&nbsp;Repor
+                                                        tudo
+                                                    </v-btn>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+
+
+                                    </v-row>
+                                </v-sheet>
+
+                                <v-sheet elevation="0" class="pa-0 ma-0 pt-0 pl-3 pr-3 mt-1 mb-0 pb-5 text-caption "
+                                    style="font: 18px; background-color: #FAFAFA;">
+
+
+                                    <v-row style="font-size: 8pt;" class="pa-0 ma-0 mb-3">
+                                        <v-col cols="5" sm="12" md="6" lg="5" class="pb-0">
+                                            <v-row cols="12" style="font-size: 8pt;" class="pa-0 ma-0 mb-0">
+                                                <v-col cols="12" sm="9" md="6" lg="3" class="pt-0 pb-0 mb-0 mt-5">
+                                                    <v-label>Ordenação:</v-label>
+                                                </v-col>
+                                                <v-col cols="12" sm="9" md="6" lg="9" class="pt-0 pb-0 mb-0 pl-0">
+
+                                                    <v-autocomplete v-model="OrdersOrder" variant="underlined"
+                                                        :items="['Data de alteração [ordem crescente]', 'Data de alteração [ordem decrescente]', 'Nº de proposta [ordem crescente]', 'Nº de proposta [ordem decrescente]', 'A sua referência [ordem crescente]', 'A sua referência [ordem decrescente]', 'Estado [ordem crescente]', 'Estado [ordem decrescente]', 'Data de criação [ordem crescente]', 'Data de criação [ordem decrescente]']"></v-autocomplete>
+                                                </v-col>
+                                            </v-row>
+                                        </v-col>
+
+
+                                    </v-row>
+
+                                    <v-tabs v-model="tab" align-tabs="title">
+                                        <v-tab text="Todos" value="Todos"></v-tab>
+                                        <v-tab text="Rascunhos de Propostas" value="Rascunhos de Propostas"></v-tab>
+                                        <v-tab text="Propostas Bissonde" value="Propostas Bissonde"></v-tab>
+                                        <!-- <v-tab v-for="item in proposalTabs" :key="item" :text="item"
+                                            :value="item.value"></v-tab> -->
+                                    </v-tabs>
+                                    <v-tabs-window v-model="tab" class="text-left text-subtitle-1 pa-6 ma-6">
+                                        <v-tabs-window-item value="Todos">
+
+                                            <!-- <v-label><v-icon>mdi-alert</v-icon>&nbsp;Não existem propostas.</v-label> -->
+
+                                            <p><b>Nº da encomenda em reserva: <a
+                                                        href="?nav=orders/148-1600191">148-1600191</a></b>
+                                            </p>
+                                            <v-row>
+                                                <v-col cols="4">
+                                                    Data da encomenda<br>
+                                                    Estado<br>
+                                                    Montante total<br>
+                                                    A sua referência<br>
+                                                    Empresa<br>
+                                                    Nº cliente
+                                                </v-col>
+                                                <v-col>
+                                                    22/mai/2024<br>
+                                                    Pendente<br>
+                                                    55.909,44 €<br>
+                                                    Stock Maio 2024<br>
+                                                    BNP Paribas<br>
+                                                    9000844177
+                                                </v-col>
+                                            </v-row>
+                                        </v-tabs-window-item>
+                                        <v-tabs-window-item value="Rascunhos de Propostas">
+                                            <v-label><v-icon>mdi-alert</v-icon>&nbsp;Não existem propostas.</v-label>
+                                        </v-tabs-window-item>
+                                        <v-tabs-window-item value="Propostas Bissonde">
+                                            <v-label><v-icon>mdi-alert</v-icon>&nbsp;Não existem propostas.</v-label>
+                                        </v-tabs-window-item>
+                                    </v-tabs-window>
+                                </v-sheet>
+                            </div>
+                        </v-col>
+
+                        <v-col v-if="navGoToPage.task == 'orders'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'deliveries'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
+                        </v-col>
+
+                        <v-col v-if="navGoToPage.task == 'invoices'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
+
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'creditnotes'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'modules'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+
+                           <ProfileLinks />
 
 
                         </v-col>
-                            <v-col v-if="navGoToPage.task == 'avatar'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+                        <v-col v-if="navGoToPage.task == 'avatar'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
 
-                                <ProfileLinks />
+                           <ProfileLinks />
 
 
-                            </v-col>
-                            <v-col v-if="navGoToPage.task == 'addresses'" class="pa-0 pl-0 ma-0 "
-                                style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
+                        </v-col>
+                        <v-col v-if="navGoToPage.task == 'addresses'" class="pa-0 pl-0 ma-0 "
+                            style="background: rgb(175,219,245); background: linear-gradient(180deg, rgba(175,219,245,1) 0%, rgba(246,246,247,0.37298669467787116) 100%);">
 
-                                <ProfileLinks />
-                            </v-col>
+                           <ProfileLinks />
                         </v-col>
                     </v-row>
                 </v-sheet>
@@ -500,107 +579,422 @@
             </v-sheet>
 
 
+            <!-- EDIT MODAL DIALOG -->
+            <v-dialog width='850' v-model="editModal" v-on:close="" v-on:open="beforeOpen" persistent>
+                <template #activator="{ props }">
+                </template>
+
+                <v-card>
+                    <v-toolbar color="primary" class="fixed-bar">
+                        <template v-slot:prepend>
+                            <v-toolbar-title class="text-h6" bg-color="deep-purple-darken-4"><v-icon class="text-h4">{{
+                                useModule.icon }}</v-icon>&nbsp;Editar&nbsp;{{
+                                        useModule.dialog }}</v-toolbar-title>
+                        </template>
+
+                        <v-tooltip v-model="vtooltipE" location="bottom">
+                            <template v-slot:activator="{ props }">
+                                <v-btn v-bind="props" role="link" @click="isEditing = !isEditing" class="activateBtn"
+                                    label="Editar" :disabled="btnEdit"
+                                    :style="{ color: activateBtn ? 'white' : 'blue', color: activateBtn ? 'black' : 'white' }"
+                                    color="white" variant="text" icon="mdi-pencil"></v-btn>
+                            </template>
+                            <span>Editar</span>
+                        </v-tooltip>
+
+                        <!-- <input id="MID" v-model="useModule.name" /> -->
+
+                        <!-- <v-tooltip v-model="vtooltipInfo" location="bottom"> -->
+                        <template v-slot:activator="{ props }">
+                            <v-btn v-bind="props" color="white" icon="mdi-alert-circle-outline"></v-btn>
+                        </template>
+                        <!-- <span>Informações</span> -->
+                        <!-- </v-tooltip> -->
+
+
+                        <!-- <v-tooltip v-model="vtooltipDel" location="bottom"> -->
+                        <!-- <template v-slot:activator="{ props }"> -->
+                        <v-btn v-bind="props" color="white" @click="dialogDelete = true;" icon="mdi-delete-outline"
+                            :visible="btnDelete"></v-btn>
+                        <!-- </template> -->
+                        <!-- <span>Remover</span> -->
+                        <!-- </v-tooltip> -->
+
+                        <template v-if="$vuetify.display.smAndUp">
+                            <v-divider class="mx-3 align-self-center" length="24" thickness="2" vertical></v-divider>
+
+
+                            <v-tooltip v-model="vtooltipFolder" location="bottom">
+                                <template v-slot:activator="{ props }">
+                                    <v-btn v-bind="props" color="white" icon="mdi-folder-outline"></v-btn>
+                                </template>
+                                <span>Categoria</span>
+                            </v-tooltip>
+
+                            <v-tooltip v-model="vtooltipTag" location="bottom">
+                                <template v-slot:activator="{ props }">
+                                    <v-btn v-bind="props" color="white" icon="mdi-tag-outline"></v-btn>
+                                </template>
+                                <span>Tag</span>
+                            </v-tooltip>
+
+                            <v-tooltip v-model="vtooltipDots" location="bottom">
+                                <template v-slot:activator="{ props }">
+                                    <v-btn v-bind="props" color="white" icon="mdi-dots-vertical"></v-btn>
+                                </template>
+                                <span>Opções</span>
+                            </v-tooltip>
+
+                            <v-tooltip v-model="vtooltipEdit" location="bottom">
+                                <template v-slot:activator="{ props }">
+
+                                    <!-- <v-btn v-bind="props" role="link" @click="" :disabled="btnEdit"
+                            :style="{ color: activateBtn ? 'white' : 'blue', color: activateBtn ? 'black' : 'white' }"
+                            color="white" variant="text" icon="mdi-arrow-expand"></v-btn> -->
+
+                                    <v-btn v-bind="props" role="link"
+                                        @click="editModal = false; alertSuccess = false; this.ACCOUNT_MODULES_GET_ALL();"
+                                        :disabled="btnEdit"
+                                        :style="{ color: activateBtn ? 'white' : 'blue', color: activateBtn ? 'black' : 'white' }"
+                                        color="white" variant="text" icon="mdi-close-circle"></v-btn>
+
+                                </template>
+                                <span>Fechar</span>
+                            </v-tooltip>
+                        </template>
+                    </v-toolbar>
+
+                    <!-- <v-alert type="success" title="Sucesso" v-model="alertSuccess" transition="slide-y-transition"
+                        border="start" variant="tonal" closable
+                        text="As suas alterações foram gravadas com sucesso!"></v-alert> -->
+
+
+                    <v-alert type="warning" title="Sucesso" v-model="alertDelete" transition="slide-y-transition"
+                        border="start" variant="tonal" closable text="Registo removido com sucesso!"></v-alert>
+
+                    <span v-if="this.mDialog != null" class="text-right font-italic pr-8 pt-0 pb-0 mb-0">Modificado por:
+                        {{ this.mAuthor }} em {{ this.mLastModified }}</span>
+
+                    <v-card-text v-if="navGoToPage.task == 'modules'">
+
+                        <v-alert v-model="ActEmpty" class="mb-1 mt-1" border="start" variant="tonal" closable
+                            close-label="Close Alert" color="warning" title="Atenção!" type="warning">
+                            Preencha todos os campos abaixo!
+                        </v-alert>
+
+                        <v-alert v-model="alertSuccess" class="pa-3 ma-1 mt-0 mb-0 text-subtitle-1" border="start"
+                            variant="tonal" close-label="Close Alert" color="success" type="success">
+                            Alterações guardadas com sucesso!
+                        </v-alert>
+
+                        <v-tabs v-model="tabs" align-tabs="centered" class="pt-0 mt-0">
+                            <v-tab prepend-icon="mdi-information-outline">Detalhes</v-tab>
+                            <v-tab prepend-icon="mdi-account-cog">Permissões</v-tab>
+                            <v-tab prepend-icon="mdi-account-multiple">Membros ({{
+                                this.sailpointItems.length }})</v-tab>
+                            <v-tab prepend-icon="mdi-history">Histórico</v-tab>
+                        </v-tabs>
+
+                        <v-window v-model="tabs">
+                            <v-window-item>
+                                <!-- <v-card> -->
+                                <!-- <v-card-title>
+          <span class="text-h5">User Profile</span>
+        </v-card-title> -->
+                                <v-card-text v-model="details" class="border-s-lg">
+                                    <!-- <v-container> -->
+                                    <v-row>
+                                        <v-col cols="12" sm="6" md="4" class="pa-0">
+                                            <v-text-field :disabled="false" label="ID" id="CID" v-model="mID"
+                                                prepend-inner-icon="mdi-key"
+                                                hint="example of helper text only on focus"></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4" class="pa-0">
+                                            <v-text-field label="Texto*" id="FN" name="firstNameR"
+                                                :disabled="!isEditing" v-model="mText" clearable
+                                                prepend-inner-icon="mdi-text" hint="*campo obrigatório" :counter="10"
+                                                required></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4" class="pa-0">
+                                            <v-text-field :disabled="!isEditing" id="LN" name="lastNameR" :counter="10"
+                                                prepend-inner-icon="mdi-arrow-left" v-model="mIcon" clearable
+                                                label="Ícone*" hint="*campo obrigatório" persistent-hint
+                                                required></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="12" class="pa-0">
+                                            <v-text-field :disabled="!isEditing" id="description" v-model="mDescr"
+                                                label="Descrição*" type="text" prepend-inner-icon="mdi-information"
+                                                required></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="6" class="pa-0 ml-0">
+                                            <v-text-field :disabled="!isEditing" id="cellSMS" v-model="mRoutes"
+                                                label="Rotas*" type="text" prepend-inner-icon="mdi-arrow-right"
+                                                @click:append-inner="defaultRoutes" append-inner-icon="mdi-magnify"
+                                                required></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="6" class="pa-0">
+                                            <v-text-field :disabled="!isEditing" id="cellEmail" v-model="mDialog"
+                                                label="Dialógo*" prepend-inner-icon="mdi-email-fast-outline"
+                                                required></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="6" class="pa-0">
+                                            <v-text-field :disabled="!isEditing" id="cellWhatsApp" v-model="mColor"
+                                                label="Cor*" prepend-inner-icon="mdi-color" required></v-text-field>
+                                            <!-- <v-color-picker :v-model="mColor" :disabled="!isEditing"></v-color-picker> -->
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="6" class="pa-0">
+                                            <v-select :disabled="!isEditing" id="cellAge" v-model="mStat"
+                                                :items="['Activado', 'Desactivado']" label="Estado*"
+                                                prepend-inner-icon="mdi-numeric-7" required></v-select>
+                                        </v-col>
+
+                                    </v-row>
+                                    <!-- </v-container> -->
+                                    <small>*indicates required field</small>
+                                </v-card-text>
+
+                                <!-- </v-card> -->
+                            </v-window-item>
+                            <v-window-item v-model="options" class="border-s-lg">
+
+                                <!-- mRead: false,
+        mWrite: false,
+        mModify: false,
+        mRemove: false, -->
+
+                                <v-checkbox-btn v-model="mRead" color="success" label="Ler"></v-checkbox-btn>
+                                <v-checkbox-btn v-model="mWrite" color="success" label="Escrever"></v-checkbox-btn>
+                                <v-checkbox-btn v-model="mModify" color="success" label="Modificar"></v-checkbox-btn>
+                                <v-checkbox-btn v-model="mRemove" color="success" label="Remover"></v-checkbox-btn>
+                                <!-- <v-checkbox-btn :model-value="isActive" label="Modificar"></v-checkbox-btn>
+                                <v-checkbox-btn :model-value="isActive" label="Modificar"></v-checkbox-btn> -->
+
+
+                            </v-window-item>
+                            <v-window-item v-model="sailpoints" style="height:300px; overflow-y:scroll;">
+                                <!-- <br> -->
+                                <v-alert v-model="emptyFields" class="mb-1 mt-1" border="start" variant="tonal" closable
+                                    close-label="Close Alert" color="warning" title="Atenção!" type="warning">
+                                    Preencha todos os campos abaixo!
+                                </v-alert>
+
+                                <!-- <v-alert v-model="alertSuccess" class="pa-3 ma-1 text-subtitle-1" border="start"
+                                    variant="tonal" close-label="Close Alert" color="black" type="success">
+                                    Alterações guardadas com sucesso!
+                                </v-alert> -->
+
+                                <v-text-field :loading="loading1" class="rounded-0" v-model="memberID" clearable
+                                    v-on:keyup.enter="onEnter('Member')" v-on:keyup.esc="onEscape"
+                                    append-inner-icon="mdi-magnify" density="compact" label="Search templates"
+                                    @focus="onFocus('Member')" @blur="onBlur(null)" variant="outlined" hide-details
+                                    single-line id="btnFindModuleMember" @click:append-inner="onClick"></v-text-field>
+                                <v-row style="font-size: 8pt;" class="ma-0 mt-0" color="red"><v-label></v-label></v-row>
+
+                                <!-- ALL -->
+                                <div v-if="sailpointMembers == 0"
+                                    class="border-sm border-s-lg w-100 bg-white pa-5 pb-2 mt-0 mb-1 text-caption"
+                                    v-for="(sail, index) in sailpointItems" height="400" :key="index" dot-color="blue">
+                                    <v-row class="pa-0 pb-0 mb-0 ">
+                                        <v-col cols="12" sm="7" md="7" lg="7" class="pa-0 pb-0 mb-0 ">
+                                            <span class="text-subtitle-1"><v-icon>mdi-email-outline</v-icon>&nbsp;{{
+                                                sail.requester }}</span>
+                                        </v-col>
+                                        <v-col v-if="sail.stat == 'pending' | this.sailpointStat == 'revoked'" cols="12"
+                                            sm="7" md="5" lg="5" class="pa-0 ma-0 text-right">
+                                            <v-btn @click="ACCOUNT_MODULE_MEMBER_REMOVE(sail);" class="ma-0 rounded-0 "
+                                                color="red"
+                                                variant="tonal"><v-icon>mdi-account-remove</v-icon>&nbsp;Remover
+                                            </v-btn>&nbsp;<v-btn @click="ACCOUNT_MODULE_MEMBER_APPROVE('active', sail);"
+                                                class="ma-0 rounded-0 " color="orange"
+                                                variant="tonal"><v-icon>mdi-check-bold</v-icon>&nbsp;Aprovar
+                                            </v-btn>
+                                        </v-col>
+                                        <v-col v-if="sail.stat == 'active'" cols="12" sm="5" md="5" lg="5"
+                                            class="pa-0 ma-0 text-right">
+                                            <v-btn @click="ACCOUNT_MODULE_MEMBER_REMOVE(sail);" class="ma-0 rounded-0 "
+                                                color="red"
+                                                variant="tonal"><v-icon>mdi-account-remove</v-icon>&nbsp;Remover
+                                            </v-btn>&nbsp;<v-btn @click="ACCOUNT_MODULE_MEMBER_APPROVE('active', sail);"
+                                                class="ma-0 rounded-0 " color="success"
+                                                variant="tonal"><v-icon>mdi-sync</v-icon>&nbsp;Actualizar
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </div>
+                                <!-- YES -->
+                                <div v-if="sailpointMembers == 1"
+                                    class="border-sm border-s-lg w-100 bg-white pa-5 pb-2 mt-0 mb-1 text-caption">
+                                    <v-row class="pa-0 pb-0 mb-0">
+                                        <v-col cols="12" sm="6" md="10" lg="7" class="pa-0 pb-0 mb-0 ">
+                                            <span class="text-subtitle-1"><v-icon>mdi-email-outline</v-icon>&nbsp;{{
+                                                sailpointFullname }}</span>
+                                        </v-col>
+                                        <v-col v-if="this.sailpointStat == 'pending' | this.sailpointStat == 'revoked'"
+                                            cols="12" sm="6" md="2" lg="5" class="pa-0 ma-0 text-right">
+                                            <v-btn @click="ACCOUNT_MODULE_MEMBER_REMOVE(this.sailpointCurrent);"
+                                                class="ma-0 rounded-0 " color="red"
+                                                variant="tonal"><v-icon>mdi-account-remove</v-icon>&nbsp;Remover
+                                            </v-btn>&nbsp;
+                                            <v-btn
+                                                @click="ACCOUNT_MODULE_MEMBER_APPROVE('active', this.sailpointCurrent);"
+                                                class="ma-0 rounded-0 " color="orange"
+                                                variant="tonal"><v-icon>mdi-check-bold</v-icon>&nbsp;Aprovar
+                                            </v-btn>
+                                        </v-col>
+                                        <v-col v-if="this.sailpointStat == 'active'" cols="12" sm="6" md="2" lg="2"
+                                            class="pa-0 ma-0 text-right">
+                                            <v-btn @click="ACCOUNT_MODULE_MEMBER_REMOVE(this.sailpointCurrent);"
+                                                class="ma-0 rounded-0 " color="red"
+                                                variant="tonal"><v-icon>mdi-account-remove</v-icon>&nbsp;Remover
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </div>
+                                <!-- NO -->
+                                <div v-if="sailpointMembers == 2"
+                                    class="border-sm border-s-lg w-100 bg-white pa-5 pb-2 mt-0 mb-1 text-caption">
+                                    <v-row class="pa-0 pb-0 mb-0">
+                                        <v-col cols="12" sm="6" md="10" lg="10" class="pa-0 pb-0 mb-0 ">
+                                            <span class="text-subtitle-1"><v-icon>mdi-email-outline</v-icon>&nbsp;{{
+                                                sailpointFullname }}</span>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="2" lg="2" class="pa-0 ma-0 text-right">
+                                            <v-btn @click="ACCOUNT_MODULE_MEMBER_SAVE();" class="ma-0 rounded-0 "
+                                                color="#00428c"
+                                                variant="tonal"><v-icon>mdi-plus-thick</v-icon>&nbsp;Adicionar
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </div>
+                                <!-- EMPTY RESULTS -->
+                                <div v-if="sailpointMembers == 3"
+                                    class="h-75 bg-white pa-5 pb-2 mt-0 mb-1 text-caption bg-light-blue-lighten-5">
+                                    <v-row class="pa-0 pb-0 mb-0 text-center h-100">
+                                        <v-col cols="12" class="pa-0 pt-15 mt-10">
+                                            <span class="text-subtitle-1"><v-icon>mdi-car-brake-alert</v-icon>&nbsp;Não
+                                                existem utilizadores registados!</span>
+                                        </v-col>
+
+                                    </v-row>
+                                </div>
+                                <!-- NON EXISTENT -->
+                                <div v-if="sailpointMembers == 'NA'"
+                                    class="border-sm border-s-lg w-100 bg-white pa-5 pb-2 mt-0 mb-1 text-caption"
+                                    height="400">
+                                    <v-row class="pa-0 pb-0 mb-0 ">
+                                        <v-col cols="12" sm="6" md="10" lg="10" class="pa-0 pb-0 mb-0 ">
+                                            <span class="text-subtitle-1"><v-icon>mdi-help</v-icon>&nbsp;Não
+                                                foram encontrados resultados para: <span
+                                                    style="color:red; font-weight: 500;"><u>{{
+                                                        this.memberID
+                                                    }}</u></span></span>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="2" lg="2" class="pa-0 ma-0 text-right">
+                                            <v-btn
+                                                @click="this.sailpointMembers = 0; this.emptyFields = false; this.memberID = null;"
+                                                class="ma-0 rounded-0 " color="orange"
+                                                variant="tonal"><v-icon>mdi-close-circle</v-icon>
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </div>
+                            </v-window-item>
+                            <v-window-item v-model="history">
+                                <!-- <v-card> -->
+                                <!-- <v-card-title>
+          <span class="text-h5">User Profile</span>
+        </v-card-title> -->
+
+                                <!-- <v-container> -->
+                                <v-list lines="one" class="mx-auto pa-2" width="900" max-width="800" height="450">
+
+
+                                    <v-list-subheader>Files</v-list-subheader>
+
+                                    <!-- <v-card-text>
+                            <div class="font-weight-bold ms-1 mb-2">Timeline</div>
+
+                            <v-timeline align="start" density="compact">
+                              <v-timeline-item v-for="log in customerLogs" :key="log.id" dot-color="blue"
+                                size="x-small">
+                                <div class="mb-4">
+                                  <div class="font-weight-normal">
+                                    <strong>{{ log.task }}</strong> @{{ log.admin }}
+                                  </div>
+
+                                  <div>{{ log.crdate }}</div>
+                                </div>
+                              </v-timeline-item>
+                            </v-timeline>
+                          </v-card-text> -->
+
+                                    <v-card append-icon="mdi-check" class="mx-auto my-2" elevation="3" variant="tonal"
+                                        link :title="index + 1" prepend-icon="mdi-tooltip-text-outline" dense
+                                        :subtitle="log.crdate + ' @ ' + log.admin" v-for="(log, index) in customerLogs"
+                                        :key="log.id" color="blue-darken-2">
+                                        <v-card-text>{{ log.task }}</v-card-text>
+                                    </v-card>
+
+                                    <!-- :title="log.task" -->
+
+                                    <!-- <v-list-item v-for="log in customerLogs" :key="log.id" :subtitle="log.crdate"
+                            :title="log.task">
+                            {{log.admin}}
+
+                            <template v-slot:prepend>
+                              <v-avatar color="blue">
+
+                                <v-icon color="white">{{ "mdi-clipboard-text" }}</v-icon>
+                              </v-avatar>
+                            </template>
+
+                            <v-divider outset></v-divider>
+
+                            <template v-slot:append>
+                              <v-btn color="grey-lighten-1" icon="mdi-information" variant="text"></v-btn>
+                            </template>
+                          </v-list-item> -->
+                                </v-list>
+                                <!-- </v-container> -->
+                                <small>*indicates required field</small>
+
+
+                                <!-- </v-card> -->
+                            </v-window-item>
+                        </v-window>
+                    </v-card-text>
+
+                    <v-card-actions class="align-content-end fixed-bar-bottom">
+                        <v-spacer></v-spacer>
+                        <v-btn color="indigo-darken-3" variant="text"
+                            @click="handleReset; editModal = false; this.overlay = false"
+                            prepend-icon="mdi-close-circle">Fechar</v-btn>
+
+                        <v-btn variant="flat" color="success" type="submit" @click="ACCOUNT_MODULE_SAVE();"
+                            :ripple="true" :disabled="loading" :loading="loading"
+                            prepend-icon="mdi-content-save-outline">
+                            Guardar
+                            <template v-slot:loader>
+                                <v-progress-linear indeterminate></v-progress-linear>
+                            </template>
+                        </v-btn>
+                    </v-card-actions>
+
+                    <v-window v-model="tab">
+                        <v-window-item
+                            v-for="                                                                                         item in items                                                                                         "
+                            :key="item" :value="item">
+                            {{ text }}
+                        </v-window-item>
+                    </v-window>
+
+                </v-card>
+            </v-dialog>
 
         </v-app>
     </v-form>
 
-    <v-container v-if="this.showForm == false" class="fill-height" style="width:35%; z-index:1" fluid>
-        <!-- <v-sheet evelation="10"> -->
-        <v-row align="center" justify="center" class="bg-blue-lighten-5 rounded-3"
-            style="border-top: 4px solid #1565C0; border-bottom: 4px solid #1565C0;">
-            <div class="w-100 bg-blue-darken-4 pa-0 ma-0 text-center text-h6 text-yellow-lighten-3">
-                <v-row class="pt-1">
-                    <v-col cols="2" class="pl-5"><v-btn v-if="moduleReqReason == true"
-                            @click="this.moduleReqReasonText = ''; this.moduleReqReason = true; this.moduleReqReason = false; this.moduleReqReasonError = false;"
-                            class="ma-1 mb-0 rounded-0" color="white"
-                            variant="text"><v-icon>mdi-arrow-left</v-icon>&nbsp;Voltar
-                        </v-btn></v-col>
-
-                    <v-col cols="8" v-if="moduleReqReason == true"><v-icon
-                            class="h3">mdi-lock-open-plus-outline</v-icon>&nbsp;Soliciar Acesso (300)</v-col>
-                    <v-col cols="8" v-if="moduleReqReason == false"><v-icon
-                            class="h3">mdi-car-brake-alert</v-icon>&nbsp;Acesso Negado (400)</v-col>
-                    <v-col cols="8" v-if="moduleReqReason == 'done'"><v-icon
-                            class="h3">mdi-check-decagram</v-icon>&nbsp;Pedido submetido (200)</v-col>
-                </v-row>
-                <!-- <div v-if="moduleReqReason == false"><v-icon class="h3">mdi-car-brake-alert</v-icon>&nbsp;Acesso Proíbido (400)</div> -->
-
-            </div>
-            <v-col cols="12" sm="12" md="12" lg="12">
-                <br>
-                <div class="text-center pa-0 ma-0">
-                    <!-- <span class="h5">Prezado utilizador</span> -->
-                    <div class="h6">
-                        <v-row v-if="moduleReqReason == false">
-                            <v-col cols="3">
-                                <v-icon class="text-h1">mdi-hand-back-right-off-outline</v-icon>
-                            </v-col>
-                            <v-col class="text-left">Não tem privilégios suficientes para aceder a esta página.
-                                <br><br>
-                                Se acredita que
-                                deveria poder
-                                aceder a esta página, clique abaixo e solicite acesso a uma Administrador de sistema.
-                                <br><br>
-                                <span class="text-caption">
-                                    <b>Informações registadas:</b><br>
-
-                                    <v-row>
-                                        <v-col cols="3" class="text-left">IP:<br>Data:<br></v-col>
-                                        <v-col cols="9" class="text-left">
-                                            {{ myIP }} <br>
-                                            <!-- {{ myEmail }}<br> -->
-                                            {{ myCurrentDateTime }}
-                                        </v-col>
-                                    </v-row>
-                                </span>
-                            </v-col>
-                        </v-row>
-                        <br>
-
-                        <v-row v-if="moduleReqReason == true">
-                            <v-col class="text-left">
-                                <v-icon class="text-h4 text-right">mdi-comment-eye-outline</v-icon>Detalhe os motivos
-                                para aceder a esta página.
-                            </v-col>
-                        </v-row>
-
-                        <v-row v-if="moduleReqReason == 'done'">
-                            <v-col cols="3" class="border-e-lg">
-                                <v-icon class="text-h1">mdi-alert-circle-check</v-icon>
-                            </v-col>
-                            <v-col cols="9" class="pt-7 text-center text-body-1">
-                                O seu pedido foi submetido com sucesso, consulte o seu e-mail.<br><br>
-                                <v-btn href="/signin" class="mb-0 rounded-0 w-75 mt-2" color="success"
-                                    variant="flat"><v-icon>mdi-login-variant</v-icon>&nbsp;VOLTAR À PAGINA DE LOGIN
-                                </v-btn>
-                            </v-col>
-                        </v-row>
-
-
-                        <v-btn @click="this.moduleReqReason = true;" v-if="moduleReqReason == false"
-                            class="ma-1 mb-0 rounded-0" color="#BF360C"
-                            variant="flat"><v-icon>mdi-power</v-icon>&nbsp;SOLICITAR
-                        </v-btn>
-                        <v-alert v-model="moduleReqReasonError" class="pa-1 ma-0 rounded-0 text-subtitle-1"
-                            variant="tonal" color="error" type="warning">
-                            Campo obrigatório!
-                        </v-alert>
-                        <v-textarea elevation="3" class="pb-0 mb-12 rounded-0" v-model="moduleReqReasonText"
-                            v-if="moduleReqReason == true" variant="filled" label="> Motivo do acesso..."
-                            maxlength="120" counter single-line></v-textarea>
-                        <br>
-                        <br>
-                        <v-btn v-if="moduleReqReason == true"
-                            @click="this.moduleReqReason = true; this.ACCOUNT_MODULE_MEMBER_SAVE()"
-                            class="ma-1 mb-0 rounded-0" color="success"
-                            variant="flat"><v-icon>mdi-progress-upload</v-icon>&nbsp;SUBMETER
-                        </v-btn>
-                    </div>
-                </div>
-            </v-col>
-        </v-row>
-        <!-- </v-sheet> -->
-    </v-container>
+   
 
 
 </template>
@@ -914,7 +1308,11 @@ export default {
 
         this.ACCOUNT_IAM_GET(localStorage.getItem('username'), 'path', navGoToPage.task);
 
-      
+
+        if (navGoToPage.task == 'modules') {
+            this.ACCOUNT_MODULES_GET_ALL();
+        }
+
         if (window.localStorage.getItem('JwtToken') != null) {
 
             //Check if token is still valid
@@ -936,7 +1334,12 @@ export default {
             window.location = '/signin?returl.' + window.location.href.split('/')[3]
         }
 
-        
+        if (navGoToPage.task == undefined | navGoToPage.task == 'contact' | navGoToPage.task == 'myuser') {
+            this.ACCOUNT_GET();
+        }
+        else {
+            this.overlayOFF();
+        }
 
     },
     methods: {
@@ -964,7 +1367,7 @@ export default {
 
         },
         defaultRoutes: function () {
-            //this.mRoutes = "modules, contacts, MY_BISSONDE, DASH_START, DASH_MODS, DASH_KPIS, dshome, contacts, dashboard, INFO_CONTACT; PRODUCT; SETTINGS; ADR_DATA; modules; myuser; contact; license; orders; proposals; approvals; shoppingList; blanket-orders; orders; deliveries; invoices; creditnotes; avatar; addresses";
+            //this.mRoutes = "modules, myuser, contacts, MY_BISSONDE, DASH_START, DASH_MODS, DASH_KPIS, dshome, contacts, dashboard, INFO_CONTACT; PRODUCT; SETTINGS; ADR_DATA; modules; myuser; contact; license; orders; proposals; approvals; shoppingList; blanket-orders; orders; deliveries; invoices; creditnotes; avatar; addresses";
         },
         onClick() {
             // this.sailpointMembers = true;
@@ -1114,85 +1517,83 @@ export default {
             }
 
             // if (router == 'path') {
-                await axios.get('IAM/' + email, config)
-                    .then(response => {
+            await axios.get('IAM/' + email, config)
+                .then(response => {
 
-                        // this.loading = true
-                        if (response.request.status == '400') {
+                    // this.loading = true
+                    if (response.request.status == '400') {
 
-                        }
-                        if (response.request.status == '401') {
-                            this.expiredModal = true
-                        }
-                        if (response.request.status == '200') {
+                    }
+                    if (response.request.status == '401') {
+                        this.expiredModal = true
+                    }
+                    if (response.request.status == '200') {
 
-                            for (let i in response.data['$values']) {
-                                this.myEntitlements += response.data['$values'][i].sailpoint + '; ';
-                                if (response.data['$values'][i].stat == 'active') {
-                                    this.myRoutes += response.data['$values'][i].routes + '/' + response.data['$values'][i].stat + '\n';
-                                }
-
-                                // alert(response.data['$values'][i].routes)
+                        for (let i in response.data['$values']) {
+                            this.myEntitlements += response.data['$values'][i].sailpoint + '; ';
+                            if (response.data['$values'][i].stat == 'active') {
+                                this.myRoutes += response.data['$values'][i].routes + '/' + response.data['$values'][i].stat + '\n';
                             }
-
-                            // alert(this.myRoutes)
-
-                            window.localStorage.setItem('MRT', this.myRoutes.split('\n'));
-
-                            useRoute.setRoute(this.myRoutes.split('\n'))
-                            //alert(useRoute.route)
-
-
-                            // if (response.data['$values'][i].routes.includes(sailpoint) & response.data['$values'][i].stat == 'active') {
-
-                            for (let i in useRoute.route) {
-                                //alert(useRoute.route[i].split(',')[0])
-                                //    return;
-                                // alert(i)
-
-                                if (useRoute.route[i].split('/')[0].includes(sailpoint) & useRoute.route[i].split('/')[1] == 'active') {
-                                    this.showForm = true;
-                                    return;
-
-                                    // alert(useRoute.route)
-                                    // alert('The user has access')
-                                }
-                                else {
-                                    this.showForm = false;
-                                    // window.location = '/noaccess?nav=' + navGoToPage.task
-                                    // alert('The user does not have access')
-                                }
-                                this.overlayOFF();
-                            }
-
                         }
-                    }).catch(
-                        error => {
-                            const status = error.response ? error.response.status : null;
 
-                            // alert(status)
-                            return;
+                        // alert(this.myRoutes)
 
-                            if (status === 401) {
-                                this.expiredModal = true
-                                window.location = '/signin?returl.' + window.location.href.split('/')[3]
-                                document.getElementById('userD').innerHTML = "Acesso não autorizado"
-                            }
-                            else if (status === 404) {
-                                document.getElementById('userD').innerHTML = "Post não encontrado"
+                        window.localStorage.setItem('MRT', this.myRoutes.split('\n'));
+
+                        useRoute.setRoute(this.myRoutes.split('\n'))
+                        // alert(useRoute.route)
+
+
+                        // if (response.data['$values'][i].routes.includes(sailpoint) & response.data['$values'][i].stat == 'active') {
+
+                        for (let i in useRoute.route) {
+                            //alert(useRoute.route[i].split(',')[0])
+                            //    return;
+                            // alert(i)
+
+                            if (useRoute.route[i].split('/')[0].includes(sailpoint) & useRoute.route[i].split('/')[1] == 'active') {
+                                this.showForm = true;
+                                return;
+
+                                // alert(useRoute.route)
+                                // alert('The user has access')
                             }
                             else {
-                                // document.getElementById('userD').innerHTML = "Ocorreu um erro:", error
-                                this.expiredModal = true
-                                window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                                this.showForm = false;
+                                // window.location = '/noaccess?nav=' + navGoToPage.task
+                                // alert('The user does not have access')
                             }
-                            document.getElementById('userD').innerHTML = error
-                            console.log(error)
+                            this.overlayOFF();
+                        }
 
+                    }
+                }).catch(
+                    error => {
+                        const status = error.response ? error.response.status : null;
 
+                        // alert(status)
+                        return;
+
+                        if (status === 401) {
+                            this.expiredModal = true
+                            window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                            document.getElementById('userD').innerHTML = "Acesso não autorizado"
+                        }
+                        else if (status === 404) {
+                            document.getElementById('userD').innerHTML = "Post não encontrado"
+                        }
+                        else {
+                            // document.getElementById('userD').innerHTML = "Ocorreu um erro:", error
+                            this.expiredModal = true
                             window.location = '/signin?returl.' + window.location.href.split('/')[3]
                         }
-                    )
+                        document.getElementById('userD').innerHTML = error
+                        console.log(error)
+
+
+                        window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                    }
+                )
             // }
             // else if (router == 'url') {
             //     await axios.get('IAM/' + email + ',' + sailpoint, config)
@@ -1778,7 +2179,6 @@ export default {
                 {
                     partnerID: window.localStorage.getItem('PID'),
                     branch: window.localStorage.getItem('BID'),
-                    reason: this.moduleReqReasonText,
                     // ID: NOW,
                     moduleID: this.mID,
                     sailpoint: this.mText,

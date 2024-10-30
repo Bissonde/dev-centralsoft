@@ -3897,7 +3897,6 @@ Save
                 </v-card>
               </v-dialog>
 
-
               <!-- GO-PLAY MODAL DIALOG -->
               <v-dialog width='850' v-model="goPlayModal" v-on:close="" v-on:open="beforeOpen" persistent>
                 <template #activator="{ props }">
@@ -4614,7 +4613,7 @@ onMounted(() => {
 
   }
   else {
-    window.location = '/signin?returnUrl&dashboard'
+    window.location = '/signin?returl.dashboard'
 
 
     // this.returnURL('signin')
@@ -5143,6 +5142,8 @@ export default {
     this.SMS_GET_ALL();
 
     this.CONTACTS_GET_ALL();
+
+
     // $(this.$ref.modal)
     //   this.firstName = '',
     //   this.lastName = ''
@@ -7081,7 +7082,7 @@ export default {
     },
     returnURL: function (page) {
       var returnUrl = window.location.href
-      var goToPage = returnUrl.split('=')
+      var goToPage = returl.split('=')
       if (window.location.href.includes('returnUrl')) {
         window.location = goToPage[1]
       }

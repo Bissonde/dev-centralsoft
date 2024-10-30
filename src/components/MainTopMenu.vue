@@ -203,7 +203,7 @@ onMounted(() => {
 
     }
     else {
-        window.location = '/signin?returnUrl&dashboard'
+        window.location = '/signin?returl.dashboard'
 
 
         // this.returnURL('signin')
@@ -2691,7 +2691,7 @@ export default {
         },
         returnURL: function (page) {
             var returnUrl = window.location.href
-            var goToPage = returnUrl.split('=')
+            var goToPage = returl.split('=')
             if (window.location.href.includes('returnUrl')) {
                 window.location = goToPage[1]
             }

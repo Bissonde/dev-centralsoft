@@ -29,6 +29,11 @@ const routes = [
     component: () => import('@/views/DashboardModules.vue')
   }, 
   {
+    path: '/dashboard?nav=myuser',
+    name: 'Utilizador',
+    component: () => import('@/views/DashboardModules.vue')
+  }, 
+  {
     path: '/about',
     name: 'Sobre',
     component: () => import('@/views/About.vue')
@@ -62,6 +67,11 @@ const routes = [
     path: '/activate',
     name: 'Activar',
     component: () => import('@/views/Activate.vue')
+  },
+  {
+    path: '/noaccess',
+    name: 'Acesso Negado',
+    component: () => import('@/views/NoAccess.vue')
   },
 ]
 

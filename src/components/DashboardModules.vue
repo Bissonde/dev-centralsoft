@@ -3,18 +3,19 @@
         <v-progress-circular color="#008D44 #red" indeterminate size="64"></v-progress-circular>
     </v-overlay>
 
-    <v-form ref="form" fast-fail @submit.prevent="SUBMIT_DATA">
+    <v-form ref="form" fast-fail @submit.prevent="SUBMIT_DATA" v-if="showForm">
 
         <div v-show="true" bg-color="white"></div>
 
         <v-app :theme="theme">
-            <v-app-bar flat class="border-b pt-0 pb-0" density="compact" style="border-top:5px solid darkorange">
+            <v-app-bar flat class="border-b pt-0 pb-0" color="white" density="compact"
+                style="border-top:5px solid darkorange">
                 <template v-slot:prepend>
                     <v-app-bar-nav-icon variant="text" class="text-h5"
                         @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                 </template>
 
-                <v-btn variant="flat" v-if="navGoToPage.task != undefined" href="/dashboard"
+                <v-btn variant="text" v-if="navGoToPage.task != undefined" href="/dashboard?nav=dshome"
                     icon="mdi-arrow-left"></v-btn>
                 <v-app-bar-title v-if="devType == 'Desktop'">
                     <v-icon icon="mdi-view-grid" size="large" start />
@@ -61,7 +62,8 @@
                         <v-card min-width="200px" density="compact">
                             <v-list :lines="false" density="compact" nav="">
 
-                                <v-list-item to="/profile" prepend-icon="mdi-account-outline">Perfil</v-list-item>
+                                <v-list-item to="/profile?nav=myuser"
+                                    prepend-icon="mdi-account-outline">Perfil</v-list-item>
                             </v-list>
                             <v-list :lines="false" density="compact" nav="">
                                 <v-list-item to="/favorites" prepend-icon="mdi-heart-outline">Favoritos</v-list-item>
@@ -99,7 +101,7 @@
             </v-navigation-drawer>
             <!-- <v-main style="height: 750px"></v-main> -->
 
-            <v-main style="background-color: #fff;" v-if="navGoToPage.task == undefined">
+            <v-main style="background-color: #fff;" v-if="navGoToPage.task == 'dshome' | navGoToPage.task == undefined ">
                 <v-container class="mx-auto mb-0 py-0" elevation="12" fluid style="width: 100%">
 
                     <v-sheet class="pa-0 mt-0 pt-0 pb-1 mb-0" justify="right" elevation="0" height="auto" width="100%">
@@ -178,8 +180,8 @@
                                 </v-btn>
                             </v-col>
                             <v-spacer></v-spacer>
-                            <v-col cols="10" sm="3" md="2" lg="2" v-if="devType == 'Desktop'" class="float-sm-right"
-                                style="float:right;">
+                            <v-col cols="10" sm="3" md="2" lg="2" v-if="devType == 'Desktop'"
+                                class="float-sm-right text-right" style="float:right;">
                                 <v-btn variant="text" @click="isDark();" style="min-width:0" class="pr-2 pl-2">
                                     <!-- <v-icon color="orange-darken" end>
                       mdi-plus-circle
@@ -229,7 +231,7 @@
                             Número Suporte Bissonde: +351 932 641 788</i>
                     </v-sheet>
 
-                    <v-row cols="12" sm="6" md="6" lg="6">
+                    <v-row cols="12" sm="6" md="6" lg="6" v-if="this.myRoutes.split('/')[0].includes('DASH_START') & this.myRoutes.split('/')[1] == 'active'">
                         <v-col cols="12" sm="12" md="9" lg="9" class="pr-3 pt-0" v-if="devType == 'Desktop'"
                             height="120" max-height="120">
                             <v-sheet class="pa-4 pb-1 mb-2" elevation="4" width="100%">
@@ -272,7 +274,7 @@
                                             <v-row align="center" justify="center" dense cols="12" sm="2" md="2" lg="2">
                                                 <!-- <v-col cols="12" sm="2" md="12" lg="2"> -->
                                                 <v-hover v-slot="{ isHovering, props }">
-                                                    <v-card :href="n.to" :color="n.bgcolor" 
+                                                    <v-card :href="n.to" :color="n.bgcolor"
                                                         class="mx-auto justify-center pa-2 mr-4 mb-4 rounded-0"
                                                         width="312" max-width="312" height="142" border="start"
                                                         variant="flat" hover>
@@ -600,7 +602,7 @@
                         </v-col>
                     </v-row>
 
-                    <v-sheet class="pa-4 pb-0 " elevation="12" height="auto" width="100%">
+                    <v-sheet class="pa-4 pt-5 pb-0 mb-5 " elevation="12" height="auto" width="100%"  v-if="this.myRoutes.split('/')[0].includes('DASH_MODS') & this.myRoutes.split('/')[1] == 'active'">
 
                         <v-row v-if="devType == 'Desktop'">
                             <v-col cols="12" class="pb-5 mb-0 pl-8 pt-0">
@@ -723,9 +725,9 @@
 
                     </v-sheet>
 
-                    <br>
+                    <!-- <br> -->
 
-                    <v-sheet class="pa-4 pt-5 " elevation="12" height="auto" width="100%">
+                    <v-sheet class="pa-4 pt-5 " elevation="12" height="auto" width="100%"  v-if="this.myRoutes.split('/')[0].includes('DASH_KPIS') & this.myRoutes.split('/')[1] == 'active'">
 
                         <v-row v-if="devType == 'Desktop'">
                             <v-col cols="12" class="pb-5 mb-0 pl-8 pt-0">
@@ -904,6 +906,37 @@
 
 
                     </v-sheet>
+
+                    <v-sheet class="pa-4 mt-2 mb-7" elevation="12" height="auto" width="100%">
+
+                        <v-icon>mdi-circle-small</v-icon><a class="text-decoration">Serviço ao
+                            cliente</a><br>
+                        <v-icon>mdi-circle-small</v-icon><a class="text-decoration" href="#">Informações de
+                            pagamento e
+                            envio</a><br>
+                        <v-icon>mdi-circle-small</v-icon><a class="text-decoration" href="#">Centro de ajuda</a><br>
+                        <v-btn class="mt-5 mb-5 rounded-0">Newsletter</v-btn><br>
+                        A nossa oferta é apenas válida para clientes empresariais e entidades públicas.<br>
+                        <br>
+                        <b>Preços em EUR + IVA à taxa legal em vigor.</b><br>
+                        <v-row class="pt-0 pb-0" cols="12" sm="6" md="6" lg="6">
+                            <v-col cols="10"><a class="text-decoration" href="#">Ficha
+                                    técnica</a>&nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<a class="text-decoration"
+                                    href="#">Política de
+                                    privacidade</a>&nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<a
+                                    class="text-decoration" href="#">Condições
+                                    Gerais de Venda</a>
+                                &nbsp;<v-icon>mdi-circle-small</v-icon>&nbsp;<span
+                                    class="text-decoration-overline">Support
+                                    ID:</span> f972b8238e</v-col>
+                            <v-col class="text-right text-decoration-overline ">
+                                &copy; 2024 Bissonde SO
+                            </v-col>
+                        </v-row>
+
+                        <v-spacer></v-spacer>
+                    </v-sheet>
+
                 </v-container>
             </v-main>
 
@@ -936,7 +969,7 @@
             </v-main>
 
 
-            <v-sheet class="pa-4 ma-4" elevation="0" height="250" v-if="devType == 'Desktop'">
+            <!-- <v-sheet class="pa-4 ma-4" elevation="0" height="250" v-if="devType == 'Desktop'">
 
                 <v-icon>mdi-circle-small</v-icon><a class="text-decoration">Serviço ao
                     cliente</a><br>
@@ -963,7 +996,7 @@
                 </v-row>
 
                 <v-spacer></v-spacer>
-            </v-sheet>
+            </v-sheet> -->
 
             <v-sheet class="pa-4 pb-4 mb-2 mt-5" elevation="0" height="100" width="100%" v-if="devType != 'Desktop'">
 
@@ -1007,6 +1040,32 @@
                     </v-sheet> -->
         </v-app>
     </v-form>
+
+    <v-container v-if="this.showForm == false"  style="width:50%;" fluid>
+        <!-- <v-sheet evelation="10"> -->
+        <v-row align="center" justify="center" class="bg-blue-lighten-5"
+            style="border-top: 4px solid #1565C0; border-bottom: 4px solid #1565C0;">
+            <v-col cols="12" sm="12" md="12" lg="12">
+                <div class="text-center pa-1 ma-1">
+                    <v-icon class="h1">mdi-car-brake-alert</v-icon>&nbsp;<span class="h5">Prezado utilizador</span>
+                    <div class="h6">
+                        <br>
+                        Não tens permissão para aceder esta página<span id="current_page"></span>.
+                        <br />Por favor contacte <a href="#">suporte@bissonde.ao</a> e peça acesso.
+                        <br>
+                        <br>
+                        Caso reconheça esta operação como legítima por favor clique abaixo:
+                        <br>
+                        <br>
+                        <v-btn @click="this.ACCOUNT_MODULE_MEMBER_SAVE()" class="ma-1 rounded-0" color="#BF360C"
+                            variant="flat"><v-icon>mdi-power</v-icon>&nbsp;SOLICITAR ACESSO
+                        </v-btn>
+                    </div>
+                </div>
+            </v-col>
+        </v-row>
+        <!-- </v-sheet> -->
+    </v-container>
 </template>
 
 <script setup>
@@ -1022,6 +1081,7 @@ import VueApexCharts from 'vue-apexcharts'
 import { useActionStore } from '@/store/ActionStore';
 import { useModuleStore } from '@/store/TaskStore';
 import { useTokenStore } from '@/store/TokenStore'
+import { useRouteStore } from '@/store/RouteStore';
 
 import Contacts from '@/components/Contacts.vue'
 import Groups from '@/components/Groups.vue'
@@ -1132,7 +1192,7 @@ onMounted(() => {
 
     }
     else {
-        window.location = '/signin?returnUrl&dashboard'
+        // window.location = '/signin?returnurl' + window.location.href.split('/')[3]
 
         // this.$router.push({ path: `/login` })
     }
@@ -1142,10 +1202,34 @@ onMounted(() => {
 <script>
 const useModule = useModuleStore()
 const navGoToPage = useActionStore();
+const useRoute = useRouteStore();
+
+
 // let mc = window.localStorage.getItem('MSC')
 
 export default {
     data: () => ({
+        alignmentsAvailable: [
+            'start',
+            'center',
+            'end',
+            'baseline',
+            'stretch',
+        ],
+        alignment: 'center',
+        dense: false,
+        justifyAvailable: [
+            'start',
+            'center',
+            'end',
+            'space-around',
+            'space-between',
+        ],
+        justify: 'center',
+        navGoToPage: '',
+        showForm: true,
+        myEntitlements : '',
+        myRoutes: 'default/active',
         // navGoToPage: 'home',
         grValue: [
             423,
@@ -1640,6 +1724,34 @@ export default {
     },
 
     mounted: async function () {
+        let xp = window.location.href
+        navGoToPage.task = xp.split('=')[1] // = goToPage[1]
+
+
+        this.ACCOUNT_IAM_GET(localStorage.getItem('username'), 'path', navGoToPage.task);
+
+        if (window.localStorage.getItem('JwtToken') != null) {
+
+            //Check if token is still valid
+            const { exp } = this.decodeJwtResponse(window.localStorage.getItem('JwtToken'))
+            if (Date.now() >= exp * 1000) {
+                // window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                window.location = '/signin?returl.dashboard'
+                // alert('1')
+            }
+
+            // this.JwtToken = localStorage.getItem('JwtToken')
+            // this.MyUserName = localStorage.getItem('AFN')
+            // this.MyEmail = localStorage.getItem('username')
+            // this.MyEmail2 = localStorage.getItem('username')
+
+            // alert(useRoute.route)
+        }
+        else {
+            window.location = '/signin?returl.dashboard' //+ window.location.href.split('/')[3]
+            // alert('2')
+        }  
+
 
         this.overlayON();
         // let DEV = document.createElement('script')
@@ -1648,20 +1760,17 @@ export default {
 
 
         // window.location = goToPage[1]
-        let xp = window.location.href
-        // alert(xp)
+        // let xp = window.location.href
         
-        navGoToPage.task = xp.split('=')[1] // = goToPage[1]
+        // navGoToPage.task = xp.split('=')[1] // = goToPage[1]
     // }
     // else{
             // navGoToPage.task = xp;
     // }
 
         // if (navGoToPage.task)
-            // alert(navGoToPage.task)
 
         // document.title = navGoToPage.task
-        // alert(navGoToPage.task)
 
         // // var user = detect.parse(navigator.userAgent)  
         // // window.localStorage.setItem('MOB', user.device.type);
@@ -1688,6 +1797,9 @@ export default {
 
 
         if (navGoToPage.task == undefined) {
+
+            this.ACCOUNT_GET();
+
             this.KPI_GET_ALL();
 
             this.EMAIL_GET_ALL();
@@ -1709,6 +1821,255 @@ export default {
     },
 
     methods: {
+
+        ACCOUNT_MODULE_MEMBER_SAVE: async function () {
+
+            // this.overlayON();
+            this.alertDelete = false
+            // this.alertSuccess = true
+            // this.saveON();
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + + window.localStorage.getItem('JwtToken')
+                }
+            }
+
+            this.mRead = false
+            this.mWrite = false
+            this.mModify = false
+            this.mRemove = false
+
+            let myAccess = '';
+            if (this.mRead == true) {
+                myAccess += 'read; ';
+            }
+            if (this.mWrite == true) {
+                myAccess += 'write; ';
+            }
+            if (this.mModify == true) {
+                myAccess += 'modify; ';
+            }
+            if (this.mRemove == true) {
+                myAccess += 'remove; ';
+            }
+
+            // alert(this.mRoutes)
+
+            if (this.mRoutes == undefined) {
+                this.mRoutes = window.location.href.split('=')[1]
+               
+            } 
+            // alert(window.location.href.split('=')[1])
+
+            if (this.memberID == '') {
+                this.memberID = localStorage.getItem('username')
+                // alert(this.mRoutes)
+            }
+
+            if (this.sailpointID == '') {
+                this.sailpointID = localStorage.getItem('AID')
+                // alert(this.mRoutes)
+            }
+            // return;
+
+            var today = new Date();
+            var year = today.getFullYear();
+            var month = (today.getMonth() + 1)
+            var day = today.getDate()
+            var time = today.getHours() + today.getMinutes() + today.getSeconds();
+            var NOW = year + '' + month + '' + day + '' + time
+            await axios.post('AccountModulesMembers',
+                {
+                    partnerID: window.localStorage.getItem('PID'),
+                    branch: window.localStorage.getItem('BID'),
+                    // ID: NOW,
+                    moduleID: 'NA',
+                    sailpoint: 'NA',
+                    approvalDate: null,
+                    requester: window.localStorage.getItem('AFN'),
+                    approver: null,
+                    routes: this.mRoutes,
+                    crdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt'),
+                    mdate: today.toLocaleDateString('pt-pt', { year: "numeric", month: "short", day: "numeric" }) + ' - ' + today.toLocaleTimeString('pt-pt'),
+                    userID: window.localStorage.getItem('AID'),
+                    userEmail: window.localStorage.getItem('username'),
+                    username: window.localStorage.getItem('AFN'),
+                    permissions: myAccess,
+                    admin: window.localStorage.getItem('AFN'),
+                    adminID: window.localStorage.getItem('AID'),
+                    stat: 'pending'
+                }, config)
+                .then(
+                    (response) => {
+                        if (response.request.status == '400') {
+                            // this.overlayON();
+                            this.overlay = false
+                            // this.myException = response.response.data.errors.AuthType[0]
+
+                            return;
+                        }
+                        if (response.request.status == '200') {
+                            // this.alertSuccess = true;
+                            // this.overlayOFF();
+
+                            // this.ACCOUNT_MODULES_MEMBER_GET_FIRST(this.memberID)
+                            // this.ACCOUNT_MODULES_MEMBER_GETS_ALL(this.mID)
+
+                            // this.ACCOUNT_GET();
+
+
+                            // this.saveOFF();
+
+                        }
+                    }
+                )
+                .catch((err) => {
+                    alert(err)
+
+                });
+        },
+
+        ACCOUNT_IAM_GET: async function (email, router, sailpoint) {
+
+            //INFO
+            //PRODUCTS
+            //SETTINGS
+            //ADDRESSES
+            // return;
+            this.myEntitlements = ''
+            this.myRoutes = ''
+
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
+                }
+            }
+
+            if (router == 'path') {
+                await axios.get('IAM/' + email, config)
+                    .then(response => {
+
+                        // alert(response.request.status)
+                        // this.loading = true
+                        if (response.request.status == '400') {
+
+                        }
+                        if (response.request.status == '401') {
+                            this.expiredModal = true
+                        }
+                        if (response.request.status == '200') {
+
+                            for (let i in response.data['$values']) {
+                                this.myEntitlements += response.data['$values'][i].sailpoint + '; ';
+                                this.myRoutes += response.data['$values'][i].routes + '/' + response.data['$values'][i].stat;
+                            }
+
+                            if (this.myRoutes.split('/')[0].includes(navGoToPage.task) & this.myRoutes.split('/')[1] == 'active') {
+                                this.showForm = true;
+                                // alert('The user has access')
+                            }
+                            else {
+                                this.showForm = false;
+                                // alert('The user does not have access')
+                            }
+
+                            this.overlayOFF();
+                        }
+                    }).catch(
+                        error => {
+                            const status = error.response ? error.response.status : null;
+
+                            // alert(status)
+                            return;
+
+                            if (status === 401) {
+                                this.expiredModal = true
+                                window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                                document.getElementById('userD').innerHTML = "Acesso não autorizado"
+                            }
+                            else if (status === 404) {
+                                document.getElementById('userD').innerHTML = "Post não encontrado"
+                            }
+                            else {
+                                // document.getElementById('userD').innerHTML = "Ocorreu um erro:", error
+                                this.expiredModal = true
+                                window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                            }
+                            document.getElementById('userD').innerHTML = error
+                            console.log(error)
+
+
+                            window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                        }
+                    )
+            }
+            else if (router == 'url') {
+                await axios.get('IAM/' + email + ',' + sailpoint, config)
+                    .then(response => {
+                        // this.loading = true
+                        if (response.request.status == '400') {
+
+                        }
+                        if (response.request.status == '401') {
+                            this.expiredModal = true
+                        }
+                        if (response.request.status == '200') {
+
+                            for (let i in response.data['$values']) {
+                                this.myEntitlements += response.data['$values'][i].sailpoint + '; ';
+                            }
+                            console.log(this.myEntitlements)
+
+                            this.overlayOFF();
+                        }
+                    }).catch(
+                        error => {
+                            const status = error.response ? error.response.status : null;
+
+                            // alert(status)
+                            return;
+
+                            if (status === 401) {
+                                this.expiredModal = true
+                                window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                                document.getElementById('userD').innerHTML = "Acesso não autorizado"
+                            }
+                            else if (status === 404) {
+                                document.getElementById('userD').innerHTML = "Post não encontrado"
+                            }
+                            else {
+                                // document.getElementById('userD').innerHTML = "Ocorreu um erro:", error
+                                this.expiredModal = true
+                                window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                            }
+                            document.getElementById('userD').innerHTML = error
+                            console.log(error)
+
+
+                            window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                        }
+                    )
+            }
+        },
+
+        decodeJwtResponse: function (token) {
+            var base64Url = token.split(".")[1];
+            var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+            var jsonPayload = decodeURIComponent(
+                atob(base64)
+                    .split("")
+                    .map(function (c) {
+                        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+                    })
+                    .join("")
+            );
+            return JSON.parse(jsonPayload);
+        },
+        
         isDark() {
             if (this.theme == 'dark') {
                 this.theme = 'light'
@@ -1773,6 +2134,75 @@ export default {
                 this.editedItem = Object.assign({}, this.defaultItem)
                 this.editedIndex = -1
             })
+        },
+
+        ACCOUNT_GET: async function (item) {
+
+            let config = {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + window.localStorage.getItem('JwtToken')
+                }
+            }
+
+            await axios.get('Account/' + window.localStorage.getItem('username'), config)
+                .then(response => {
+
+                    this.loading = true
+                    if (response.request.status == '400') {
+
+                    }
+                    if (response.request.status == '401') {
+
+                        window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                        alert('3')
+                    }
+                    if (response.request.status == '200') {
+                        // this.myBranch = response.data.branch
+                        // this.myLastLogin = response.data.lastLogin
+                        // this.myName = response.data.username.split(' ')[0].toUpperCase()
+                        // this.mySurname = response.data.username.split(' ')[1].toUpperCase()
+                        // this.myEmail = response.data.email
+                        // this.myDomain = response.data.domain
+                        // this.myLanguage = response.data.lang
+                        // this.myPhone = response.data.tel
+                        // this.myDepartment = response.data.dept
+                        // this.myCostCenter = response.data.costCenter
+                        // this.myAddress = response.data.adr
+                        // this.myCity = response.data.city
+                        // this.myDistrict = response.data.district
+                        // this.myCountry = response.data.country
+                        // this.myPostOffice = response.data.pob
+
+                        this.overlayOFF();
+                    }
+                }).catch(
+                    error => {
+                        alert(false)
+                        const status = error.response ? error.response.status : null;
+
+                        if (status === 401) {
+                            window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                            document.getElementById('userD').innerHTML = "Acesso não autorizado"
+                            alert('4')
+                        }
+                        else if (status === 404) {
+                            document.getElementById('userD').innerHTML = "Post não encontrado"
+                        }
+                        else {
+                            // document.getElementById('userD').innerHTML = "Ocorreu um erro:", error
+
+                            window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                            alert('5')
+                        }
+                        document.getElementById('userD').innerHTML = error
+                        console.log(error)
+
+
+                        window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                        alert('6')
+                    }
+                )
         },
 
         CUSTOMER_GET_ALL: async function () {
@@ -2749,6 +3179,11 @@ export default {
 
             const customers = await axios.get('Customer/' + PID + ',' + BID, config)
                 .then(response => {
+
+                    if (response.request.status == '401') {
+
+                        window.location = '/signin?returl.' + window.location.href.split('/')[3]
+                    }
                     // = response.data
                     this.loading = true
                     this.allContacts = response.data['$values']
@@ -3115,7 +3550,6 @@ export default {
 
                 });
         },
-
 
         CUSTOMER_MESSAGE_HISTORY_GET_ALL: async function () {
             this.overlayON();
@@ -3640,8 +4074,10 @@ export default {
         },
         returnURL: function (page) {
 
+            alert(page)
+
             var returnUrl = window.location.href
-            var goToPage = returnUrl.split('=')
+            var goToPage = returl.split('=')
             if (window.location.href.includes('returnUrl')) {
                 window.location = goToPage[1]
             }

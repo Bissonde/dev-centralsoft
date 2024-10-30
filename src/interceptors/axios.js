@@ -1,6 +1,6 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://bissonde.ao/api/'
-// axios.defaults.baseURL = 'https://localhost:7127/api/'
+// axios.defaults.baseURL = 'https://bissonde.ao/api/'
+axios.defaults.baseURL = 'https://localhost:7127/api/'
 
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
@@ -13,6 +13,12 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => response, async error => {
+
+    // alert('returning to login page...');
+
+    // window.location = '/signin';
+    // window.location = '/signin?returl.' + window.location.href.split('/')[3]
+
     if(error.response.status === 401)
     {
         // const {status, data} = await axios.post('Account', {}, {
